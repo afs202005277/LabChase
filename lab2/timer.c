@@ -6,10 +6,30 @@
 #include "i8254.h"
 
 int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
-  /* To be implemented by the students */
-  printf("%s is not yet implemented!\n", __func__);
+  uint8_t initial_conf, port;
+  timer_get_conf(timer, &initial_conf);
+  initial_conf &= 0x0F; // selecionar 4 bits menos significativos
+  uint8_t controlW = timer << 6 |  TIMER_LSB_MSB | initial_conf;
+  sys_outb(TIMER_CTRL, controlW);
+  if (timer == 0){
+    port = TIMER_0;
+  } else if (timer == 1) {
+    port = TIMER_1;
+  } else if (timer == 2) {
+    port = TIMER_2;
+  } else {
+    return 1;
+  }
 
-  return 1;
+  uint16_t divisor = TIMER_FREQ / freq;
+  uint8_t LSB_divisor, MSB_divisor;
+  util_get_LSB(divisor, &LSB_divisor);
+  util_get_MSB(divisor, &MSB_divisor);
+
+  sys_outb(port, LSB_divisor);
+  sys_outb(port, MSB_divisor);
+
+  return 0;
 }
 
 int (timer_subscribe_int)(uint8_t *bit_no) {
