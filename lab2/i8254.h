@@ -52,6 +52,12 @@
 #define TIMER_RB_STATUS_ BIT(4)
 #define TIMER_RB_SEL(n)  BIT((n) + 1)
 
+#define TIMER_OUT 0x80
+#define TIMER_NULL 0x40
+#define TIMER_ACCESS 0x30
+#define TIMER_MODE 0x0E
+#define TIMER_BCD 0x01
+
 /**@}*/
 
 #endif /* _LCOM_I8254_H */
