@@ -1,0 +1,5 @@
+*.gdbinit
+*.o
+output.txt
+trace.txt
+/lab2
