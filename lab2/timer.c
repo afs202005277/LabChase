@@ -24,6 +24,11 @@ int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
     return 1;
   }
 
+  if (freq < 18){
+    printf("INVALID FREQUENCY\n");
+    return 1;
+  }
+
   uint16_t divisor = TIMER_FREQ / freq;
   uint8_t LSB_divisor, MSB_divisor;
   util_get_LSB(divisor, &LSB_divisor);
