@@ -5,6 +5,7 @@
 #define OUT_BUF    0x60
 #define STATUS     0x64
 #define KBC_PAR_ERR BIT(7)
+#define KBC_OUT_FULL BIT(0) 
 #define KBC_TO_ERR BIT(6)
 
 
@@ -23,7 +24,7 @@ int(keyboard_unsubscribe_int)(){
 void(kbc_ih)(){
   uint8_t status;
   util_sys_inb(STATUS, &status);
-  if ( (status &(KBC_PAR_ERR | KBC_TO_ERR)) == 0){
+  if ( (status &(KBC_PAR_ERR | KBC_TO_ERR | KBC_OUT_FULL)) == 1){
     util_sys_inb(OUT_BUF, &scanCode);
   }
 }
