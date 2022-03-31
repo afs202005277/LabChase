@@ -5,7 +5,11 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "keyboard.h"
+#include <util.h>
+#include <keyboard.h>
+
+extern uint8_t scanCode;
+extern int countSysInb;
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -34,10 +38,11 @@ int main(int argc, char *argv[]) {
 int(kbd_test_scan)() {
   uint8_t bit_no;
   keyboard_subscribe_int(&bit_no);
-  extern uint8_t scanCode;
   int r, ipc_status;
   message msg;
-  while( scanCode != 0x81 ) {
+  scanCode = 0;
+  countSysInb = 0;
+  while( scanCode != ESC_BREAK_CODE ) {
     /* Get a request message. */
     if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) { 
         printf("driver_receive failed with: %d", r);
@@ -48,7 +53,7 @@ int(kbd_test_scan)() {
             case HARDWARE: /* hardware interrupt notification */				
                 if (msg.m_notify.interrupts & BIT(bit_no)) { /* subscribed interrupt */
                   kbc_ih();   /* process it */
-                  kbd_print_scancode((scanCode & BIT(7)) == 0, 1, &scanCode);
+                  kbd_print_scancode((scanCode & MSB) == 0, 1, &scanCode);
                 }
                 break;
             default:
@@ -59,16 +64,25 @@ int(kbd_test_scan)() {
     }
   }
   keyboard_unsubscribe_int();
-  extern int countSysInb;
   kbd_print_no_sysinb(countSysInb);
   return 0;
 }
 
-int(kbd_test_poll)() {
-  /* To be completed by the students */
-  printf("%s is not yet implemented!\n", __func__);
 
-  return 1;
+int(kbd_test_poll)() {
+  scanCode = 0;
+  countSysInb = 0;
+  while (scanCode != ESC_BREAK_CODE) { 
+    scanCode = 0;
+    kbc_ih();
+    if (scanCode != 0) {
+      kbd_print_scancode((scanCode & MSB) == 0, 1, &scanCode);
+    }
+    tickdelay(micros_to_ticks(DELAY_US));
+  }
+  enableInterrupts();
+  kbd_print_no_sysinb(countSysInb);
+  return 0;
 }
 
 int(kbd_test_timed_scan)(uint8_t n) {
