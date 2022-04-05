@@ -5,7 +5,7 @@
 
 #include "i8254.h"
 
-int hook_id;
+int hook_idTIMER;
 int totalInterrupts=0;
 
 int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
@@ -42,13 +42,13 @@ int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
 
 int (timer_subscribe_int)(uint8_t *bit_no) {
   *bit_no = 0;
-  hook_id = 0;
-  sys_irqsetpolicy(TIMER0_IRQ, IRQ_REENABLE, &hook_id);
+  hook_idTIMER = 0;
+  sys_irqsetpolicy(TIMER0_IRQ, IRQ_REENABLE, &hook_idTIMER);
   return 0;
 }
 
 int (timer_unsubscribe_int)() {
-  return sys_irqrmpolicy(&hook_id);
+  return sys_irqrmpolicy(&hook_idTIMER);
 }
 
 void (timer_int_handler)() {

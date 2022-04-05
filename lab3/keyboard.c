@@ -4,7 +4,7 @@
 
 
 uint8_t scanCode = 0;
-int hook_id = 1;
+int hook_idKEYBOARD = 1;
 
 int(send_KBC_command_byte)(uint32_t cmd){
   uint8_t counter=0, stat;
@@ -30,11 +30,11 @@ int(write_command_byte)(uint8_t command){
 
 int(keyboard_subscribe_int)(uint8_t *bit_no) {
   *bit_no = KBD_IRQ;
-  return sys_irqsetpolicy(KBD_IRQ, IRQ_REENABLE | IRQ_EXCLUSIVE, &hook_id);
+  return sys_irqsetpolicy(KBD_IRQ, IRQ_REENABLE | IRQ_EXCLUSIVE, &hook_idKEYBOARD);
 }
 
 int(keyboard_unsubscribe_int)(){
-  return sys_irqrmpolicy(&hook_id);
+  return sys_irqrmpolicy(&hook_idKEYBOARD);
 }
 
 void(enableInterrupts)(){
