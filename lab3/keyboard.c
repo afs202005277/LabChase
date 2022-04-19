@@ -48,7 +48,6 @@ void(enableInterrupts)(){
 void(kbc_ih)(){
   uint8_t status, temp;
   util_sys_inb(KBC_ST_REG, &status);
-  
   util_sys_inb(KBC_OUT_BUF, &temp);
   if ( (status & LSB) == 1 && (status & (KBC_PAR_ERR | KBC_TO_ERR | KBC_AUX)) == 0){
     scanCode = temp;
