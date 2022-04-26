@@ -97,3 +97,14 @@ int (vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height,
   }
   return 0;
 }
+
+int xpm_drawer(xpm_map_t xpm, uint16_t x, uint16_t y){
+  xpm_image_t img;
+  xpm_load(xpm, XPM_INDEXED, &img);
+  for (int height = 0; height < img.height; height++) {
+    for (int width = 0; width < img.width; width++) {
+      vg_draw_hline(x+width, y+height, 1, img.bytes[height*img.width + width]);
+    }
+  }
+  return 0;
+}
