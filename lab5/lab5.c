@@ -91,44 +91,17 @@ struct RGB_decomposition{
   uint8_t B;
 };
 
-int(get_color_components)(uint32_t color, uint16_t mode, struct RGB_decomposition *result){
-  uint8_t R, G, B;
-  switch (mode)
-  {
-  case 0x110:
-    color = (color << 17) >> 17;
-    R = color >> 10;
-    G = (color << 22) >> 22;
-    B = (color << 27) >> 27;
-    break;
-  case 0x115:
-    color = (color << 8) >> 8; 
-    R = (color & 0x00FF0000) >> 16;
-    G = (color & 0x0000FF00) >> 8;
-    B = (color & 0x000000FF);
-    break;
-  case 0x11A:
-    color = (color << 16) >> 16;
-    R = (color & 0x0000F800) >> 11;
-    G = (color & 0x000007D0) >> 5;
-    B = (color & 0x0000001F);
-    break;
-  case 0x14C:
-    R = (color & 0x00FF0000) >> 16;
-    G = (color & 0x0000FF00) >> 8;
-    B = (color & 0x000000FF);
-    break;
-  default:
-    printf("Invalid VBE mode!\n");
-    return 1;
-  }
-  result->R = R;
-  result->G = G;
-  result->B = B;
+int(get_color_components)(uint32_t color, struct RGB_decomposition *result){
+  uint8_t redSize=get_red_mask_size(), greenSize=get_green_mask_size(), blueSize=get_blue_mask_size();
+  uint8_t total = get_blue_mask_size() + get_green_mask_size() + get_red_mask_size();
+  result->R = (color << (32 - total)) >> (32 - total + blueSize + greenSize);
+  result->G = (color << (32 - total + redSize)) >> (32 - total + redSize + blueSize);
+  result->B = (color << (32 - total + redSize + greenSize)) >> (32 - total + redSize + greenSize);
+  //printf("color: 0x%x, Red: 0x%x, Green: 0x%x, Blue: 0x%x\n\n\n", color, result->R, result->G, result->B);
   return 0;
 }
 
-int(get_color)(uint32_t first, uint8_t step, uint8_t no_rectangles, uint32_t row, uint32_t col, uint16_t mode, bool isPacked){
+int(get_color)(uint32_t first, uint8_t step, uint8_t no_rectangles, uint32_t row, uint32_t col, bool isPacked){
   unsigned BitsPerPixel;
   BitsPerPixel = get_bits_per_pixel();
 
@@ -136,10 +109,11 @@ int(get_color)(uint32_t first, uint8_t step, uint8_t no_rectangles, uint32_t row
     return (first + (row * no_rectangles + col) * step) % (1 << BitsPerPixel);
   }
   struct RGB_decomposition decomposition;
-  get_color_components(first, mode, &decomposition);
+  get_color_components(first, &decomposition);
   uint8_t R = (decomposition.R + col * step) % (1 << get_red_mask_size());
   uint8_t G = (decomposition.G + row * step) % (1 << get_green_mask_size());
   uint8_t B = (decomposition.B + (col + row) * step) % (1 << get_blue_mask_size());
+  //printf("Red: 0x%x, Green: 0x%x, Blue: 0x%x, Final: 0x%x\n\n\n", R, G, B, R << (get_blue_mask_size() + get_green_mask_size()) | G << get_blue_mask_size() | B);
   return R << (get_blue_mask_size() + get_green_mask_size()) | G << get_blue_mask_size() | B;
 }
 
@@ -153,7 +127,7 @@ int(video_test_pattern)(uint16_t mode, uint8_t no_rectangles, uint32_t first, ui
   uint32_t x = 0, y = 0;
   while(y < v_res - v_res%no_rectangles){
     for (int offset = 0; offset + x < h_res - h_res%no_rectangles; offset += rectangle_width){
-      vg_draw_rectangle(x+offset, y, rectangle_width, rectangle_height, get_color(first, step, no_rectangles, x+offset, y, mode, mode == 0x105));
+      vg_draw_rectangle(x+offset, y, rectangle_width, rectangle_height, get_color(first, step, no_rectangles, x+offset, y, mode == 0x105));
     }
     y += rectangle_height;
   }
