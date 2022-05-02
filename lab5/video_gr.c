@@ -51,12 +51,12 @@ int(set_mode)(uint16_t mode){
   return 0;
 }
 
-void *(vg_init)(uint16_t mode){
+void* new_vg_init(uint16_t mode){
   vbe_mode_info_t info;
-  set_mode(mode);
-  vbe_get_mode_info(mode, &info);
   int r;
   struct minix_mem_range mr; /* physical memory range */
+  vbe_get_mode_info(mode, &info);
+  
   unsigned int vram_base = info.PhysBasePtr;    /* VRAM’s physical addresss */
   unsigned int vram_size = (info.BitsPerPixel * info.XResolution * info.YResolution) / 8;/* VRAM’s size, but you can use the frame-buffer size, instead */
   h_res = info.XResolution;
@@ -76,6 +76,8 @@ void *(vg_init)(uint16_t mode){
   video_mem = vm_map_phys(SELF, (void *) mr.mr_base, vram_size);
   if (video_mem == MAP_FAILED)
     panic("couldn’t map video memory");
+
+  set_mode(mode);
   return video_mem;
 }
 

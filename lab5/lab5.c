@@ -78,7 +78,7 @@ int(wait_for_esc)() {
 
 int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
                           uint16_t width, uint16_t height, uint32_t color) {
-  vg_init(mode);
+  new_vg_init(mode);
   vg_draw_rectangle(x, y, width, height, color);
   wait_for_esc();
   vg_exit();
@@ -145,7 +145,7 @@ int(get_color)(uint32_t first, uint8_t step, uint8_t no_rectangles, uint32_t row
 
 
 int(video_test_pattern)(uint16_t mode, uint8_t no_rectangles, uint32_t first, uint8_t step) {
-  vg_init(mode);
+  new_vg_init(mode);
   unsigned h_res = get_h_res();
   unsigned v_res = get_v_res();
   unsigned rectangle_width = (h_res - h_res % no_rectangles) / no_rectangles;
@@ -163,7 +163,7 @@ int(video_test_pattern)(uint16_t mode, uint8_t no_rectangles, uint32_t first, ui
 }
 
 int(video_test_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
-  vg_init(0x105);
+  new_vg_init(0x105);
   xpm_drawer(xpm, x, y);
   wait_for_esc();
   vg_exit();

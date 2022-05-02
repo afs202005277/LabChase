@@ -13,3 +13,6 @@ uint8_t get_blue_mask_size();
 uint8_t get_green_mask_size();
 
 int xpm_drawer(xpm_map_t xpm, uint16_t x, uint16_t y);
+
+
+void* new_vg_init(uint16_t mode);
