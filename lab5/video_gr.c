@@ -173,17 +173,17 @@ int xpm_move(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, 
                 yi += speed;
               }
             }
-            printf("xi:%d, xf:%d, yi:%d, yf:%d\n", xi, xf, yi, yf);
+            // printf("xi:%d, xf:%d, yi:%d, yf:%d\n", xi, xf, yi, yf);
             if (totalInterrupts % frames == 0) {
               vg_draw_rectangle(prevX, prevY, img_width, img_height, 0x00000000);
               prevX = xi;
               prevY = yi;
               xpm_drawer(xpm, xi, yi);
             }
-            if (msg.m_notify.interrupts & BIT(kbcBIT)) {
+          }
+          if (msg.m_notify.interrupts & BIT(kbcBIT)) {
               kbc_ih();
             }
-          }
           break;
         default:
           break; /* no other notifications expected: do nothing */

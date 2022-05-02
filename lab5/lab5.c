@@ -122,20 +122,13 @@ int(video_test_pattern)(uint16_t mode, uint8_t no_rectangles, uint32_t first, ui
   unsigned h_res = get_h_res();
   unsigned v_res = get_v_res();
 
-  /*Dimensoes da area em que de facto se pode desenhar (nao usar a margem preta, se houver):*/
-  unsigned toPrint_horizontal = h_res - h_res % no_rectangles;
-  unsigned toPrint_vertical = v_res - v_res % no_rectangles;
+  unsigned rectangle_width = h_res / no_rectangles;
+  unsigned rectangle_height = v_res / no_rectangles;
 
-
-  unsigned rectangle_width = toPrint_horizontal / no_rectangles;
-  unsigned rectangle_height = toPrint_vertical / no_rectangles;
-
-  uint32_t x = 0, y = 0;
-  while(y < toPrint_vertical){
-    for (int offset = 0; x + offset < toPrint_horizontal; offset += rectangle_width){
-      vg_draw_rectangle(x+offset, y, rectangle_width, rectangle_height, get_color(first, step, no_rectangles, y, x+offset, mode == 0x105));
+  for (int row = 0; row < no_rectangles;row++){
+    for (int col = 0;col < no_rectangles; col++){
+      vg_draw_rectangle(col * rectangle_width, row * rectangle_height, rectangle_width, rectangle_height, get_color(first, step, no_rectangles, row, col, mode == 0x105));
     }
-    y += rectangle_height;
   }
   wait_for_esc();
   vg_exit();
