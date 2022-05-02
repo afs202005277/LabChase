@@ -97,7 +97,6 @@ int(get_color_components)(uint32_t color, struct RGB_decomposition *result){
   result->R = (color << (32 - total)) >> (32 - total + blueSize + greenSize);
   result->G = (color << (32 - total + redSize)) >> (32 - total + redSize + blueSize);
   result->B = (color << (32 - total + redSize + greenSize)) >> (32 - total + redSize + greenSize);
-  //printf("color: 0x%x, Red: 0x%x, Green: 0x%x, Blue: 0x%x\n\n\n", color, result->R, result->G, result->B);
   return 0;
 }
 
@@ -113,7 +112,7 @@ int(get_color)(uint32_t first, uint8_t step, uint8_t no_rectangles, uint32_t row
   uint8_t R = (decomposition.R + col * step) % (1 << get_red_mask_size());
   uint8_t G = (decomposition.G + row * step) % (1 << get_green_mask_size());
   uint8_t B = (decomposition.B + (col + row) * step) % (1 << get_blue_mask_size());
-  //printf("Red: 0x%x, Green: 0x%x, Blue: 0x%x, Final: 0x%x\n\n\n", R, G, B, R << (get_blue_mask_size() + get_green_mask_size()) | G << get_blue_mask_size() | B);
+
   return R << (get_blue_mask_size() + get_green_mask_size()) | G << get_blue_mask_size() | B;
 }
 
@@ -122,12 +121,19 @@ int(video_test_pattern)(uint16_t mode, uint8_t no_rectangles, uint32_t first, ui
   new_vg_init(mode);
   unsigned h_res = get_h_res();
   unsigned v_res = get_v_res();
-  unsigned rectangle_width = (h_res - h_res % no_rectangles) / no_rectangles;
-  unsigned rectangle_height = (v_res - v_res % no_rectangles) / no_rectangles;
+
+  /*Dimensoes da area em que de facto se pode desenhar (nao usar a margem preta, se houver):*/
+  unsigned toPrint_horizontal = h_res - h_res % no_rectangles;
+  unsigned toPrint_vertical = v_res - v_res % no_rectangles;
+
+
+  unsigned rectangle_width = toPrint_horizontal / no_rectangles;
+  unsigned rectangle_height = toPrint_vertical / no_rectangles;
+
   uint32_t x = 0, y = 0;
-  while(y < v_res - v_res%no_rectangles){
-    for (int offset = 0; offset + x < h_res - h_res%no_rectangles; offset += rectangle_width){
-      vg_draw_rectangle(x+offset, y, rectangle_width, rectangle_height, get_color(first, step, no_rectangles, x+offset, y, mode == 0x105));
+  while(y < toPrint_vertical){
+    for (int offset = 0; x + offset < toPrint_horizontal; offset += rectangle_width){
+      vg_draw_rectangle(x+offset, y, rectangle_width, rectangle_height, get_color(first, step, no_rectangles, y, x+offset, mode == 0x105));
     }
     y += rectangle_height;
   }
@@ -146,11 +152,10 @@ int(video_test_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
 
 int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf,
                      int16_t speed, uint8_t fr_rate) {
-  /* To be completed */
-  printf("%s(%8p, %u, %u, %u, %u, %d, %u): under construction\n",
-         __func__, xpm, xi, yi, xf, yf, speed, fr_rate);
-
-  return 1;
+  new_vg_init(0x105);
+  xpm_move(xpm, xi, yi, xf, yf, speed, fr_rate);
+  vg_exit();
+  return 0;
 }
 
 int(video_test_controller)() {
