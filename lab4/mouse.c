@@ -1,6 +1,5 @@
 #include "mouse.h"
 #include "kbc_macros.h"
-#include <lcom/lab4.h>
 #include <lcom/lcf.h>
 #include "keyboard.h"
 
@@ -20,7 +19,7 @@ void(mouse_ih)() {
     byteFromMouse = temp;
   }
 }
-/*
+
 void(parse_mouse_bytes)(struct packet* pp){
   pp->lb = pp->bytes[0] & BIT(0);
   pp->mb = pp->bytes[0] & BIT(2);
@@ -32,19 +31,25 @@ void(parse_mouse_bytes)(struct packet* pp){
     pp->delta_x = pp->bytes[1];
   }
   else {
-    pp->delta_x = -255 + pp->bytes[1];
+    pp->delta_x = -256 + pp->bytes[1];
   }
   if ((pp->bytes[0] & BIT(5)) == 0){ // Y is positive
     pp->delta_y = pp->bytes[2];
   } else{
-    pp->delta_y = -255 + pp->bytes[2];
+    pp->delta_y = -256 + pp->bytes[2];
   }
 }
-*/
+
 void(disableDataReporting)(){
   send_KBC_command_byte(0xD4);
+  uint8_t ack;
   tickdelay(micros_to_ticks(27000));
-  write_command_byte(0xF5);
+  read_command_byte(&ack);
+
+  write_command_byte(0xF6);
+
+  tickdelay(micros_to_ticks(27000));
+  read_command_byte(&ack);
 }
 
 
