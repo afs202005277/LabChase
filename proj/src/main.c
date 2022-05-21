@@ -57,17 +57,16 @@ int (proj_main_loop)() {
   keyboard_subscribe_int(&bit_no_keyboard);
   mouse_enable_data_reporting();
   mouse_subscribe_int(&bit_no_mouse);
-  while (true) { /* You may want to use a different condition */
-    /* Get a request message. */
+  while (true) {
     if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
       printf("driver_receive failed with: %d", r);
       continue;
     }
-    if (is_ipc_notify(ipc_status)) { /* received notification */
+    if (is_ipc_notify(ipc_status)) {
       switch (_ENDPOINT_P(msg.m_source)) {
-        case HARDWARE:                                       /* hardware interrupt notification */
-          if (msg.m_notify.interrupts & BIT(bit_no_timer)) { /* subscribed interrupt */
-            timer_int_handler();                             /* process it */
+        case HARDWARE:
+          if (msg.m_notify.interrupts & BIT(bit_no_timer)) {
+            timer_int_handler();
           }
           if (msg.m_notify.interrupts & BIT(bit_no_keyboard)) {
             kbc_ih();
@@ -77,11 +76,10 @@ int (proj_main_loop)() {
           }
           break;
         default:
-          break; /* no other notifications expected: do nothing */
+          break;
       }
     }
-    else { /* received a standard message, not a notification */
-           /* no standard messages expected: do nothing */
+    else {
     }
   }
   keyboard_unsubscribe_int();

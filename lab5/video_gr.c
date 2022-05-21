@@ -59,12 +59,15 @@ void *new_vg_init(uint16_t mode) {
   int r;
   struct minix_mem_range mr; /* physical memory range */
   vbe_get_mode_info(mode, &info);
-
+bytes_per_pixel = info.BytesPerScanLine / h_res;
+  if (mode == 0x110){
+    bytes_per_pixel+=1;
+  }
   unsigned int vram_base = info.PhysBasePtr;                                              /* VRAM’s physical addresss */
-  unsigned int vram_size = (info.BitsPerPixel * info.XResolution * info.YResolution) / 8; /* VRAM’s size, but you can use the frame-buffer size, instead */
+  unsigned int vram_size = (bytes_per_pixel * info.XResolution * info.YResolution); /* VRAM’s size, but you can use the frame-buffer size, instead */
   h_res = info.XResolution;
   v_res = info.YResolution;
-  bytes_per_pixel = info.BytesPerScanLine / h_res;
+  
   BlueMaskSize = info.BlueMaskSize;
   RedMaskSize = info.RedMaskSize;
   GreenMaskSize = info.GreenMaskSize;

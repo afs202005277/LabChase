@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
 }
 
 int(video_test_init)(uint16_t mode, uint8_t delay) {
-  //set_mode(mode);
+  set_mode(mode);
   tickdelay(micros_to_ticks(delay * 1000000));
   vg_exit();
   return 0;
@@ -63,6 +63,7 @@ int(wait_for_esc)() {
             case HARDWARE: /* hardware interrupt notification */				
                 if (msg.m_notify.interrupts & BIT(bit_no)) { /* subscribed interrupt */
                   kbc_ih();   /* process it */
+                  //printf("%x\n", scanCode);
                 }
                 break;
             default:

@@ -57,11 +57,11 @@ int(set_mode)(uint16_t mode) {
 void *new_vg_init(uint16_t mode) {
   vbe_mode_info_t info;
   int r;
-  struct minix_mem_range mr; /* physical memory range */
+  struct minix_mem_range mr;
   vbe_get_mode_info(mode, &info);
 
-  unsigned int vram_base = info.PhysBasePtr;                                              /* VRAM’s physical addresss */
-  unsigned int vram_size = (info.BitsPerPixel * info.XResolution * info.YResolution) / 8; /* VRAM’s size, but you can use the frame-buffer size, instead */
+  unsigned int vram_base = info.PhysBasePtr;
+  unsigned int vram_size = (info.BitsPerPixel * info.XResolution * info.YResolution) / 8;
   h_res = info.XResolution;
   v_res = info.YResolution;
   bytes_per_pixel = info.BytesPerScanLine / h_res;
@@ -69,13 +69,11 @@ void *new_vg_init(uint16_t mode) {
   RedMaskSize = info.RedMaskSize;
   GreenMaskSize = info.GreenMaskSize;
 
-  /* Allow memory mapping */
   mr.mr_base = (phys_bytes) vram_base;
   mr.mr_limit = mr.mr_base + vram_size;
   if (OK != (r = sys_privctl(SELF, SYS_PRIV_ADD_MEM, &mr)))
     panic("sys_privctl (ADD_MEM) failed: %d\n", r);
 
-  /* Map memory */
   video_mem = vm_map_phys(SELF, (void *) mr.mr_base, vram_size);
   if (video_mem == MAP_FAILED)
     panic("couldn’t map video memory");
@@ -141,14 +139,13 @@ int xpm_move(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, 
   xpm_drawer(xpm, xi, yi);
   while (continueLoop(xi, xf, yi, yf, isHorizontal, scanCode)) {
 
-    /* Get a request message. */
     if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
       printf("driver_receive failed with: %d", r);
       continue;
     }
-    if (is_ipc_notify(ipc_status)) { /* received notification */
+    if (is_ipc_notify(ipc_status)) {
       switch (_ENDPOINT_P(msg.m_source)) {
-        case HARDWARE: /* hardware interrupt notification */
+        case HARDWARE:
           if (msg.m_notify.interrupts & BIT(timerBIT)) {
             totalInterrupts++;
             if (isHorizontal) {
@@ -173,7 +170,6 @@ int xpm_move(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, 
                 yi += speed;
               }
             }
-            // printf("xi:%d, xf:%d, yi:%d, yf:%d\n", xi, xf, yi, yf);
             if (totalInterrupts % frames == 0) {
               vg_draw_rectangle(prevX, prevY, img_width, img_height, 0x00000000);
               prevX = xi;
@@ -186,15 +182,15 @@ int xpm_move(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, 
             }
           break;
         default:
-          break; /* no other notifications expected: do nothing */
+          break;
       }
     }
-    else { /* received a standard message, not a notification */
-           /* no standard messages expected: do nothing */
+    else {
     }
   }
-  printf("xi:%d, xf:%d, yi:%d, yf:%d\n", xi, xf, yi, yf);
   timer_unsubscribe_int();
   keyboard_unsubscribe_int();
   return 0;
 }
+
+// PROJECT:
