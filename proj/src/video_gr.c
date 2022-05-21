@@ -1,8 +1,9 @@
+#include <lcom/lcf.h>
+#include <lcom/video_gr.h>
+
 #include "keyboard.h"
 #include "video_gr_gameAPI.h"
 #include "video_new.h"
-#include <lcom/lcf.h>
-#include <lcom/video_gr.h>
 
 #define MOVEMENT_STEP 5;
 #define SIZE_FRONT_END 5;
