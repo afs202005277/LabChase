@@ -1,5 +1,5 @@
-#include "auxiliary_data_structures.h"
 #include "keyboard.h"
+#include "video_gr_gameAPI.h"
 #include "video_new.h"
 #include <lcom/lcf.h>
 #include <lcom/video_gr.h>
@@ -206,7 +206,16 @@ int xpm_move(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, 
   return 0;
 }
 
-int movePlayer(struct MovementInfo movementInfo) {
+int passive_move_players() {
+  struct MovementInfo passive_movement_blue = {.dir = bluePlayer.currentDirection, .playerColor = BLUE}, passive_movement_orange = {.dir = orangePlayer.currentDirection, .playerColor = ORANGE};
+  if (move_player(passive_movement_blue) != 0)
+    return 1;
+  if (move_player(passive_movement_orange) != 0)
+    return 2;
+  return 0;
+}
+
+int move_player(struct MovementInfo movementInfo) {
   uint16_t movementStep = MOVEMENT_STEP;
   uint16_t dimensions = SIZE_FRONT_END;
   struct PlayerPosition tmp;
