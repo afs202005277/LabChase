@@ -62,7 +62,7 @@ int(set_mode)(uint16_t mode) {
   return 0;
 }
 
-void *new_vg_init(uint16_t mode) {
+int new_vg_init(uint16_t mode) {
   vbe_mode_info_t info;
   int r;
   struct minix_mem_range mr;
@@ -79,15 +79,17 @@ void *new_vg_init(uint16_t mode) {
 
   mr.mr_base = (phys_bytes) vram_base;
   mr.mr_limit = mr.mr_base + vram_size;
-  if (OK != (r = sys_privctl(SELF, SYS_PRIV_ADD_MEM, &mr)))
+  if (OK != (r = sys_privctl(SELF, SYS_PRIV_ADD_MEM, &mr))) {
     panic("sys_privctl (ADD_MEM) failed: %d\n", r);
+    return 1;
+  }
 
   video_mem = vm_map_phys(SELF, (void *) mr.mr_base, vram_size);
-  if (video_mem == MAP_FAILED)
+  if (video_mem == MAP_FAILED) {
     panic("couldn’t map video memory");
-
-  set_mode(mode);
-  return video_mem;
+    return 2;
+  }
+  return set_mode(mode);
 }
 
 int vg_draw_pixel(uint16_t x, uint16_t y, uint32_t color) {
@@ -244,4 +246,17 @@ int movePlayer(struct MovementInfo movementInfo) {
   else
     orangePlayer = tmp;
   return flag;
+}
+
+int start_game(uint16_t mode) {
+  if (new_vg_init(mode) != 0)
+    return 1;
+  bluePlayer.currentDirection = RIGHT;
+  bluePlayer.x = h_res / 2 - 100;
+  bluePlayer.y = v_res / 2;
+
+  orangePlayer.currentDirection = LEFT;
+  orangePlayer.x = h_res / 2 + 100;
+  orangePlayer.y = v_res / 2;
+  return 0;
 }
