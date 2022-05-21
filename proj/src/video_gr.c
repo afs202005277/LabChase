@@ -1,8 +1,8 @@
+#include "auxiliary_data_structures.h"
 #include "keyboard.h"
 #include "video_new.h"
 #include <lcom/lcf.h>
 #include <lcom/video_gr.h>
-#include "auxiliary_data_structures.h"
 
 #define MOVEMENT_STEP 5;
 #define SIZE_FRONT_END 5;
@@ -21,7 +21,7 @@ uint16_t img_height;
 uint16_t img_width;
 
 static struct PlayerPosition bluePlayer, orangePlayer;
-//iniciar o modo e zerar as posicoes dos jogadores
+// iniciar o modo e zerar as posicoes dos jogadores
 
 uint8_t get_red_mask_size() {
   return RedMaskSize;
@@ -91,7 +91,7 @@ void *new_vg_init(uint16_t mode) {
 }
 
 int vg_draw_pixel(uint16_t x, uint16_t y, uint32_t color) {
-  char *start = (char *)video_mem + (y * h_res + x) * bytes_per_pixel;
+  char *start = (char *) video_mem + (y * h_res + x) * bytes_per_pixel;
   memcpy(start, &color, bytes_per_pixel);
   return 0;
 }
@@ -189,8 +189,8 @@ int xpm_move(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, 
             }
           }
           if (msg.m_notify.interrupts & BIT(kbcBIT)) {
-              kbc_ih();
-            }
+            kbc_ih();
+          }
           break;
         default:
           break;
@@ -204,26 +204,44 @@ int xpm_move(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, 
   return 0;
 }
 
-
-int movePlayer(struct MovementInfo movementInfo){
+int movePlayer(struct MovementInfo movementInfo) {
+  uint16_t movementStep = MOVEMENT_STEP;
+  uint16_t dimensions = SIZE_FRONT_END;
   struct PlayerPosition tmp;
   uint32_t color;
   uint8_t flag;
-  if (movementInfo.playerColor == BLUE){
+  if (movementInfo.playerColor == BLUE) {
     tmp = bluePlayer;
     color = COLOR_BLUE;
-  } else {
+  }
+  else {
     tmp = orangePlayer;
     color = COLOR_ORANGE;
   }
+  tmp.currentDirection = movementInfo.dir;
 
   // idk why, but i need to pass the parameters like this
-  uint16_t movementStep = MOVEMENT_STEP;
-  uint16_t dimensions = SIZE_FRONT_END;
-  if (movementInfo.dir == UP){
-    flag = vg_draw_rectangle(tmp.x, tmp.y - movementStep, dimensions, dimensions, color);
-  } else {
-    flag = vg_draw_rectangle(tmp.x, tmp.y + movementStep, dimensions, dimensions, color);
+  switch (movementInfo.dir) {
+    case UP:
+      tmp.y -= movementStep;
+      flag = vg_draw_rectangle(tmp.x, tmp.y, dimensions, dimensions, color);
+      break;
+    case DOWN:
+      tmp.y += movementStep;
+      flag = vg_draw_rectangle(tmp.x, tmp.y, dimensions, dimensions, color);
+      break;
+    case LEFT:
+      tmp.x -= movementStep;
+      flag = vg_draw_rectangle(tmp.x, tmp.y, dimensions, dimensions, color);
+      break;
+    case RIGHT:
+      tmp.x += movementStep;
+      flag = vg_draw_rectangle(tmp.x, tmp.y, dimensions, dimensions, color);
+      break;
   }
+  if (movementInfo.playerColor == BLUE)
+    bluePlayer = tmp;
+  else
+    orangePlayer = tmp;
   return flag;
 }

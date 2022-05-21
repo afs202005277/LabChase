@@ -19,6 +19,7 @@ enum mouseAction { START,
                    RESUME };
 
 struct PlayerPosition {
-  uint16_t x=0;
-  uint16_t y=0;
+  uint16_t x;
+  uint16_t y;
+  enum direction currentDirection;
 };
