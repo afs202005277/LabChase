@@ -2,18 +2,26 @@
 #include "video_new.h"
 #include <lcom/lcf.h>
 #include <lcom/video_gr.h>
+#include "auxiliary_data_structures.h"
 
-static void *video_mem; /* Process (virtual) address to which VRAM is mapped */
+#define MOVEMENT_STEP 5;
+#define SIZE_FRONT_END 5;
+#define COLOR_BLUE 0x000000FF;
+#define COLOR_ORANGE 0x00FF8000;
 
-static unsigned h_res;           /* Horizontal resolution in pixels */
-static unsigned v_res;           /* Vertical resolution in pixels */
-static unsigned bytes_per_pixel; /* Number of VRAM bytes per pixel */
+static void *video_mem;
+static unsigned h_res;
+static unsigned v_res;
+static unsigned bytes_per_pixel;
 static uint16_t operatingMode;
 static uint8_t RedMaskSize;
 static uint8_t GreenMaskSize;
 static uint8_t BlueMaskSize;
 uint16_t img_height;
 uint16_t img_width;
+
+static struct PlayerPosition bluePlayer, orangePlayer;
+//iniciar o modo e zerar as posicoes dos jogadores
 
 uint8_t get_red_mask_size() {
   return RedMaskSize;
@@ -82,19 +90,22 @@ void *new_vg_init(uint16_t mode) {
   return video_mem;
 }
 
-int(vg_draw_hline)(uint16_t x, uint16_t y, uint16_t len, uint32_t color) {
-  char *tmp;
-  for (int i = x; i < x + len; i++) {
+int vg_draw_pixel(uint16_t x, uint16_t y, uint32_t color) {
+  char *start = (char *)video_mem + (y * h_res + x) * bytes_per_pixel;
+  memcpy(start, &color, bytes_per_pixel);
+  return 0;
+}
 
-    tmp = (char *) video_mem + (y * h_res + i) * bytes_per_pixel;
-    memcpy(tmp, &color, bytes_per_pixel);
+int(vg_draw_hline)(uint16_t x, uint16_t y, uint16_t len, uint32_t color) {
+  for (int offset_x = 0; offset_x < len; offset_x++) {
+    vg_draw_pixel(x + offset_x, y, color);
   }
   return 0;
 }
 
 int(vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color) {
-  for (int k = 0; k < height; k++) {
-    vg_draw_hline(x, y + k, width, color);
+  for (int offset = 0; offset < height; offset++) {
+    vg_draw_hline(x, y + offset, width, color);
   }
   return 0;
 }
@@ -193,4 +204,26 @@ int xpm_move(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, 
   return 0;
 }
 
-// PROJECT:
+
+int movePlayer(struct MovementInfo movementInfo){
+  struct PlayerPosition tmp;
+  uint32_t color;
+  uint8_t flag;
+  if (movementInfo.playerColor == BLUE){
+    tmp = bluePlayer;
+    color = COLOR_BLUE;
+  } else {
+    tmp = orangePlayer;
+    color = COLOR_ORANGE;
+  }
+
+  // idk why, but i need to pass the parameters like this
+  uint16_t movementStep = MOVEMENT_STEP;
+  uint16_t dimensions = SIZE_FRONT_END;
+  if (movementInfo.dir == UP){
+    flag = vg_draw_rectangle(tmp.x, tmp.y - movementStep, dimensions, dimensions, color);
+  } else {
+    flag = vg_draw_rectangle(tmp.x, tmp.y + movementStep, dimensions, dimensions, color);
+  }
+  return flag;
+}
