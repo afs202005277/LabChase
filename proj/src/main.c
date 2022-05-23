@@ -5,23 +5,13 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-enum direction { UP,
-                 DOWN,
-                 LEFT,
-                 RIGHT };
-
-enum player { BLUE,
-              ORANGE };
-
-struct MovementInfo {
-  enum direction dir;
-  enum player playerColor;
-};
-
 enum mouseAction { START,
                    QUIT,
                    PAUSE,
                    RESUME };
+
+extern uint8_t scanCode;
+extern struct MovementInfo nextMove;
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -51,6 +41,7 @@ int (proj_main_loop)() {
   int ipc_status;
   extern int totalInterrupts;
   message msg;
+  scanCode = 0;
   int r;
   unsigned char bit_no_timer, bit_no_keyboard, bit_no_mouse;
   timer_subscribe_int(&bit_no_timer);

@@ -2,8 +2,22 @@
 #include <lcom/lab3.h>
 #include "keyboard.h"
 
+enum direction { UP,
+                 DOWN,
+                 LEFT,
+                 RIGHT,
+                 UNCHANGED };
+
+enum player { BLUE,
+              ORANGE };
+
+struct MovementInfo {
+  enum direction dir;
+  enum player playerColor;
+};
 
 uint8_t scanCode = 0;
+struct MovementInfo nextMove = {UNCHANGED, BLUE};
 int hook_idKEYBOARD = 1;
 
 int(send_KBC_command_byte)(uint32_t cmd){
@@ -50,6 +64,45 @@ void(kbc_ih)(){
   util_sys_inb(KBC_ST_REG, &status);
   util_sys_inb(KBC_OUT_BUF, &temp);
   if ( (status & LSB) == 1 && (status & (KBC_PAR_ERR | KBC_TO_ERR | KBC_AUX)) == 0){
+
+    if (temp == 145 || temp == 159 || temp == 158 || temp == 160) {
+      nextMove.playerColor = BLUE;
+      switch (temp) {
+        case 145:
+          nextMove.dir = UP;
+          break;
+        case 159:
+          nextMove.dir = DOWN;
+          break;
+        case 158:
+          nextMove.dir = LEFT;
+          break;
+        case 160:
+          nextMove.dir = RIGHT;
+          break;
+      }
+      printf("PLAYER: %d DIRECTION: %d\n", (int) nextMove.playerColor, (int) nextMove.dir);
+    }
+
+    if (temp == 200 || temp == 203 || temp == 205 || temp == 208) {
+      nextMove.playerColor = ORANGE;
+      switch (temp) {
+        case 200:
+          nextMove.dir = UP;
+          break;
+        case 208:
+          nextMove.dir = DOWN;
+          break;
+        case 203:
+          nextMove.dir = LEFT;
+          break;
+        case 205:
+          nextMove.dir = RIGHT;
+          break;
+      }
+      printf("PLAYER: %d DIRECTION: %d\n", (int) nextMove.playerColor, (int) nextMove.dir);
+    }
+
     scanCode = temp;
   }
 }
