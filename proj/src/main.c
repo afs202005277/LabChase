@@ -1,8 +1,7 @@
 #include <lcom/lcf.h>
-// lcom_stop proj
 #include "keyboard.h"
 #include "mouse.h"
-#include "auxiliary_data_structures.h"
+#include "video_gr_gameAPI.h"
 #include <stdbool.h>
 #include <stdint.h>
 
@@ -12,11 +11,11 @@ int main(int argc, char *argv[]) {
 
   // enables to log function invocations that are being "wrapped" by LCF
   // [comment this out if you don't want/need it]
-  lcf_trace_calls("/home/lcom/labs/lab5/trace.txt");
+  lcf_trace_calls("/home/lcom/labs/proj/src/trace.txt");
 
   // enables to save the output of printf function calls on a file
   // [comment this out if you don't want/need it]
-  lcf_log_output("/home/lcom/labs/lab5/output.txt");
+  lcf_log_output("/home/lcom/labs/proj/src/output.txt");
 
   // handles control over to LCF
   // [LCF handles command line arguments and invokes the right function]
@@ -34,6 +33,8 @@ int (proj_main_loop)() {
   int ipc_status;
   extern int totalInterrupts;
   message msg;
+  extern uint8_t scanCode;
+  extern struct MovementInfo nextMove;
   int r;
   unsigned char bit_no_timer, bit_no_keyboard, bit_no_mouse;
   timer_subscribe_int(&bit_no_timer);
@@ -50,9 +51,11 @@ int (proj_main_loop)() {
         case HARDWARE:
           if (msg.m_notify.interrupts & BIT(bit_no_timer)) {
             timer_int_handler();
+            passive_move_players();
           }
           if (msg.m_notify.interrupts & BIT(bit_no_keyboard)) {
             kbc_ih();
+            move_player(nextMove);
           }
           if (msg.m_notify.interrupts & BIT(bit_no_mouse)) {
             mouse_ih();
