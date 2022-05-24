@@ -5,11 +5,18 @@
 #include <stdint.h>
 #include <util.h>
 
+enum mouseAction { START,
+                   QUIT,
+                   PAUSE,
+                   RESUME };
+
 int(mouse_subscribe_int)(uint8_t *bit_no);
 
 int(mouse_unsubscribe_int)();
 
 void(mouse_ih)();
+
+int parse_mouse_info(struct packet *pp, enum mouseAction *gameState);
 
 void(parse_mouse_bytes)(struct packet* pp);
 

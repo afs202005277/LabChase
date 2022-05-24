@@ -194,3 +194,9 @@ int xpm_move(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, 
 }
 
 // PROJECT:
+
+int start_screen(uint16_t x1, uint16_t y1, uint32_t color1, uint16_t x2, uint16_t y2, uint32_t color2, uint16_t OBJ_SIZE) {
+  if (vg_draw_rectangle(x1, y1, OBJ_SIZE, OBJ_SIZE, color1) || vg_draw_rectangle(x2, y2, OBJ_SIZE, OBJ_SIZE, color2))
+    return 1;
+  return 0;
+}
