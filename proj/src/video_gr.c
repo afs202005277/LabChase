@@ -165,7 +165,7 @@ int xpm_move(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, 
             if (isHorizontal) {
               if (xi + speed > xf) {
                 xi = xf;
-                vg_draw_rectangle(prevX, prevY, img_width, img_height, 0x00000000);
+                vg_draw_rectangle(prevX, prevY, img_width, img_height, 0);
                 xpm_drawer(xpm, xi, yi);
                 break;
               }
@@ -176,7 +176,7 @@ int xpm_move(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, 
             else {
               if (yi + speed > yf) {
                 yi = yf;
-                vg_draw_rectangle(prevX, prevY, img_width, img_height, 0x00000000);
+                vg_draw_rectangle(prevX, prevY, img_width, img_height, 0);
                 xpm_drawer(xpm, xi, yi);
                 break;
               }
@@ -185,7 +185,7 @@ int xpm_move(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, 
               }
             }
             if (totalInterrupts % frames == 0) {
-              vg_draw_rectangle(prevX, prevY, img_width, img_height, 0x00000000);
+              vg_draw_rectangle(prevX, prevY, img_width, img_height, 0);
               prevX = xi;
               prevY = yi;
               xpm_drawer(xpm, xi, yi);
@@ -207,16 +207,31 @@ int xpm_move(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, 
   return 0;
 }
 
+int opposite(int dir){
+  switch (dir)
+  {
+  case LEFT:
+    return RIGHT;
+  case UP:
+    return DOWN;
+  case DOWN:
+    return UP;
+  case RIGHT:
+    return LEFT;
+  }
+  return 1;
+}
+
 int passive_move_players() {
   struct MovementInfo passive_movement_blue = {.dir = bluePlayer.currentDirection, .playerColor = BLUE}, passive_movement_orange = {.dir = orangePlayer.currentDirection, .playerColor = ORANGE};
-  if (move_player(passive_movement_blue) != 0)
+  if (move_player(passive_movement_blue, true) != 0)
     return 1;
-  if (move_player(passive_movement_orange) != 0)
+  if (move_player(passive_movement_orange, true) != 0)
     return 2;
   return 0;
 }
 
-int move_player(struct MovementInfo movementInfo) {
+int move_player(struct MovementInfo movementInfo, bool isPassiveMovement) {
   uint16_t movementStep = MOVEMENT_STEP;
   uint16_t dimensions = SIZE_FRONT_END;
   struct PlayerPosition tmp;
@@ -230,6 +245,11 @@ int move_player(struct MovementInfo movementInfo) {
     tmp = orangePlayer;
     color = COLOR_ORANGE;
   }
+  if (!isPassiveMovement && movementInfo.dir == tmp.currentDirection){
+    return 0;
+  }
+  if (movementInfo.dir == opposite(tmp.currentDirection))
+    return 0;
   tmp.currentDirection = movementInfo.dir;
 
   // idk why, but i need to pass the parameters like this
