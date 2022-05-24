@@ -1,7 +1,6 @@
-#include <lcom/lcf.h>
-// lcom_stop proj
 #include "keyboard.h"
 #include "mouse.h"
+<<<<<<< HEAD
 #include "video_new.h"
 #include <stdbool.h>
 #include <stdint.h>
@@ -19,17 +18,24 @@ struct MovementInfo {
   enum player playerColor;
 };
 
+=======
+#include "video_gr_gameAPI.h"
+#include <lcom/lcf.h>
+#include <stdbool.h>
+#include <stdint.h>
+
+>>>>>>> 50777d42acfdef665966039d7f82f9e2045b06b0
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
   lcf_set_language("EN-US");
 
   // enables to log function invocations that are being "wrapped" by LCF
   // [comment this out if you don't want/need it]
-  lcf_trace_calls("/home/lcom/labs/lab5/trace.txt");
+  lcf_trace_calls("/home/lcom/labs/proj/src/trace.txt");
 
   // enables to save the output of printf function calls on a file
   // [comment this out if you don't want/need it]
-  lcf_log_output("/home/lcom/labs/lab5/output.txt");
+  lcf_log_output("/home/lcom/labs/proj/src/output.txt");
 
   // handles control over to LCF
   // [LCF handles command line arguments and invokes the right function]
@@ -47,6 +53,8 @@ int(proj_main_loop)() {
   int ipc_status;
   extern int totalInterrupts;
   message msg;
+  extern uint8_t scanCode;
+  extern struct MovementInfo nextMove;
   int r;
   unsigned char bit_no_timer, bit_no_keyboard, bit_no_mouse;
   bool first_start = true;
@@ -68,7 +76,12 @@ int(proj_main_loop)() {
   keyboard_subscribe_int(&bit_no_keyboard);
   mouse_enable_data_reporting();
   mouse_subscribe_int(&bit_no_mouse);
+<<<<<<< HEAD
   while (gameState != QUIT) {
+=======
+  start_game(0x14C);
+  while (scanCode != ESC_BREAK_CODE) {
+>>>>>>> 50777d42acfdef665966039d7f82f9e2045b06b0
     if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
       printf("driver_receive failed with: %d", r);
       continue;
@@ -78,9 +91,14 @@ int(proj_main_loop)() {
         case HARDWARE:
           if (msg.m_notify.interrupts & BIT(bit_no_timer)) {
             timer_int_handler();
+            if (totalInterrupts % 5 == 0) {
+              passive_move_players();
+            }
           }
           if (msg.m_notify.interrupts & BIT(bit_no_keyboard)) {
             kbc_ih();
+            if (nextMove.dir != UNCHANGED)
+              move_player(nextMove, false);
           }
           if (msg.m_notify.interrupts & BIT(bit_no_mouse)) {
             mouse_ih();

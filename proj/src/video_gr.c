@@ -1,19 +1,28 @@
-#include "keyboard.h"
-#include "video_new.h"
 #include <lcom/lcf.h>
 #include <lcom/video_gr.h>
 
-static void *video_mem; /* Process (virtual) address to which VRAM is mapped */
+#include "keyboard.h"
+#include "video_gr_gameAPI.h"
+#include "video_new.h"
 
-static unsigned h_res;           /* Horizontal resolution in pixels */
-static unsigned v_res;           /* Vertical resolution in pixels */
-static unsigned bytes_per_pixel; /* Number of VRAM bytes per pixel */
+#define MOVEMENT_STEP 5;
+#define SIZE_FRONT_END 5;
+#define COLOR_BLUE 0x000000FF;
+#define COLOR_ORANGE 0x00FF8000;
+
+static void *video_mem;
+static unsigned h_res;
+static unsigned v_res;
+static unsigned bytes_per_pixel;
 static uint16_t operatingMode;
 static uint8_t RedMaskSize;
 static uint8_t GreenMaskSize;
 static uint8_t BlueMaskSize;
 uint16_t img_height;
 uint16_t img_width;
+
+static struct PlayerPosition bluePlayer, orangePlayer;
+// iniciar o modo e zerar as posicoes dos jogadores
 
 uint8_t get_red_mask_size() {
   return RedMaskSize;
@@ -54,7 +63,7 @@ int(set_mode)(uint16_t mode) {
   return 0;
 }
 
-void *new_vg_init(uint16_t mode) {
+int new_vg_init(uint16_t mode) {
   vbe_mode_info_t info;
   int r;
   struct minix_mem_range mr;
@@ -71,30 +80,35 @@ void *new_vg_init(uint16_t mode) {
 
   mr.mr_base = (phys_bytes) vram_base;
   mr.mr_limit = mr.mr_base + vram_size;
-  if (OK != (r = sys_privctl(SELF, SYS_PRIV_ADD_MEM, &mr)))
+  if (OK != (r = sys_privctl(SELF, SYS_PRIV_ADD_MEM, &mr))) {
     panic("sys_privctl (ADD_MEM) failed: %d\n", r);
+    return 1;
+  }
 
   video_mem = vm_map_phys(SELF, (void *) mr.mr_base, vram_size);
-  if (video_mem == MAP_FAILED)
+  if (video_mem == MAP_FAILED) {
     panic("couldn’t map video memory");
+    return 2;
+  }
+  return set_mode(mode);
+}
 
-  set_mode(mode);
-  return video_mem;
+int vg_draw_pixel(uint16_t x, uint16_t y, uint32_t color) {
+  char *start = (char *) video_mem + (y * h_res + x) * bytes_per_pixel;
+  memcpy(start, &color, bytes_per_pixel);
+  return 0;
 }
 
 int(vg_draw_hline)(uint16_t x, uint16_t y, uint16_t len, uint32_t color) {
-  char *tmp;
-  for (int i = x; i < x + len; i++) {
-
-    tmp = (char *) video_mem + (y * h_res + i) * bytes_per_pixel;
-    memcpy(tmp, &color, bytes_per_pixel);
+  for (int offset_x = 0; offset_x < len; offset_x++) {
+    vg_draw_pixel(x + offset_x, y, color);
   }
   return 0;
 }
 
 int(vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color) {
-  for (int k = 0; k < height; k++) {
-    vg_draw_hline(x, y + k, width, color);
+  for (int offset = 0; offset < height; offset++) {
+    vg_draw_hline(x, y + offset, width, color);
   }
   return 0;
 }
@@ -151,7 +165,7 @@ int xpm_move(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, 
             if (isHorizontal) {
               if (xi + speed > xf) {
                 xi = xf;
-                vg_draw_rectangle(prevX, prevY, img_width, img_height, 0x00000000);
+                vg_draw_rectangle(prevX, prevY, img_width, img_height, 0);
                 xpm_drawer(xpm, xi, yi);
                 break;
               }
@@ -162,7 +176,7 @@ int xpm_move(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, 
             else {
               if (yi + speed > yf) {
                 yi = yf;
-                vg_draw_rectangle(prevX, prevY, img_width, img_height, 0x00000000);
+                vg_draw_rectangle(prevX, prevY, img_width, img_height, 0);
                 xpm_drawer(xpm, xi, yi);
                 break;
               }
@@ -171,15 +185,15 @@ int xpm_move(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, 
               }
             }
             if (totalInterrupts % frames == 0) {
-              vg_draw_rectangle(prevX, prevY, img_width, img_height, 0x00000000);
+              vg_draw_rectangle(prevX, prevY, img_width, img_height, 0);
               prevX = xi;
               prevY = yi;
               xpm_drawer(xpm, xi, yi);
             }
           }
           if (msg.m_notify.interrupts & BIT(kbcBIT)) {
-              kbc_ih();
-            }
+            kbc_ih();
+          }
           break;
         default:
           break;
@@ -198,5 +212,89 @@ int xpm_move(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, 
 int start_screen(uint16_t x1, uint16_t y1, uint32_t color1, uint16_t x2, uint16_t y2, uint32_t color2, uint16_t OBJ_SIZE) {
   if (vg_draw_rectangle(x1, y1, OBJ_SIZE, OBJ_SIZE, color1) || vg_draw_rectangle(x2, y2, OBJ_SIZE, OBJ_SIZE, color2))
     return 1;
+  return 0;
+}
+
+int opposite(int dir){
+  switch (dir)
+  {
+  case LEFT:
+    return RIGHT;
+  case UP:
+    return DOWN;
+  case DOWN:
+    return UP;
+  case RIGHT:
+    return LEFT;
+  }
+  return 1;
+}
+
+int passive_move_players() {
+  struct MovementInfo passive_movement_blue = {.dir = bluePlayer.currentDirection, .playerColor = BLUE}, passive_movement_orange = {.dir = orangePlayer.currentDirection, .playerColor = ORANGE};
+  if (move_player(passive_movement_blue, true) != 0)
+    return 1;
+  if (move_player(passive_movement_orange, true) != 0)
+    return 2;
+  return 0;
+}
+
+int move_player(struct MovementInfo movementInfo, bool isPassiveMovement) {
+  uint16_t movementStep = MOVEMENT_STEP;
+  uint16_t dimensions = SIZE_FRONT_END;
+  struct PlayerPosition tmp;
+  uint32_t color;
+  uint8_t flag;
+  if (movementInfo.playerColor == BLUE) {
+    tmp = bluePlayer;
+    color = COLOR_BLUE;
+  }
+  else {
+    tmp = orangePlayer;
+    color = COLOR_ORANGE;
+  }
+  if (!isPassiveMovement && movementInfo.dir == tmp.currentDirection){
+    return 0;
+  }
+  if (movementInfo.dir == opposite(tmp.currentDirection))
+    return 0;
+  tmp.currentDirection = movementInfo.dir;
+
+  // idk why, but i need to pass the parameters like this
+  switch (movementInfo.dir) {
+    case UP:
+      tmp.y -= movementStep;
+      flag = vg_draw_rectangle(tmp.x, tmp.y, dimensions, dimensions, color);
+      break;
+    case DOWN:
+      tmp.y += movementStep;
+      flag = vg_draw_rectangle(tmp.x, tmp.y, dimensions, dimensions, color);
+      break;
+    case LEFT:
+      tmp.x -= movementStep;
+      flag = vg_draw_rectangle(tmp.x, tmp.y, dimensions, dimensions, color);
+      break;
+    case RIGHT:
+      tmp.x += movementStep;
+      flag = vg_draw_rectangle(tmp.x, tmp.y, dimensions, dimensions, color);
+      break;
+  }
+  if (movementInfo.playerColor == BLUE)
+    bluePlayer = tmp;
+  else
+    orangePlayer = tmp;
+  return flag;
+}
+
+int start_game(uint16_t mode) {
+  if (new_vg_init(mode) != 0)
+    return 1;
+  bluePlayer.currentDirection = RIGHT;
+  bluePlayer.x = h_res / 2 - 100;
+  bluePlayer.y = v_res / 2;
+
+  orangePlayer.currentDirection = LEFT;
+  orangePlayer.x = h_res / 2 + 100;
+  orangePlayer.y = v_res / 2;
   return 0;
 }
