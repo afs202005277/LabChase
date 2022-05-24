@@ -17,6 +17,6 @@ uint8_t get_green_mask_size();
 
 int xpm_drawer(xpm_map_t xpm, uint16_t x, uint16_t y);
 
-void* new_vg_init(uint16_t mode);
+int new_vg_init(uint16_t mode);
 
 int xpm_move(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate);

@@ -2,26 +2,9 @@
 // lcom_stop proj
 #include "keyboard.h"
 #include "mouse.h"
+#include "auxiliary_data_structures.h"
 #include <stdbool.h>
 #include <stdint.h>
-
-enum direction { UP,
-                 DOWN,
-                 LEFT,
-                 RIGHT };
-
-enum player { BLUE,
-              ORANGE };
-
-struct MovementInfo {
-  enum direction dir;
-  enum player playerColor;
-};
-
-enum mouseAction { START,
-                   QUIT,
-                   PAUSE,
-                   RESUME };
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
