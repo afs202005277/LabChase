@@ -4,7 +4,7 @@
 #include "auxiliary_data_structures.h"
 
 uint8_t scanCode = 0;
-struct MovementInfo nextMove;
+struct MovementInfo nextMove = {UNCHANGED, BLUE};
 int hook_idKEYBOARD = 1;
 
 int(send_KBC_command_byte)(uint32_t cmd){

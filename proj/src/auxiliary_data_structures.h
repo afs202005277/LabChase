@@ -3,7 +3,7 @@
 enum direction { UP,
                  DOWN,
                  LEFT,
-                 RIGHT };
+                 RIGHT, UNCHANGED };
 
 enum player { BLUE,
               ORANGE };

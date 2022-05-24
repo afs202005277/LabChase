@@ -58,7 +58,8 @@ int(proj_main_loop)() {
           }
           if (msg.m_notify.interrupts & BIT(bit_no_keyboard)) {
             kbc_ih();
-            move_player(nextMove, false);
+            if (nextMove.dir != UNCHANGED)
+              move_player(nextMove, false);
           }
           if (msg.m_notify.interrupts & BIT(bit_no_mouse)) {
             mouse_ih();
