@@ -1,50 +1,42 @@
+#include <lcom/lcf.h>
 #include "serial.h"
 
-int serial_hook;
+int serial_hook = COM1_IRQ;
 
-int serial_subscribe() {
-  serial_hook = 3;
+int write_to_IER(uint8_t byte){
+  uint8_t wordInLCR;
+  read_from_LCR(&wordInLCR);
+  write_to_LCR(wordInLCR & 0x7F); // set DLAB = 0
+  return sys_outb(COM1_PORT + IER, byte);;
+}
 
-  // PROGRAM LINE CONTROL REGISTER TO PENALTIX
-  unsigned long r, enable = 0;
-  sys_inb(COM1_PORT + LINE_CONTROL, &r);
+int write_to_LCR(uint8_t byte){
+  return sys_outb(COM1_PORT + LCR, byte);
+}
 
-  r &= BREAK_CONTROL;
-  r |= DLAB;
-  r |= EIGHT;
-  r |= ONE_BIT;
-  r |= NO_PARITY;
+int read_from_LCR(uint8_t* byte){
+  return util_sys_inb(COM1_PORT + LCR, byte);
+}
 
-  sys_outb(COM1_PORT + LINE_CONTROL, r);
-  serial_set_bitrate(SERIAL_BITRATE);
+int write_to_FCR(uint8_t byte){
+  return sys_outb(COM1_PORT + FCR, byte);
+}
 
-  // SUBSCRIBE INTERRUPTS
-  if (sys_irqsetpolicy(COM1_IRQ, IRQ_REENABLE | IRQ_EXCLUSIVE, &serial_hook) != 0)
-    return -1;
+int serial_subscribe(uint8_t* bit_no) {
+  uint8_t enableInterrupts = 1; // enables received data available interrupt
+  uint8_t byteInLCR;
+  write_to_IER(enableInterrupts);
+  read_from_LCR(&byteInLCR);
+  write_to_LCR(byteInLCR | BIT(1) | BIT(0)); // set word of 8 bits
+  write_to_FCR(BIT(2) | BIT(1) | BIT(0)); // clears the fifos and enables them
 
-  if (sys_irqenable(&serial_hook) != 0)
-    return -1;
-
-  // ENABLE RECEIVED DATA INTERRUPT AND RECEIVER LINE STATUS INTERRUPT
-  sys_inb(COM1_PORT + INTERRUPT_ENABLE, &r);
-  enable = ENABLE_INTERRUPT_DATA | ENABLE_INTERRUPT_LS;
-  r |= enable;
-  sys_outb(COM1_PORT + INTERRUPT_ENABLE, r);
-  tickdelay(micros_to_ticks(DELAY));
+  *bit_no = serial_hook;
+  sys_irqsetpolicy(COM1_IRQ, IRQ_REENABLE | IRQ_EXCLUSIVE, &serial_hook);
   return 0;
 }
 
 int serial_unsubscribe() {
-
-  // UNSUBSCRIBE INTERRUPTS
-  if (sys_irqdisable(&serial_hook) != 0)
-    return -1;
-
   if (sys_irqrmpolicy(&serial_hook) != 0)
-    return -1;
-
-  // DISABLE ALL INTERRUPTS FROM UART
-  if (sys_outb(COM1_PORT + INTERRUPT_ENABLE, 0) != OK)
     return -1;
   return 0;
 }
