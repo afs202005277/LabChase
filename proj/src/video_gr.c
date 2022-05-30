@@ -107,10 +107,14 @@ int(vg_draw_hline)(uint16_t x, uint16_t y, uint16_t len, uint32_t color) {
 }
 
 int(vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color) {
+  uint8_t flag = 0;
+  if (find_color(x, y) != 0) {
+    flag = 1;
+  }
   for (int offset = 0; offset < height; offset++) {
     vg_draw_hline(x, y + offset, width, color);
   }
-  return 0;
+  return flag;
 }
 
 int xpm_drawer(xpm_map_t xpm, uint16_t x, uint16_t y) {
@@ -215,19 +219,19 @@ int start_screen(uint16_t x1, uint16_t y1, uint32_t color1, uint16_t x2, uint16_
   return 0;
 }
 
-int opposite(int dir){
-  switch (dir)
-  {
-  case LEFT:
-    return RIGHT;
-  case UP:
-    return DOWN;
-  case DOWN:
-    return UP;
-  case RIGHT:
-    return LEFT;
+int opposite(int dir) {
+  switch (dir) {
+    case LEFT:
+      return RIGHT;
+    case UP:
+      return DOWN;
+    case DOWN:
+      return UP;
+    case RIGHT:
+      return LEFT;
+    default:
+      return 1;
   }
-  return 1;
 }
 
 int passive_move_players() {
@@ -235,7 +239,7 @@ int passive_move_players() {
   if (move_player(passive_movement_blue, true) != 0)
     return 1;
   if (move_player(passive_movement_orange, true) != 0)
-    return 2;
+    return 1;
   return 0;
 }
 
@@ -253,7 +257,7 @@ int move_player(struct MovementInfo movementInfo, bool isPassiveMovement) {
     tmp = orangePlayer;
     color = COLOR_ORANGE;
   }
-  if (!isPassiveMovement && movementInfo.dir == tmp.currentDirection){
+  if (!isPassiveMovement && movementInfo.dir == tmp.currentDirection) {
     return 0;
   }
   if (movementInfo.dir == opposite(tmp.currentDirection))
@@ -278,6 +282,8 @@ int move_player(struct MovementInfo movementInfo, bool isPassiveMovement) {
       tmp.x += movementStep;
       flag = vg_draw_rectangle(tmp.x, tmp.y, dimensions, dimensions, color);
       break;
+    default:
+      return 1;
   }
   if (movementInfo.playerColor == BLUE)
     bluePlayer = tmp;
@@ -297,4 +303,10 @@ int start_game(uint16_t mode) {
   orangePlayer.x = h_res / 2 + 100;
   orangePlayer.y = v_res / 2;
   return 0;
+}
+
+int(find_color)(uint16_t x, uint16_t y) {
+  unsigned int color;
+  memcpy(&color, (char *) video_mem + (y * h_res + x) * bytes_per_pixel, bytes_per_pixel);
+  return color;
 }

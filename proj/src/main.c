@@ -1,30 +1,10 @@
 #include "keyboard.h"
 #include "mouse.h"
-<<<<<<< HEAD
-#include "video_new.h"
-#include <stdbool.h>
-#include <stdint.h>
-
-enum direction { UP,
-                 DOWN,
-                 LEFT,
-                 RIGHT };
-
-enum player { BLUE,
-              ORANGE };
-
-struct MovementInfo {
-  enum direction dir;
-  enum player playerColor;
-};
-
-=======
 #include "video_gr_gameAPI.h"
 #include <lcom/lcf.h>
 #include <stdbool.h>
 #include <stdint.h>
 
->>>>>>> 50777d42acfdef665966039d7f82f9e2045b06b0
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
   lcf_set_language("EN-US");
@@ -57,14 +37,6 @@ int(proj_main_loop)() {
   extern struct MovementInfo nextMove;
   int r;
   unsigned char bit_no_timer, bit_no_keyboard, bit_no_mouse;
-  bool first_start = true;
-
-
-  uint16_t x1, y1; // Player one
-  uint32_t color1 = 0xFF1F51FF;
-  uint16_t x2, y2; // Player two
-  uint32_t color2 = 0xFFFF5F1F;
-  uint16_t OBJ_SIZE = 10;
 
   /* Mouse Variables */
   struct packet pp;
@@ -76,12 +48,9 @@ int(proj_main_loop)() {
   keyboard_subscribe_int(&bit_no_keyboard);
   mouse_enable_data_reporting();
   mouse_subscribe_int(&bit_no_mouse);
-<<<<<<< HEAD
-  while (gameState != QUIT) {
-=======
   start_game(0x14C);
-  while (scanCode != ESC_BREAK_CODE) {
->>>>>>> 50777d42acfdef665966039d7f82f9e2045b06b0
+  bool continueLoop = true;
+  while (gameState != QUIT && continueLoop) {
     if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
       printf("driver_receive failed with: %d", r);
       continue;
@@ -92,13 +61,17 @@ int(proj_main_loop)() {
           if (msg.m_notify.interrupts & BIT(bit_no_timer)) {
             timer_int_handler();
             if (totalInterrupts % 5 == 0) {
-              passive_move_players();
+              if (passive_move_players() == 1){
+                continueLoop = false;
+              }
             }
           }
           if (msg.m_notify.interrupts & BIT(bit_no_keyboard)) {
             kbc_ih();
             if (nextMove.dir != UNCHANGED)
-              move_player(nextMove, false);
+              if (move_player(nextMove, false) == 1){
+                continueLoop = false;
+              }
           }
           if (msg.m_notify.interrupts & BIT(bit_no_mouse)) {
             mouse_ih();
@@ -115,20 +88,6 @@ int(proj_main_loop)() {
         default:
           break;
       }
-    }
-
-    if (gameState == START) {
-      if (first_start) {
-        first_start = false;
-        new_vg_init(0x14c);
-        x1 = get_h_res()/4;
-        y1 = get_v_res()/2;
-        x2 = get_h_res()/4*3;
-        y2 = get_v_res()/2;
-      }
-      printf("Started?");
-      start_screen(x1, y1, color1, x2, y2, color2, OBJ_SIZE);
-      gameState = RESUME;
     }
   }
   vg_exit();

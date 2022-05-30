@@ -4,11 +4,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <util.h>
-
-enum mouseAction { START,
-                   QUIT,
-                   PAUSE,
-                   RESUME };
+#include "auxiliary_data_structures.h"
 
 int(mouse_subscribe_int)(uint8_t *bit_no);
 

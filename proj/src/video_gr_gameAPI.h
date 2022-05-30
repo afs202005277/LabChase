@@ -6,3 +6,4 @@ int move_player(struct MovementInfo movementInfo, bool isPassiveMovement);
 
 int start_game(uint16_t mode);
 
+int (find_color)(uint16_t x, uint16_t y);

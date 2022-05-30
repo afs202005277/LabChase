@@ -1,3 +1,6 @@
+#ifndef __AUX
+#define __AUX
+
 #include <stdint.h>
 
 enum direction { UP,
@@ -23,3 +26,4 @@ struct PlayerPosition {
   uint16_t y;
   enum direction currentDirection;
 };
+#endif
