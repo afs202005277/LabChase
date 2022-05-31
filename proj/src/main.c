@@ -4,6 +4,7 @@
 #include <lcom/lcf.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include "serial.h"
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -30,13 +31,14 @@ int main(int argc, char *argv[]) {
 }
 
 int(proj_main_loop)() {
+  extern uint8_t receivedChar;
   int ipc_status;
   extern int totalInterrupts;
   message msg;
   extern uint8_t scanCode;
   extern struct MovementInfo nextMove;
   int r;
-  unsigned char bit_no_timer, bit_no_keyboard, bit_no_mouse;
+  unsigned char bit_no_timer, bit_no_keyboard, bit_no_mouse, bit_no_serial;
 
   /* Mouse Variables */
   struct packet pp;
@@ -48,7 +50,8 @@ int(proj_main_loop)() {
   keyboard_subscribe_int(&bit_no_keyboard);
   mouse_enable_data_reporting();
   mouse_subscribe_int(&bit_no_mouse);
-  start_game(0x14C);
+  serial_subscribe(&bit_no_serial);
+  //start_game(0x14C);
   bool continueLoop = true;
   while (gameState != QUIT && continueLoop) {
     if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
@@ -61,13 +64,19 @@ int(proj_main_loop)() {
           if (msg.m_notify.interrupts & BIT(bit_no_timer)) {
             timer_int_handler();
             if (totalInterrupts % 5 == 0) {
-              if (passive_move_players() == 1){
+              /* if (passive_move_players() == 1){
                 continueLoop = false;
-              }
+              } */
             }
+          }
+          if (msg.m_notify.interrupts & BIT(bit_no_serial)) {
+            serial_ih();
+            printf("INTERRUPT\n");
+            printf("%c\n", receivedChar);
           }
           if (msg.m_notify.interrupts & BIT(bit_no_keyboard)) {
             kbc_ih();
+            continueLoop = false;
             if (nextMove.dir != UNCHANGED)
               if (move_player(nextMove, false) == 1){
                 continueLoop = false;
@@ -90,7 +99,7 @@ int(proj_main_loop)() {
       }
     }
   }
-  vg_exit();
+  //vg_exit();
   keyboard_unsubscribe_int();
   timer_unsubscribe_int();
   mouse_unsubscribe_int();
