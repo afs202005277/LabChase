@@ -5,6 +5,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#include "XPMs/MainScreen.xpm"
+
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
   lcf_set_language("EN-US");
@@ -48,7 +50,7 @@ int(proj_main_loop)() {
   keyboard_subscribe_int(&bit_no_keyboard);
   mouse_enable_data_reporting();
   mouse_subscribe_int(&bit_no_mouse);
-  start_game(0x14C);
+  start_game(0x115);
   bool continueLoop = true;
   while (gameState != QUIT && continueLoop) {
     if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {

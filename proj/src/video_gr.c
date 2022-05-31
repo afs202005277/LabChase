@@ -7,8 +7,8 @@
 
 #define MOVEMENT_STEP 5;
 #define SIZE_FRONT_END 5;
-#define COLOR_BLUE 0x000000FF;
-#define COLOR_ORANGE 0x00FF8000;
+#define COLOR_BLUE 0x1F51FF;
+#define COLOR_ORANGE 0xFF5F1F;
 
 static void *video_mem;
 static unsigned h_res;
@@ -73,7 +73,8 @@ int new_vg_init(uint16_t mode) {
   unsigned int vram_size = (info.BitsPerPixel * info.XResolution * info.YResolution) / 8;
   h_res = info.XResolution;
   v_res = info.YResolution;
-  bytes_per_pixel = info.BytesPerScanLine / h_res;
+  bytes_per_pixel = (info.BitsPerPixel+7) / 8;
+  printf("%u\n", bytes_per_pixel);
   BlueMaskSize = info.BlueMaskSize;
   RedMaskSize = info.RedMaskSize;
   GreenMaskSize = info.GreenMaskSize;
@@ -87,7 +88,7 @@ int new_vg_init(uint16_t mode) {
 
   video_mem = vm_map_phys(SELF, (void *) mr.mr_base, vram_size);
   if (video_mem == MAP_FAILED) {
-    panic("couldn’t map video memory");
+    panic("couldn't map video memory");
     return 2;
   }
   return set_mode(mode);
@@ -119,14 +120,10 @@ int(vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, 
 
 int xpm_drawer(xpm_map_t xpm, uint16_t x, uint16_t y) {
   xpm_image_t img;
-  xpm_load(xpm, XPM_INDEXED, &img);
+  xpm_load(xpm, XPM_8_8_8, &img);
   img_height = img.height;
   img_width = img.width;
-  for (int height = 0; height < img.height; height++) {
-    for (int width = 0; width < img.width; width++) {
-      vg_draw_hline(x + width, y + height, 1, img.bytes[height * img.width + width]);
-    }
-  }
+  memcpy(video_mem, img.bytes, img.height*img.width*bytes_per_pixel);
   return 0;
 }
 
@@ -296,11 +293,11 @@ int start_game(uint16_t mode) {
   if (new_vg_init(mode) != 0)
     return 1;
   bluePlayer.currentDirection = RIGHT;
-  bluePlayer.x = h_res / 2 - 100;
+  bluePlayer.x = h_res / 4;
   bluePlayer.y = v_res / 2;
 
   orangePlayer.currentDirection = LEFT;
-  orangePlayer.x = h_res / 2 + 100;
+  orangePlayer.x = h_res / 4 * 3;
   orangePlayer.y = v_res / 2;
   return 0;
 }
