@@ -50,13 +50,13 @@
  * @param irq_bitmask - id of the bitmask
  * @return int - Returns 0 if sucessful and 1 if not
  */
-int rtc_subscribe(uint8_t *irq_bitmask);
+int rtc_subscribe_int(uint8_t *irq_bitmask);
 /**
  * @brief Unsbscribes the rtc interrupts
  *
  * @return int - Returns 0 if sucessful and 1 if not
  */
-int rtc_unsubscribe();
+int rtc_unsubscribe_int();
 /**
  * @brief Reads the register passed as a argument
  *

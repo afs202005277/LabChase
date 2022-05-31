@@ -1,24 +1,23 @@
 #include "rtc.h"
 #include <lcom/lcf.h>
 
-static int rtc_hookID = 3;
+static int hook_id = 3;
 uint16_t time_counter = 0;
 
-int rtc_subscribe(uint8_t *irq_bitmask) {
+int rtc_subscribe_int(uint8_t *bit_no) {
 
-  *irq_bitmask = BIT(rtc_hookID);
-
-  if (sys_irqsetpolicy(RTC_IRQ, IRQ_REENABLE, &rtc_hookID) != OK) {
-    printf("Error rtc subscribe\n");
+  *bit_no = 0;
+  hook_id = 0;
+  if (sys_irqsetpolicy(RTC_IRQ, IRQ_REENABLE, &hook_id) != OK) {
+    printf("Error subscribing to RTC\n");
     return 1;
   }
-
   return 0;
 }
 
-int rtc_unsubscribe() {
-  if (sys_irqrmpolicy(&rtc_hookID) != OK) {
-    printf("error rtc unsubcribing");
+int rtc_unsubscribe_int() {
+  if (sys_irqrmpolicy(&hook_id) != OK) {
+    printf("Error unsubscribing to RTC\n");
     return 1;
   }
   return 0;

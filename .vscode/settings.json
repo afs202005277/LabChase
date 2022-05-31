@@ -1,6 +1,7 @@
 {
   "files.associations": {
     "istream": "c",
-    "keyboard.h": "c"
+    "keyboard.h": "c",
+    "*.xpm": "c"
   }
 }
