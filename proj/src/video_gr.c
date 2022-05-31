@@ -3,7 +3,6 @@
 
 #include "keyboard.h"
 #include "video_gr_gameAPI.h"
-#include "video_new.h"
 
 #define MOVEMENT_STEP 5;
 #define SIZE_FRONT_END 5;
@@ -44,8 +43,12 @@ unsigned get_v_res() {
   return v_res;
 }
 
+void* get_video_mem() {
+  return video_mem;
+}
+
 unsigned get_bits_per_pixel() {
-  return bytes_per_pixel / 8;
+  return bytes_per_pixel * 8;
 }
 
 int(set_mode)(uint16_t mode) {
@@ -118,7 +121,7 @@ int(vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, 
   return flag;
 }
 
-int xpm_drawer(xpm_map_t xpm, uint16_t x, uint16_t y) {
+int xpm_drawer(xpm_map_t xpm) {
   xpm_image_t img;
   xpm_load(xpm, XPM_8_8_8, &img);
   img_height = img.height;
@@ -135,77 +138,6 @@ bool continueLoop(uint16_t xi, uint16_t xf, uint16_t yi, uint16_t yf, bool isHor
   else if (!isHorizontal && yi >= yf)
     return false;
   return true;
-}
-
-int xpm_move(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate) {
-  uint16_t prevX = xi;
-  uint16_t prevY = yi;
-  int r, ipc_status;
-  extern int totalInterrupts;
-  extern uint8_t scanCode;
-  message msg;
-  uint8_t timerBIT, kbcBIT;
-  int frames = 60 / fr_rate;
-  bool isHorizontal = false;
-  if (yi == yf)
-    isHorizontal = true;
-  timer_subscribe_int(&timerBIT);
-  keyboard_subscribe_int(&kbcBIT);
-  xpm_drawer(xpm, xi, yi);
-  while (continueLoop(xi, xf, yi, yf, isHorizontal, scanCode)) {
-
-    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
-      printf("driver_receive failed with: %d", r);
-      continue;
-    }
-    if (is_ipc_notify(ipc_status)) {
-      switch (_ENDPOINT_P(msg.m_source)) {
-        case HARDWARE:
-          if (msg.m_notify.interrupts & BIT(timerBIT)) {
-            totalInterrupts++;
-            if (isHorizontal) {
-              if (xi + speed > xf) {
-                xi = xf;
-                vg_draw_rectangle(prevX, prevY, img_width, img_height, 0);
-                xpm_drawer(xpm, xi, yi);
-                break;
-              }
-              else {
-                xi += speed;
-              }
-            }
-            else {
-              if (yi + speed > yf) {
-                yi = yf;
-                vg_draw_rectangle(prevX, prevY, img_width, img_height, 0);
-                xpm_drawer(xpm, xi, yi);
-                break;
-              }
-              else {
-                yi += speed;
-              }
-            }
-            if (totalInterrupts % frames == 0) {
-              vg_draw_rectangle(prevX, prevY, img_width, img_height, 0);
-              prevX = xi;
-              prevY = yi;
-              xpm_drawer(xpm, xi, yi);
-            }
-          }
-          if (msg.m_notify.interrupts & BIT(kbcBIT)) {
-            kbc_ih();
-          }
-          break;
-        default:
-          break;
-      }
-    }
-    else {
-    }
-  }
-  timer_unsubscribe_int();
-  keyboard_unsubscribe_int();
-  return 0;
 }
 
 // PROJECT:
@@ -236,7 +168,7 @@ int passive_move_players() {
   if (move_player(passive_movement_blue, true) != 0)
     return 1;
   if (move_player(passive_movement_orange, true) != 0)
-    return 1;
+    return 2;
   return 0;
 }
 
@@ -289,21 +221,19 @@ int move_player(struct MovementInfo movementInfo, bool isPassiveMovement) {
   return flag;
 }
 
-int start_game(uint16_t mode) {
-  if (new_vg_init(mode) != 0)
-    return 1;
+int start_game() {
   bluePlayer.currentDirection = RIGHT;
-  bluePlayer.x = h_res / 4;
+  bluePlayer.x = h_res / 2 - 100;
   bluePlayer.y = v_res / 2;
 
   orangePlayer.currentDirection = LEFT;
-  orangePlayer.x = h_res / 4 * 3;
+  orangePlayer.x = h_res / 2 + 100;
   orangePlayer.y = v_res / 2;
   return 0;
 }
 
 int(find_color)(uint16_t x, uint16_t y) {
-  unsigned int color;
+  unsigned int color = 0;
   memcpy(&color, (char *) video_mem + (y * h_res + x) * bytes_per_pixel, bytes_per_pixel);
   return color;
 }
