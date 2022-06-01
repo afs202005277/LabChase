@@ -8,8 +8,8 @@ enum direction { UP,
                  LEFT,
                  RIGHT, UNCHANGED };
 
-enum player { BLUE,
-              ORANGE };
+enum player { ME,
+              OTHER };
 
 struct MovementInfo {
   enum direction dir;

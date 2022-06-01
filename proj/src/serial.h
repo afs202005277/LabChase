@@ -1,6 +1,7 @@
 #ifndef __SERIAL_H
 #define __SERIAL_H
 #include <stdint.h>
+#include <stdbool.h>
 
 #define COM1_PORT 0x3F8
 #define COM1_IRQ 4
@@ -17,6 +18,7 @@
 #define CAN_WRITE_TO_THR BIT(5)
 #define DATA_AVAILABLE BIT(0)
 
+int receive_connection(bool* connection);
 
 int serial_subscribe(uint8_t* bit_no);
 

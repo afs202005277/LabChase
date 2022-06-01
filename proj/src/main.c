@@ -1,10 +1,10 @@
 #include "keyboard.h"
 #include "mouse.h"
+#include "serial.h"
 #include "video_gr_gameAPI.h"
 #include <lcom/lcf.h>
 #include <stdbool.h>
 #include <stdint.h>
-#include "serial.h"
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -51,7 +51,7 @@ int(proj_main_loop)() {
   mouse_enable_data_reporting();
   mouse_subscribe_int(&bit_no_mouse);
   serial_subscribe(&bit_no_serial);
-  //start_game(0x14C);
+  start_game(0x14C);
   bool continueLoop = true;
   while (gameState != QUIT && continueLoop) {
     if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
@@ -63,24 +63,32 @@ int(proj_main_loop)() {
         case HARDWARE:
           if (msg.m_notify.interrupts & BIT(bit_no_timer)) {
             timer_int_handler();
-            if (totalInterrupts % 5 == 0) {
-              /* if (passive_move_players() == 1){
+            /* if (totalInterrupts % 5 == 0) {
+              if (passive_move_players() == 1) {
                 continueLoop = false;
-              } */
-            }
+              }
+            } */
           }
           if (msg.m_notify.interrupts & BIT(bit_no_serial)) {
             serial_ih();
-            printf("INTERRUPT\n");
-            printf("%c\n", receivedChar);
+            struct MovementInfo mov;
+            mov.dir = receivedChar;
+            mov.playerColor = OTHER;
+            if (move_player(mov, false) == 1){
+              printf("Break\n");
+              continueLoop = false;
+            }
           }
           if (msg.m_notify.interrupts & BIT(bit_no_keyboard)) {
             kbc_ih();
-            continueLoop = false;
-            if (nextMove.dir != UNCHANGED)
-              if (move_player(nextMove, false) == 1){
+            if (nextMove.dir != UNCHANGED){
+              if (nextMove.dir == ME && move_player(nextMove, false) == 1) {
                 continueLoop = false;
               }
+              if (nextMove.playerColor == OTHER){
+                send_character(nextMove.dir);
+              }
+            }
           }
           if (msg.m_notify.interrupts & BIT(bit_no_mouse)) {
             mouse_ih();
@@ -99,7 +107,7 @@ int(proj_main_loop)() {
       }
     }
   }
-  //vg_exit();
+  vg_exit();
   keyboard_unsubscribe_int();
   timer_unsubscribe_int();
   mouse_unsubscribe_int();

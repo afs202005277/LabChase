@@ -7,8 +7,10 @@
 
 #define MOVEMENT_STEP 5;
 #define SIZE_FRONT_END 5;
-#define COLOR_BLUE 0x000000FF;
-#define COLOR_ORANGE 0x00FF8000;
+#define MY_COLOR 0x000000FF;
+#define OTHER_COLOR 0x00FF8000;
+
+uint32_t my_color=0x000000FF, other_color=0x00FF8000;
 
 static void *video_mem;
 static unsigned h_res;
@@ -21,7 +23,7 @@ static uint8_t BlueMaskSize;
 uint16_t img_height;
 uint16_t img_width;
 
-static struct PlayerPosition bluePlayer, orangePlayer;
+static struct PlayerPosition me, other;
 // iniciar o modo e zerar as posicoes dos jogadores
 
 uint8_t get_red_mask_size() {
@@ -235,7 +237,7 @@ int opposite(int dir) {
 }
 
 int passive_move_players() {
-  struct MovementInfo passive_movement_blue = {.dir = bluePlayer.currentDirection, .playerColor = BLUE}, passive_movement_orange = {.dir = orangePlayer.currentDirection, .playerColor = ORANGE};
+  struct MovementInfo passive_movement_blue = {.dir = me.currentDirection, .playerColor = my_color}, passive_movement_orange = {.dir = other.currentDirection, .playerColor = other_color};
   if (move_player(passive_movement_blue, true) != 0)
     return 1;
   if (move_player(passive_movement_orange, true) != 0)
@@ -249,13 +251,13 @@ int move_player(struct MovementInfo movementInfo, bool isPassiveMovement) {
   struct PlayerPosition tmp;
   uint32_t color;
   uint8_t flag;
-  if (movementInfo.playerColor == BLUE) {
-    tmp = bluePlayer;
-    color = COLOR_BLUE;
+  if (movementInfo.playerColor == my_color) {
+    tmp = me;
+    color = my_color;
   }
   else {
-    tmp = orangePlayer;
-    color = COLOR_ORANGE;
+    tmp = other;
+    color = other_color;
   }
   if (!isPassiveMovement && movementInfo.dir == tmp.currentDirection) {
     return 0;
@@ -285,23 +287,23 @@ int move_player(struct MovementInfo movementInfo, bool isPassiveMovement) {
     default:
       return 1;
   }
-  if (movementInfo.playerColor == BLUE)
-    bluePlayer = tmp;
+  if (movementInfo.playerColor == my_color)
+    me = tmp;
   else
-    orangePlayer = tmp;
+    other = tmp;
   return flag;
 }
 
 int start_game(uint16_t mode) {
   if (new_vg_init(mode) != 0)
     return 1;
-  bluePlayer.currentDirection = RIGHT;
-  bluePlayer.x = h_res / 2 - 100;
-  bluePlayer.y = v_res / 2;
+  me.currentDirection = RIGHT;
+  me.x = h_res / 2 - 100;
+  me.y = v_res / 2;
 
-  orangePlayer.currentDirection = LEFT;
-  orangePlayer.x = h_res / 2 + 100;
-  orangePlayer.y = v_res / 2;
+  other.currentDirection = LEFT;
+  other.x = h_res / 2 + 100;
+  other.y = v_res / 2;
   return 0;
 }
 

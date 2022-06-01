@@ -5,6 +5,14 @@ int serial_hook = COM1_IRQ;
 
 uint8_t receivedChar = 0;
 
+int receive_connection(bool* connection){
+  if (receivedChar == 'k'){
+    *connection = true;
+    send_character('l');
+  }
+  return 0;
+}
+
 int clear_DLAB(){
   uint8_t wordInLCR;
   read_from_LCR(&wordInLCR);
