@@ -7,6 +7,11 @@
 #include <stdint.h>
 
 #include "XPMs/MainScreen.xpm"
+#include "XPMs/GameOverPlayerOneWins.xpm"
+#include "XPMs/GameOverPlayerTwoWins.xpm"
+#include "XPMs/PauseScreen.xpm"
+
+enum screenState screenState = GAME;
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -43,10 +48,9 @@ int(proj_main_loop)() {
   unsigned char bit_no_timer, bit_no_keyboard, bit_no_mouse, bit_no_rtc;
 
   /* Mouse Variables */
-  struct packet pp;
-  extern uint8_t byteFromMouse;
-  uint8_t counter = 0;
-  enum mouseAction gameState = PAUSE;
+  // struct packet pp;
+  // extern uint8_t byteFromMouse;
+  // uint8_t counter = 0;
 
   timer_subscribe_int(&bit_no_timer);
   keyboard_subscribe_int(&bit_no_keyboard);
@@ -64,41 +68,96 @@ int(proj_main_loop)() {
       printf("driver_receive failed with: %d", r);
       continue;
     }
-    if (is_ipc_notify(ipc_status)) {
-      switch (_ENDPOINT_P(msg.m_source)) {
-        case HARDWARE:
-          if (msg.m_notify.interrupts & BIT(bit_no_timer)) {
-            timer_int_handler();
-            if (totalInterrupts % 5 == 0) {
-              if (passive_move_players() == 1){
-                continueLoop = false;
+
+    while (screenState == GOONE) {
+      if (!printed) {
+        xpm_drawer(GOPOneWins);
+        printed = true;
+        startGame = false;
+      }
+    }
+
+    while (screenState == GOTWO) {
+      if (!printed) {
+        xpm_drawer(GOPTwoWins);
+        printed = true;
+        startGame = false;
+      }
+    }
+
+    while (screenState == PAUSE) {
+      if (!printed) {
+        memcpy(saveGameScreen, get_video_mem(), get_h_res()*get_v_res()*get_bits_per_pixel()/8);
+        printed = true;
+        paused = true;
+        xpm_drawer(PauseScreen);
+      }
+      if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+        printf("driver_receive failed with: %d", r);
+        continue;
+      }
+      if (is_ipc_notify(ipc_status)) {
+        switch (_ENDPOINT_P(msg.m_source)) {
+          case HARDWARE:
+            if (msg.m_notify.interrupts & BIT(bit_no_keyboard)) {
+              kbc_ih();
+              if (nextMove.dir != UNCHANGED)
+                if (move_player(nextMove, false) == 1) {
+                  screenState = QUIT;
+                }
+            }
+            break;
+          default:
+            break;
+        }
+      }
+    }
+
+    while (screenState == GAME) {
+      if (!startGame) {
+        start_game();
+        startGame = true;
+        printed = false;
+      }
+      if (paused) {
+        memcpy(get_video_mem(), saveGameScreen, get_h_res()*get_v_res()*get_bits_per_pixel()/8);
+        paused = false;
+        printed = false;
+      }
+      if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+        printf("driver_receive failed with: %d", r);
+        continue;
+      }
+      if (is_ipc_notify(ipc_status)) {
+        switch (_ENDPOINT_P(msg.m_source)) {
+          case HARDWARE:
+            if (msg.m_notify.interrupts & BIT(bit_no_timer)) {
+              timer_int_handler();
+              if (totalInterrupts % 5 == 0) {
+                int tmp = passive_move_players();
+                if (tmp == 1) {
+                  screenState = GOTWO;
+                }
+                else if (tmp == 2) {
+                  screenState = GOONE;
+                }
               }
             }
-          }
-          if (msg.m_notify.interrupts & BIT(bit_no_keyboard)) {
-            kbc_ih();
-            if (nextMove.dir != UNCHANGED)
-              if (move_player(nextMove, false) == 1){
-                continueLoop = false;
-              }
-          }
-          if (msg.m_notify.interrupts & BIT(bit_no_mouse)) {
-            mouse_ih();
-            if (!(counter == 0 && (byteFromMouse & BIT(3)) == 0)) {
-              pp.bytes[counter] = byteFromMouse;
-              counter++;
+            if (msg.m_notify.interrupts & BIT(bit_no_keyboard)) {
+              kbc_ih();
+              if (nextMove.dir != UNCHANGED)
+                if (move_player(nextMove, false) == 1) {
+                  screenState = QUIT;
+                }
             }
-            if (counter == 3) {
-              counter = 0;
-              parse_mouse_info(&pp, &gameState);
-            }
-          }
-          break;
-        default:
-          break;
+            break;
+          default:
+            break;
+        }
       }
     }
   }
+
   vg_exit();
   keyboard_unsubscribe_int();
   timer_unsubscribe_int();

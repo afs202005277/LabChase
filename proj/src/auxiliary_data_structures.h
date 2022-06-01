@@ -6,7 +6,8 @@
 enum direction { UP,
                  DOWN,
                  LEFT,
-                 RIGHT, UNCHANGED };
+                 RIGHT,
+                 UNCHANGED };
 
 enum player { BLUE,
               ORANGE };
@@ -16,10 +17,14 @@ struct MovementInfo {
   enum player playerColor;
 };
 
-enum mouseAction { START,
-                   QUIT,
-                   PAUSE,
-                   RESUME };
+enum screenState {
+  MAIN,
+  GAME,
+  PAUSE,
+  GOONE,
+  GOTWO,
+  QUIT
+};
 
 struct PlayerPosition {
   uint16_t x;

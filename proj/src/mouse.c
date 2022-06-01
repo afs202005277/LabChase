@@ -37,7 +37,7 @@ void(parse_mouse_bytes)(struct packet *pp) {
   }
 }
 
-int parse_mouse_info(struct packet *pp, enum mouseAction *gameState) {
+/*int parse_mouse_info(struct packet *pp, enum mouseAction *gameState) {
   parse_mouse_bytes(pp);
 
   if (pp->lb && !pp->rb && !pp->mb && *gameState != START) {
@@ -56,7 +56,7 @@ int parse_mouse_info(struct packet *pp, enum mouseAction *gameState) {
     printf("QUIT");
   }
   return 0;
-}
+}*/
 
 void(disableDataReporting)() {
   send_KBC_command_byte(0xD4);
