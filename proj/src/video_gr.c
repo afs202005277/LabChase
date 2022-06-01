@@ -4,7 +4,7 @@
 #include "keyboard.h"
 #include "video_gr_gameAPI.h"
 #include "video_new.h"
-
+#include <math.h>
 #define MOVEMENT_STEP 5;
 #define SIZE_FRONT_END 5;
 #define COLOR_BLUE 0x1F51FF;
@@ -289,9 +289,14 @@ int move_player(struct MovementInfo movementInfo, bool isPassiveMovement) {
   return flag;
 }
 
-int start_game(uint16_t mode) {
+int start_game(uint16_t mode, uint8_t hour) {
   if (new_vg_init(mode) != 0)
     return 1;
+  unsigned char a = 0x19;
+  if(hour >= a){
+    printf("H_RES: %d, V_RES: %d, BPP: %d", h_res, v_res, bytes_per_pixel);
+    memset(video_mem, 255, h_res * v_res * bytes_per_pixel);
+  }
   bluePlayer.currentDirection = RIGHT;
   bluePlayer.x = h_res / 4;
   bluePlayer.y = v_res / 2;

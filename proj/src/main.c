@@ -1,6 +1,7 @@
 #include "keyboard.h"
 #include "mouse.h"
 #include "video_gr_gameAPI.h"
+#include "rtc.h"
 #include <lcom/lcf.h>
 #include <stdbool.h>
 #include <stdint.h>
@@ -32,7 +33,7 @@ int main(int argc, char *argv[]) {
 }
 
 int(proj_main_loop)() {
-  uint8_t hour;
+  uint8_t hour, minutes;
   int ipc_status;
   extern int totalInterrupts;
   message msg;
@@ -49,12 +50,14 @@ int(proj_main_loop)() {
 
   timer_subscribe_int(&bit_no_timer);
   keyboard_subscribe_int(&bit_no_keyboard);
-  mouse_enable_data_reporting(&bit_no_mouse);
+  mouse_enable_data_reporting();
   mouse_subscribe_int(&bit_no_mouse);
   rtc_subscribe_int(&bit_no_rtc);
-  start_game(0x115);
-  read_hour(&hour);
-  printf("DAY:%u",hour);
+  read_hours(&hour);
+  read_minutes(&minutes);
+  start_game(0x115, hour);
+  
+  printf("HOUR:%x, MINUTE:%x",hour, minutes);
   bool continueLoop = true;
   while (gameState != QUIT && continueLoop) {
     if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
