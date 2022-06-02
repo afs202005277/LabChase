@@ -30,6 +30,39 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
+int wait_for_connection(uint8_t bit_no_serial) {
+  int r, ipc_status;
+  message msg;
+  extern uint8_t receivedChar;
+  send_character('p');
+  unsigned char character;
+  read_character(&character);
+  if (character == 'c')
+    return 0;
+  while (true) {
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) {
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE:
+          if (msg.m_notify.interrupts & BIT(bit_no_serial)) {
+            serial_ih();
+            if (receivedChar == 'c'){
+              send_character('p');
+              return 0;
+            }
+          }
+          break;
+        default:
+          break;
+      }
+    }
+  }
+  return 1;
+}
+
 int(proj_main_loop)() {
   extern uint8_t receivedChar;
   int ipc_status;
@@ -51,7 +84,8 @@ int(proj_main_loop)() {
   mouse_enable_data_reporting();
   mouse_subscribe_int(&bit_no_mouse);
   serial_subscribe(&bit_no_serial);
-  
+
+  wait_for_connection(bit_no_serial);
   start_game(0x14C);
   bool continueLoop = true;
   while (gameState != QUIT && continueLoop && scanCode != ESC_BREAK_CODE) {
@@ -64,25 +98,25 @@ int(proj_main_loop)() {
         case HARDWARE:
           if (msg.m_notify.interrupts & BIT(bit_no_timer)) {
             timer_int_handler();
-            /* if (totalInterrupts % 5 == 0) {
+            if (totalInterrupts % 20 == 0) {
               if (passive_move_players() == 1) {
                 continueLoop = false;
               }
-            } */
+            }
           }
           if (msg.m_notify.interrupts & BIT(bit_no_serial)) {
             serial_ih();
             struct MovementInfo mov;
             mov.dir = receivedChar;
             mov.playerColor = OTHER;
-            if (move_player(mov, false) == 1){
-              printf("Break\n");
+            bool validReceive = receivedChar == UP || receivedChar == DOWN || receivedChar == LEFT || receivedChar == RIGHT;
+            if (validReceive && move_player(mov, false) == 1) {
               continueLoop = false;
             }
           }
           if (msg.m_notify.interrupts & BIT(bit_no_keyboard)) {
             kbc_ih();
-            if (nextMove.dir != UNCHANGED){
+            if (nextMove.dir != UNCHANGED) {
               send_character(nextMove.dir);
               if (nextMove.playerColor == ME && move_player(nextMove, false) == 1) {
                 continueLoop = false;

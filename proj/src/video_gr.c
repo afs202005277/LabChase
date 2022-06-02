@@ -237,10 +237,10 @@ int opposite(int dir) {
 }
 
 int passive_move_players() {
-  struct MovementInfo passive_movement_blue = {.dir = me.currentDirection, .playerColor = my_color}, passive_movement_orange = {.dir = other.currentDirection, .playerColor = other_color};
-  if (move_player(passive_movement_blue, true) != 0)
+  struct MovementInfo passive_movement_me = {.dir = me.currentDirection, .playerColor = ME}, passive_movement_other = {.dir = other.currentDirection, .playerColor = OTHER};
+  if (move_player(passive_movement_me, true) != 0)
     return 1;
-  if (move_player(passive_movement_orange, true) != 0)
+  if (move_player(passive_movement_other, true) != 0)
     return 1;
   return 0;
 }
