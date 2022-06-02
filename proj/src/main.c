@@ -51,9 +51,10 @@ int(proj_main_loop)() {
   mouse_enable_data_reporting();
   mouse_subscribe_int(&bit_no_mouse);
   serial_subscribe(&bit_no_serial);
+  
   start_game(0x14C);
   bool continueLoop = true;
-  while (gameState != QUIT && continueLoop) {
+  while (gameState != QUIT && continueLoop && scanCode != ESC_BREAK_CODE) {
     if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
       printf("driver_receive failed with: %d", r);
       continue;
@@ -82,11 +83,9 @@ int(proj_main_loop)() {
           if (msg.m_notify.interrupts & BIT(bit_no_keyboard)) {
             kbc_ih();
             if (nextMove.dir != UNCHANGED){
-              if (nextMove.dir == ME && move_player(nextMove, false) == 1) {
+              send_character(nextMove.dir);
+              if (nextMove.playerColor == ME && move_player(nextMove, false) == 1) {
                 continueLoop = false;
-              }
-              if (nextMove.playerColor == OTHER){
-                send_character(nextMove.dir);
               }
             }
           }

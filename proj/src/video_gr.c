@@ -251,7 +251,7 @@ int move_player(struct MovementInfo movementInfo, bool isPassiveMovement) {
   struct PlayerPosition tmp;
   uint32_t color;
   uint8_t flag;
-  if (movementInfo.playerColor == my_color) {
+  if (movementInfo.playerColor == ME) {
     tmp = me;
     color = my_color;
   }
@@ -287,7 +287,7 @@ int move_player(struct MovementInfo movementInfo, bool isPassiveMovement) {
     default:
       return 1;
   }
-  if (movementInfo.playerColor == my_color)
+  if (movementInfo.playerColor == ME)
     me = tmp;
   else
     other = tmp;
@@ -304,6 +304,7 @@ int start_game(uint16_t mode) {
   other.currentDirection = LEFT;
   other.x = h_res / 2 + 100;
   other.y = v_res / 2;
+  start_screen(me.x, me.y, my_color, other.x, other.y, other_color, 5);
   return 0;
 }
 
