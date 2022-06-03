@@ -38,12 +38,8 @@ int main(int argc, char *argv[]) {
 }
 
 int(proj_main_loop)() {
-<<<<<<< HEAD
-  //uint8_t hour;
-=======
-  uint8_t hour, minutes;
->>>>>>> 80012263a370fe3903a70f065b3de1869789c665
-  int ipc_status;
+  //uint8_t hour, minutes;
+  //int ipc_status;
   extern int totalInterrupts;
   message msg;
   extern uint8_t scanCode;
