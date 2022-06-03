@@ -56,9 +56,9 @@ void(kbc_ih)(){
     if (temp == 153) {
       extern enum screenState screenState;
       if (screenState == PAUSE)
-        screenState = GAME;
+        screenState = S_GAME;
       else
-        screenState = PAUSE;
+        screenState = PAUSE;// Multiplayer
     }
 
     if (temp == 145 || temp == 159 || temp == 158 || temp == 160) {
