@@ -3,12 +3,7 @@
 
 #include "keyboard.h"
 #include "video_gr_gameAPI.h"
-<<<<<<< HEAD
-#include "video_new.h"
-#include <math.h>
-=======
 
->>>>>>> f296b187d27b80f00d93efc7687710b582b29c01
 #define MOVEMENT_STEP 5;
 #define SIZE_FRONT_END 5;
 #define COLOR_BLUE 0x1F51FF;
