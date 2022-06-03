@@ -2,6 +2,9 @@
   "files.associations": {
     "istream": "c",
     "keyboard.h": "c",
-    "*.xpm": "c"
-  }
+    "*.xpm": "c",
+    "auxiliary_data_structures.h": "c",
+    "xloctime": "c"
+  },
+  "C_Cpp.errorSquiggles": "Disabled"
 }

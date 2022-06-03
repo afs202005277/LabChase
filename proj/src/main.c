@@ -1,6 +1,7 @@
 #include "keyboard.h"
 #include "mouse.h"
 #include "video_gr_gameAPI.h"
+#include "rtc.h"
 #include <lcom/lcf.h>
 #include <stdbool.h>
 #include <stdint.h>
@@ -37,7 +38,11 @@ int main(int argc, char *argv[]) {
 }
 
 int(proj_main_loop)() {
+<<<<<<< HEAD
   //uint8_t hour;
+=======
+  uint8_t hour, minutes;
+>>>>>>> 80012263a370fe3903a70f065b3de1869789c665
   int ipc_status;
   extern int totalInterrupts;
   message msg;
