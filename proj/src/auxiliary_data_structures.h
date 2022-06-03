@@ -19,7 +19,8 @@ struct MovementInfo {
 
 enum screenState {
   MAIN,
-  GAME,
+  S_GAME,
+  M_GAME,
   PAUSE,
   GOONE,
   GOTWO,
