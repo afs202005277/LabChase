@@ -112,7 +112,7 @@ int(vg_draw_hline)(uint16_t x, uint16_t y, uint16_t len, uint32_t color) {
 
 int(vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color) {
   uint8_t flag = 0;
-  if (find_color(x, y) != 0) {
+  if (find_color(x, y) != 0 && find_color(x, y) != 255) {
     flag = 1;
   }
   for (int offset = 0; offset < height; offset++) {
@@ -226,7 +226,7 @@ int start_game(uint16_t mode, uint8_t hour) {
     return 1;
   unsigned char a = 0x19;
   if(hour >= a){
-    printf("H_RES: %d, V_RES: %d, BPP: %d", h_res, v_res, bytes_per_pixel);
+    //printf("H_RES: %d, V_RES: %d, BPP: %d", h_res, v_res, bytes_per_pixel);
     memset(video_mem, 255, h_res * v_res * bytes_per_pixel);
   }
   bluePlayer.currentDirection = RIGHT;

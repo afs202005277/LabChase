@@ -38,14 +38,14 @@ int main(int argc, char *argv[]) {
 }
 
 int(proj_main_loop)() {
-  //uint8_t hour, minutes;
-  //int ipc_status;
+  uint8_t hour;
+  int ipc_status;
   extern int totalInterrupts;
   message msg;
   extern uint8_t scanCode;
   extern struct MovementInfo nextMove;
   int r;
-  unsigned char bit_no_timer, bit_no_keyboard, bit_no_mouse/*, bit_no_rtc*/;
+  unsigned char bit_no_timer, bit_no_keyboard, bit_no_mouse, bit_no_rtc;
 
   /* Mouse Variables */
   // struct packet pp;
@@ -54,11 +54,10 @@ int(proj_main_loop)() {
 
   timer_subscribe_int(&bit_no_timer);
   keyboard_subscribe_int(&bit_no_keyboard);
-  //mouse_enable_data_reporting(&bit_no_mouse);
+  mouse_enable_data_reporting();
   mouse_subscribe_int(&bit_no_mouse);
-  //rtc_subscribe_int(&bit_no_rtc);
-  //read_hour(&hour);
-  //printf("DAY:%u",hour);
+  rtc_subscribe_int(&bit_no_rtc);
+  read_hours(&hour);
 
   if (new_vg_init(0x115) != 0)
     return 1;
@@ -125,7 +124,7 @@ int(proj_main_loop)() {
 
     while (screenState == S_GAME) {
       if (!startGame) {
-        start_game();
+        start_game(0x115,hour);
         startGame = true;
         printed = false;
       }
@@ -168,7 +167,7 @@ int(proj_main_loop)() {
     }
     while (screenState == M_GAME) {
       if (!startGame) { // Function that runs once when game starts
-        start_game();
+        start_game(0x115, hour);
         startGame = true;
         printed = false;
       }
@@ -180,6 +179,6 @@ int(proj_main_loop)() {
   keyboard_unsubscribe_int();
   timer_unsubscribe_int();
   mouse_unsubscribe_int();
-  //rtc_unsubscribe_int();
+  rtc_unsubscribe_int();
   return 0;
 }

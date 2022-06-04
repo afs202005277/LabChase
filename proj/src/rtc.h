@@ -7,7 +7,6 @@
  * Real time clock functions
  */
 
-
 #define RTC_IRQ 8
 
 #define RTC_ADDRESS_REG 0x70
@@ -16,9 +15,6 @@
 // data registers
 #define RTC_HOURS 4
 #define RTC_MINUTES 2
-
-
-
 
 /**
  * @brief Subscribes interrupts from the rtc
@@ -70,7 +66,5 @@ int read_minutes(uint8_t *minutes);
  * @param seconds - Where the seconds value is returned
  * @return int - Returns 0 if sucessful and 1 if not
  */
-
-
 
 /** @} end of rtc */
