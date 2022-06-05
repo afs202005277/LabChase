@@ -5,7 +5,6 @@
 #include "video_gr_gameAPI.h"
 #include "video_new.h"
 
-
 #define MOVEMENT_STEP 5;
 #define SIZE_FRONT_END 5;
 #define COLOR_BLUE 0x000000FF;
@@ -93,7 +92,7 @@ int new_vg_init(uint16_t mode) {
     panic("couldn’t map video memory");
     return 2;
   }
-  return set_mode(mode); 
+  return set_mode(mode);
 }
 
 int vg_draw_pixel(uint16_t x, uint16_t y, uint32_t color) {
@@ -120,24 +119,22 @@ int(vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, 
   return flag;
 }
 
-int xpm_drawer(xpm_map_t xpm, uint16_t x, uint16_t y) {
-  xpm_image_t img;
-  xpm_load(xpm, XPM_8_8_8, &img);
-  img_height = img.height;
-  img_width = img.width;
-  for (int height = 0; height < img.height; height++) {
-    memcpy((char *) video_mem + (img.width * (y + height) + x) * bytes_per_pixel, img.bytes + img.width * bytes_per_pixel * height, img.width);
+int draw_img(xpm_image_t img, uint16_t x, uint16_t y) {
+  for (int offset_x = 0; offset_x < img.width; offset_x++) {
+    for (int offset_y = 0; offset_y < img.height; offset_y++) {
+      uint32_t color;
+      memcpy(&color, &img.bytes[(offset_y * img.width + offset_x)*bytes_per_pixel], bytes_per_pixel);
+      vg_draw_pixel(x + offset_x, y + offset_y, color);
+    }
   }
   return 0;
 }
 
-int xpmDrawer(xpm_map_t xpm) {
+xpm_image_t draw_xpm(xpm_map_t xpm, uint16_t x, uint16_t y) {
   xpm_image_t img;
   xpm_load(xpm, XPM_8_8_8, &img);
-  img_height = img.height;
-  img_width = img.width;
-  memcpy(video_mem, img.bytes, img.height * img.width * bytes_per_pixel);
-  return 0;
+  draw_img(img, x, y);
+  return img;
 }
 
 bool continueLoop(uint16_t xi, uint16_t xf, uint16_t yi, uint16_t yf, bool isHorizontal, uint8_t scanCode) {
@@ -321,29 +318,29 @@ int(find_color)(uint16_t x, uint16_t y) {
   return color;
 }
 
-int(setMouseInitPos)(){
-  mouse.x = h_res/2;
-  mouse.y = v_res/2;
+int(setMouseInitPos)() {
+  mouse.x = h_res / 2;
+  mouse.y = v_res / 2;
   vg_draw_rectangle(mouse.x, mouse.y, 10, 10, 0xffff);
   return 0;
 }
 
-int(mouseMovement)(uint16_t x, uint16_t y){
+int(mouseMovement)(uint16_t x, uint16_t y) {
   vg_draw_rectangle(mouse.x, mouse.y, 10, 10, 0);
 
   mouse.x += x;
   mouse.y -= y;
 
-  if(mouse.x >= h_res - 30){
+  if (mouse.x >= h_res - 30) {
     mouse.x = h_res - 30;
   }
-  if(mouse.x <= 30){
+  if (mouse.x <= 30) {
     mouse.x = 30;
   }
-  if(mouse.y >= v_res - 30){
+  if (mouse.y >= v_res - 30) {
     mouse.y = v_res - 30;
   }
-  if(mouse.y <= 30){
+  if (mouse.y <= 30) {
     mouse.y = 30;
   }
 
@@ -358,4 +355,3 @@ bool(mouseInStart)(){
   }
   return false;
 }*/
-

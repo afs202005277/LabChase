@@ -4,7 +4,7 @@
 #include <lcom/lcf.h>
 #include <stdbool.h>
 #include <stdint.h>
-#include "rato_xpm.h"
+#include "rato.xpm"
 #include "video_new.h"
 
 int main(int argc, char *argv[]) {
@@ -50,7 +50,8 @@ int(proj_main_loop)() {
   keyboard_subscribe_int(&bit_no_keyboard);
   mouse_enable_data_reporting();
   mouse_subscribe_int(&bit_no_mouse);
-  start_game(0x14C);
+  start_game(0x115);
+  draw_xpm(minix3_xpm, 100, 100);
   bool continueLoop = true;
   //setMouseInitPos();
   while (gameState != QUIT && continueLoop) {
@@ -87,7 +88,7 @@ int(proj_main_loop)() {
               counter = 0;
               parse_mouse_bytes(&pp);
               parse_mouse_info(&pp, &gameState);
-              xpmDrawer(rato);
+              /* xpmDrawer(rato, 100, 100); */
               //mouseMovement(pp.delta_x, pp.delta_y);
               /*if(mouseInStart() && pp.lb){
                 //começar joguinho

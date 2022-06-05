@@ -12,6 +12,8 @@ int setMouseInitPos ();
 
 int mouseMovement (uint16_t x, uint16_t y);
 
-int xpmDrawer(xpm_map_t xpm);
+int xpmDrawer(xpm_map_t xpm, uint16_t x, uint16_t y);
 
 int xpm_drawer(xpm_map_t xpm, uint16_t x, uint16_t y);
+
+xpm_image_t draw_xpm(xpm_map_t xpm, uint16_t x, uint16_t y);
