@@ -1,14 +1,15 @@
 #include "keyboard.h"
 #include "mouse.h"
-#include "video_gr_gameAPI.h"
 #include "rtc.h"
+#include "serial.h"
+#include "video_gr_gameAPI.h"
 #include <lcom/lcf.h>
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "XPMs/MainScreen.xpm"
 #include "XPMs/GameOverPlayerOneWins.xpm"
 #include "XPMs/GameOverPlayerTwoWins.xpm"
+#include "XPMs/MainScreen.xpm"
 #include "XPMs/PauseScreen.xpm"
 
 enum screenState screenState = S_GAME;
@@ -37,15 +38,49 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
+int wait_for_connection(uint8_t bit_no_serial) {
+  int r, ipc_status;
+  message msg;
+  extern uint8_t receivedChar;
+  send_character('p');
+  unsigned char character;
+  read_character(&character);
+  if (character == 'c')
+    return 0;
+  while (true) {
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) {
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE:
+          if (msg.m_notify.interrupts & BIT(bit_no_serial)) {
+            serial_ih();
+            if (receivedChar == 'c') {
+              send_character('p');
+              return 0;
+            }
+          }
+          break;
+        default:
+          break;
+      }
+    }
+  }
+  return 1;
+}
+
 int(proj_main_loop)() {
   uint8_t hour;
+  extern uint8_t receivedChar;
   int ipc_status;
   extern int totalInterrupts;
   message msg;
   extern uint8_t scanCode;
   extern struct MovementInfo nextMove;
   int r;
-  unsigned char bit_no_timer, bit_no_keyboard, bit_no_mouse, bit_no_rtc;
+  unsigned char bit_no_timer, bit_no_keyboard, bit_no_mouse, bit_no_rtc, bit_no_serial;
 
   /* Mouse Variables */
   // struct packet pp;
@@ -66,7 +101,7 @@ int(proj_main_loop)() {
   bool startGame = false;
   bool paused = false;
 
-  void* saveGameScreen = malloc(get_h_res()*get_v_res()*get_bits_per_pixel()/8);
+  void *saveGameScreen = malloc(get_h_res() * get_v_res() * get_bits_per_pixel() / 8);
 
   while (screenState != QUIT) {
 
@@ -96,7 +131,7 @@ int(proj_main_loop)() {
 
     while (screenState == PAUSE) {
       if (!printed) {
-        memcpy(saveGameScreen, get_video_mem(), get_h_res()*get_v_res()*get_bits_per_pixel()/8);
+        memcpy(saveGameScreen, get_video_mem(), get_h_res() * get_v_res() * get_bits_per_pixel() / 8);
         printed = true;
         paused = true;
         xpm_drawer(PauseScreen);
@@ -124,12 +159,12 @@ int(proj_main_loop)() {
 
     while (screenState == S_GAME) {
       if (!startGame) {
-        start_game(0x115,hour);
+        start_game(0x115, hour);
         startGame = true;
         printed = false;
       }
       if (paused) {
-        memcpy(get_video_mem(), saveGameScreen, get_h_res()*get_v_res()*get_bits_per_pixel()/8);
+        memcpy(get_video_mem(), saveGameScreen, get_h_res() * get_v_res() * get_bits_per_pixel() / 8);
         paused = false;
         printed = false;
       }
@@ -165,13 +200,71 @@ int(proj_main_loop)() {
         }
       }
     }
+    bool connectionSet = false;
     while (screenState == M_GAME) {
+      if (!connectionSet) {
+        wait_for_connection(bit_no_serial);
+        connectionSet = true;
+      }
       if (!startGame) { // Function that runs once when game starts
         start_game(0x115, hour);
         startGame = true;
         printed = false;
       }
-      // Multiplayer
+      if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+        printf("driver_receive failed with: %d", r);
+        continue;
+      }
+      if (is_ipc_notify(ipc_status)) {
+        switch (_ENDPOINT_P(msg.m_source)) {
+          case HARDWARE:
+            if (msg.m_notify.interrupts & BIT(bit_no_timer)) {
+              timer_int_handler();
+              if (totalInterrupts % 20 == 0) {
+                int tmp = passive_move_players();
+                if (tmp == 1) {
+                  screenState = GOTWO;
+                }
+                else if (tmp == 2) {
+                  screenState = GOONE;
+                }
+              }
+            }
+            if (msg.m_notify.interrupts & BIT(bit_no_serial)) {
+              serial_ih();
+              struct MovementInfo mov;
+              mov.dir = receivedChar;
+              mov.playerID = OTHER;
+              bool validReceive = receivedChar == UP || receivedChar == DOWN || receivedChar == LEFT || receivedChar == RIGHT;
+              if (validReceive && move_player(mov, false) == 1) {
+                screenState = QUIT;
+              }
+            }
+            if (msg.m_notify.interrupts & BIT(bit_no_keyboard)) {
+              kbc_ih();
+              if (nextMove.dir != UNCHANGED) {
+                send_character(nextMove.dir);
+                if (nextMove.playerID == ME && move_player(nextMove, false) == 1) {
+                  screenState = QUIT;
+                }
+              }
+            }
+            /* if (msg.m_notify.interrupts & BIT(bit_no_mouse)) {
+              mouse_ih();
+              if (!(counter == 0 && (byteFromMouse & BIT(3)) == 0)) {
+                pp.bytes[counter] = byteFromMouse;
+                counter++;
+              }
+              if (counter == 3) {
+                counter = 0;
+                parse_mouse_info(&pp, &gameState);
+              }
+            } */
+            break;
+          default:
+            break;
+        }
+      }
     }
   }
 

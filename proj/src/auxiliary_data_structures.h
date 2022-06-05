@@ -9,12 +9,12 @@ enum direction { UP,
                  RIGHT,
                  UNCHANGED };
 
-enum player { BLUE,
-              ORANGE };
+enum player { ME,
+              OTHER };
 
 struct MovementInfo {
   enum direction dir;
-  enum player playerColor;
+  enum player playerID;
 };
 
 enum screenState {
