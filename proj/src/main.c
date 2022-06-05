@@ -100,7 +100,7 @@ int(proj_main_loop)() {
   bool printed = false;
   bool startGame = false;
   bool paused = false;
-
+  bool connectionSet = false;
   void *saveGameScreen = malloc(get_h_res() * get_v_res() * get_bits_per_pixel() / 8);
 
   while (screenState != QUIT) {
@@ -200,9 +200,9 @@ int(proj_main_loop)() {
         }
       }
     }
-    bool connectionSet = false;
     while (screenState == M_GAME) {
       if (!connectionSet) {
+        serial_subscribe(&bit_no_serial);
         wait_for_connection(bit_no_serial);
         connectionSet = true;
       }
@@ -267,7 +267,8 @@ int(proj_main_loop)() {
       }
     }
   }
-
+  if (connectionSet)
+    serial_unsubscribe();
   vg_exit();
   keyboard_unsubscribe_int();
   timer_unsubscribe_int();
