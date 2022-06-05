@@ -12,8 +12,6 @@ int(mouse_unsubscribe_int)();
 
 void(mouse_ih)();
 
-int parse_mouse_info(struct packet *pp, enum mouseAction *gameState);
-
 void(parse_mouse_bytes)(struct packet* pp);
 
 void(disableDataReporting)();

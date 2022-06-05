@@ -3,15 +3,12 @@
 
 #include "keyboard.h"
 #include "video_gr_gameAPI.h"
-#include "video_new.h"
-#include "cursor.xpm"
-#include <stdlib.h>
 
 
 #define MOVEMENT_STEP 5;
 #define SIZE_FRONT_END 5;
-#define COLOR_BLUE 0x000000FF;
-#define COLOR_ORANGE 0x00FF8000;
+#define COLOR_BLUE 0x1F51FF;
+#define COLOR_ORANGE 0xFF5F1F;
 
 static void *video_mem;
 static unsigned h_res;
@@ -49,8 +46,12 @@ unsigned get_v_res() {
   return v_res;
 }
 
+void* get_video_mem() {
+  return video_mem;
+}
+
 unsigned get_bits_per_pixel() {
-  return bytes_per_pixel / 8;
+  return bytes_per_pixel * 8;
 }
 
 int(set_mode)(uint16_t mode) {
@@ -78,7 +79,8 @@ int new_vg_init(uint16_t mode) {
   unsigned int vram_size = (info.BitsPerPixel * info.XResolution * info.YResolution) / 8;
   h_res = info.XResolution;
   v_res = info.YResolution;
-  bytes_per_pixel = info.BytesPerScanLine / h_res;
+  bytes_per_pixel = (info.BitsPerPixel+7) / 8;
+  printf("%u\n", bytes_per_pixel);
   BlueMaskSize = info.BlueMaskSize;
   RedMaskSize = info.RedMaskSize;
   GreenMaskSize = info.GreenMaskSize;
@@ -92,7 +94,7 @@ int new_vg_init(uint16_t mode) {
 
   video_mem = vm_map_phys(SELF, (void *) mr.mr_base, vram_size);
   if (video_mem == MAP_FAILED) {
-    panic("couldn’t map video memory");
+    panic("couldn't map video memory");
     return 2;
   }
 
@@ -114,7 +116,7 @@ int(vg_draw_hline)(uint16_t x, uint16_t y, uint16_t len, uint32_t color) {
 
 int(vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color) {
   uint8_t flag = 0;
-  if (find_color(x, y) != 0) {
+  if (find_color(x, y) != 0 && find_color(x, y) != 255) {
     flag = 1;
   }
   for (int offset = 0; offset < height; offset++) {
@@ -123,14 +125,12 @@ int(vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, 
   return flag;
 }
 
-int draw_img(xpm_image_t img, uint16_t x, uint16_t y) {
-  for (int offset_x = 0; offset_x < img.width; offset_x++) {
-    for (int offset_y = 0; offset_y < img.height; offset_y++) {
-      uint32_t color;
-      memcpy(&color, &img.bytes[(offset_y * img.width + offset_x)*bytes_per_pixel], bytes_per_pixel);
-      vg_draw_pixel(x + offset_x, y + offset_y, color);
-    }
-  }
+int xpm_drawer(xpm_map_t xpm) {
+  xpm_image_t img;
+  xpm_load(xpm, XPM_8_8_8, &img);
+  img_height = img.height;
+  img_width = img.width;
+  memcpy(video_mem, img.bytes, img.height*img.width*bytes_per_pixel);
   return 0;
 }
 
@@ -150,78 +150,8 @@ bool continueLoop(uint16_t xi, uint16_t xf, uint16_t yi, uint16_t yf, bool isHor
     return false;
   return true;
 }
-/*
-int xpm_move(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate) {
-  uint16_t prevX = xi;
-  uint16_t prevY = yi;
-  int r, ipc_status;
-  extern int totalInterrupts;
-  extern uint8_t scanCode;
-  message msg;
-  uint8_t timerBIT, kbcBIT;
-  int frames = 60 / fr_rate;
-  bool isHorizontal = false;
-  if (yi == yf)
-    isHorizontal = true;
-  timer_subscribe_int(&timerBIT);
-  keyboard_subscribe_int(&kbcBIT);
-  xpm_drawer(xpm, xi, yi);
-  while (continueLoop(xi, xf, yi, yf, isHorizontal, scanCode)) {
 
-    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
-      printf("driver_receive failed with: %d", r);
-      continue;
-    }
-    if (is_ipc_notify(ipc_status)) {
-      switch (_ENDPOINT_P(msg.m_source)) {
-        case HARDWARE:
-          if (msg.m_notify.interrupts & BIT(timerBIT)) {
-            totalInterrupts++;
-            if (isHorizontal) {
-              if (xi + speed > xf) {
-                xi = xf;
-                vg_draw_rectangle(prevX, prevY, img_width, img_height, 0);
-                xpm_drawer(xpm, xi, yi);
-                break;
-              }
-              else {
-                xi += speed;
-              }
-            }
-            else {
-              if (yi + speed > yf) {
-                yi = yf;
-                vg_draw_rectangle(prevX, prevY, img_width, img_height, 0);
-                xpm_drawer(xpm, xi, yi);
-                break;
-              }
-              else {
-                yi += speed;
-              }
-            }
-            if (totalInterrupts % frames == 0) {
-              vg_draw_rectangle(prevX, prevY, img_width, img_height, 0);
-              prevX = xi;
-              prevY = yi;
-              xpm_drawer(xpm, xi, yi);
-            }
-          }
-          if (msg.m_notify.interrupts & BIT(kbcBIT)) {
-            kbc_ih();
-          }
-          break;
-        default:
-          break;
-      }
-    }
-    else {
-    }
-  }
-  timer_unsubscribe_int();
-  keyboard_unsubscribe_int();
-  return 0;
-}
-*/
+
 // PROJECT:
 
 int start_screen(uint16_t x1, uint16_t y1, uint32_t color1, uint16_t x2, uint16_t y2, uint32_t color2, uint16_t OBJ_SIZE) {
@@ -250,7 +180,7 @@ int passive_move_players() {
   if (move_player(passive_movement_blue, true) != 0)
     return 1;
   if (move_player(passive_movement_orange, true) != 0)
-    return 1;
+    return 2;
   return 0;
 }
 
@@ -303,9 +233,14 @@ int move_player(struct MovementInfo movementInfo, bool isPassiveMovement) {
   return flag;
 }
 
-int start_game(uint16_t mode) {
+int start_game(uint16_t mode, uint8_t hour) {
   if (new_vg_init(mode) != 0)
     return 1;
+  unsigned char a = 0x19;
+  if(hour >= a){
+    //printf("H_RES: %d, V_RES: %d, BPP: %d", h_res, v_res, bytes_per_pixel);
+    memset(video_mem, 255, h_res * v_res * bytes_per_pixel);
+  }
   bluePlayer.currentDirection = RIGHT;
   bluePlayer.x = h_res / 2 - 100;
   bluePlayer.y = v_res / 2;
@@ -317,7 +252,7 @@ int start_game(uint16_t mode) {
 }
 
 int(find_color)(uint16_t x, uint16_t y) {
-  unsigned int color;
+  unsigned int color = 0;
   memcpy(&color, (char *) video_mem + (y * h_res + x) * bytes_per_pixel, bytes_per_pixel);
   return color;
 }

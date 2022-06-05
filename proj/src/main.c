@@ -1,12 +1,20 @@
 #include "keyboard.h"
 #include "mouse.h"
 #include "video_gr_gameAPI.h"
+#include "rtc.h"
 #include <lcom/lcf.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include "rato.xpm"
 #include "video_new.h"
 #include "cursor.xpm"
+
+#include "XPMs/MainScreen.xpm"
+#include "XPMs/GameOverPlayerOneWins.xpm"
+#include "XPMs/GameOverPlayerTwoWins.xpm"
+#include "XPMs/PauseScreen.xpm"
+
+enum screenState screenState = S_GAME;
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -33,82 +41,148 @@ int main(int argc, char *argv[]) {
 }
 
 int(proj_main_loop)() {
+  uint8_t hour;
   int ipc_status;
   extern int totalInterrupts;
   message msg;
   extern uint8_t scanCode;
   extern struct MovementInfo nextMove;
   int r;
-  unsigned char bit_no_timer, bit_no_keyboard, bit_no_mouse;
+  unsigned char bit_no_timer, bit_no_keyboard, bit_no_mouse, bit_no_rtc;
 
   /* Mouse Variables */
-  struct packet pp;
-  extern uint8_t byteFromMouse;
-  uint8_t counter = 0;
-  enum mouseAction gameState = PAUSE;
+  // struct packet pp;
+  // extern uint8_t byteFromMouse;
+  // uint8_t counter = 0;
 
   timer_subscribe_int(&bit_no_timer);
   keyboard_subscribe_int(&bit_no_keyboard);
   mouse_enable_data_reporting();
   mouse_subscribe_int(&bit_no_mouse);
-  start_game(0x115);
-  bool continueLoop = true;
-  //setMouseInitPos();
-  while (gameState != QUIT && continueLoop) {
-    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
-      printf("driver_receive failed with: %d", r);
-      continue;
-    }
-    if (is_ipc_notify(ipc_status)) {
-      switch (_ENDPOINT_P(msg.m_source)) {
-        case HARDWARE:
-          /*if (msg.m_notify.interrupts & BIT(bit_no_timer)) {
-            timer_int_handler();
-            if (totalInterrupts % 5 == 0) {
-              if (passive_move_players() == 1){
-                continueLoop = false;
-              }
-            }
-          }
-            if (msg.m_notify.interrupts & BIT(bit_no_keyboard)) {
-            kbc_ih();
-            if (nextMove.dir != UNCHANGED)
-              if (move_player(nextMove, false) == 1){
-                continueLoop = false;
-              }
-          }
-          */
-          if (msg.m_notify.interrupts & BIT(bit_no_mouse)) {
-            mouse_ih();
-            if (!(counter == 0 && (byteFromMouse & BIT(3)) == 0)) {
-              pp.bytes[counter] = byteFromMouse;
-              counter++;
-            }
-            if (counter == 3) {
-              counter = 0;
-              parse_mouse_bytes(&pp);
-              parse_mouse_info(&pp, &gameState);
-              mouseMovement(pp.delta_x, pp.delta_y);
-              if(mouseInPlace(253, 288, 547, 313)){
-                //começar joguinho
-              }
-              else if(mouseInPlace(268, 352, 532, 376)){
-                //multiplayer
-              }
-              else if(mouseInPlace(358, 412, 442, 437)){
-                //abraço acabou o jogo
-              }
-            }
-          }
-          break;
-        default:
-          break;
+
+  rtc_subscribe_int(&bit_no_rtc);
+  read_hours(&hour);
+
+  if (new_vg_init(0x115) != 0)
+    return 1;
+
+  bool printed = false;
+  bool startGame = false;
+  bool paused = false;
+
+  void* saveGameScreen = malloc(get_h_res()*get_v_res()*get_bits_per_pixel()/8);
+
+  while (screenState != QUIT) {
+
+    while (screenState == MAIN) {
+      if (!printed) {
+        xpm_drawer(MainScreen);
+        printed = true;
+        startGame = false;
       }
     }
+
+    while (screenState == GOONE) {
+      if (!printed) {
+        xpm_drawer(GOPOneWins);
+        printed = true;
+        startGame = false;
+      }
+    }
+
+    while (screenState == GOTWO) {
+      if (!printed) {
+        xpm_drawer(GOPTwoWins);
+        printed = true;
+        startGame = false;
+      }
+    }
+
+    while (screenState == PAUSE) {
+      if (!printed) {
+        memcpy(saveGameScreen, get_video_mem(), get_h_res()*get_v_res()*get_bits_per_pixel()/8);
+        printed = true;
+        paused = true;
+        xpm_drawer(PauseScreen);
+      }
+      if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+        printf("driver_receive failed with: %d", r);
+        continue;
+      }
+      if (is_ipc_notify(ipc_status)) {
+        switch (_ENDPOINT_P(msg.m_source)) {
+          case HARDWARE:
+            if (msg.m_notify.interrupts & BIT(bit_no_keyboard)) {
+              kbc_ih();
+              if (nextMove.dir != UNCHANGED)
+                if (move_player(nextMove, false) == 1) {
+                  screenState = QUIT;
+                }
+            }
+            break;
+          default:
+            break;
+        }
+      }
+    }
+
+    while (screenState == S_GAME) {
+      if (!startGame) {
+        start_game(0x115,hour);
+        startGame = true;
+        printed = false;
+      }
+      if (paused) {
+        memcpy(get_video_mem(), saveGameScreen, get_h_res()*get_v_res()*get_bits_per_pixel()/8);
+        paused = false;
+        printed = false;
+      }
+      if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+        printf("driver_receive failed with: %d", r);
+        continue;
+      }
+      if (is_ipc_notify(ipc_status)) {
+        switch (_ENDPOINT_P(msg.m_source)) {
+          case HARDWARE:
+            if (msg.m_notify.interrupts & BIT(bit_no_timer)) {
+              timer_int_handler();
+              if (totalInterrupts % 5 == 0) {
+                int tmp = passive_move_players();
+                if (tmp == 1) {
+                  screenState = GOTWO;
+                }
+                else if (tmp == 2) {
+                  screenState = GOONE;
+                }
+              }
+            }
+            if (msg.m_notify.interrupts & BIT(bit_no_keyboard)) {
+              kbc_ih();
+              if (nextMove.dir != UNCHANGED)
+                if (move_player(nextMove, false) == 1) {
+                  screenState = QUIT;
+                }
+            }
+            break;
+          default:
+            break;
+        }
+      }
+    }
+    while (screenState == M_GAME) {
+      if (!startGame) { // Function that runs once when game starts
+        start_game(0x115, hour);
+        startGame = true;
+        printed = false;
+      }
+      // Multiplayer
+    }
   }
+
   vg_exit();
   keyboard_unsubscribe_int();
   timer_unsubscribe_int();
   mouse_unsubscribe_int();
+  rtc_unsubscribe_int();
   return 0;
 }

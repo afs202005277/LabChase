@@ -50,7 +50,16 @@ void(kbc_ih)(){
   uint8_t status, temp;
   util_sys_inb(KBC_ST_REG, &status);
   util_sys_inb(KBC_OUT_BUF, &temp);
+  printf("%u\n", temp);
   if ( (status & LSB) == 1 && (status & (KBC_PAR_ERR | KBC_TO_ERR | KBC_AUX)) == 0){
+
+    if (temp == 153) {
+      extern enum screenState screenState;
+      if (screenState == PAUSE)
+        screenState = S_GAME;
+      else
+        screenState = PAUSE;// Multiplayer
+    }
 
     if (temp == 145 || temp == 159 || temp == 158 || temp == 160) {
       nextMove.playerColor = BLUE;
