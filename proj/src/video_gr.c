@@ -4,6 +4,9 @@
 #include "keyboard.h"
 #include "video_gr_gameAPI.h"
 #include "video_new.h"
+#include "cursor.xpm"
+#include <stdlib.h>
+
 
 #define MOVEMENT_STEP 5;
 #define SIZE_FRONT_END 5;
@@ -92,6 +95,7 @@ int new_vg_init(uint16_t mode) {
     panic("couldn’t map video memory");
     return 2;
   }
+
   return set_mode(mode);
 }
 
@@ -326,8 +330,6 @@ int(setMouseInitPos)() {
 }
 
 int(mouseMovement)(uint16_t x, uint16_t y) {
-  vg_draw_rectangle(mouse.x, mouse.y, 10, 10, 0);
-
   mouse.x += x;
   mouse.y -= y;
 
@@ -344,14 +346,16 @@ int(mouseMovement)(uint16_t x, uint16_t y) {
     mouse.y = 30;
   }
 
-  vg_draw_rectangle(mouse.x, mouse.y, 10, 10, 0xffffff);
+  memset((char *) video_mem, 0, v_res * h_res * bytes_per_pixel);
+  draw_xpm(Cursor, mouse.x, mouse.y);
   return 0;
 }
 
-/*
-bool(mouseInStart)(){
-  if(mouse.x >= xInitStart && mouse.x <= xEndStart && mouse.y >= tInitStart && mouse.y <= yInitStart){
+
+bool mouseInPlace(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2){
+  if(mouse.x >= x1 && mouse.x <= x2 && mouse.y >= y1 && mouse.y <= y2){
     return true;
   }
   return false;
-}*/
+}
+

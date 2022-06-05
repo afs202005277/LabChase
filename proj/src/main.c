@@ -6,6 +6,7 @@
 #include <stdint.h>
 #include "rato.xpm"
 #include "video_new.h"
+#include "cursor.xpm"
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -51,7 +52,6 @@ int(proj_main_loop)() {
   mouse_enable_data_reporting();
   mouse_subscribe_int(&bit_no_mouse);
   start_game(0x115);
-  draw_xpm(minix3_xpm, 100, 100);
   bool continueLoop = true;
   //setMouseInitPos();
   while (gameState != QUIT && continueLoop) {
@@ -88,11 +88,16 @@ int(proj_main_loop)() {
               counter = 0;
               parse_mouse_bytes(&pp);
               parse_mouse_info(&pp, &gameState);
-              /* xpmDrawer(rato, 100, 100); */
-              //mouseMovement(pp.delta_x, pp.delta_y);
-              /*if(mouseInStart() && pp.lb){
+              mouseMovement(pp.delta_x, pp.delta_y);
+              if(mouseInPlace(253, 288, 547, 313)){
                 //começar joguinho
-              }*/
+              }
+              else if(mouseInPlace(268, 352, 532, 376)){
+                //multiplayer
+              }
+              else if(mouseInPlace(358, 412, 442, 437)){
+                //abraço acabou o jogo
+              }
             }
           }
           break;

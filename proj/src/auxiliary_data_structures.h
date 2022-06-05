@@ -20,6 +20,7 @@ enum mouseAction { START,
                    QUIT,
                    PAUSE,
                    RESUME };
+                   
 
 struct PlayerPosition {
   uint16_t x;
@@ -30,5 +31,15 @@ struct PlayerPosition {
 struct mousePos {
   uint16_t x;
   uint16_t y;
+};
+
+enum screenState {
+  MAIN,
+  S_GAME,
+  M_GAME,
+  PAUSEE,
+  GOONE,
+  GOTWO,
+  OUT,
 };
 #endif
