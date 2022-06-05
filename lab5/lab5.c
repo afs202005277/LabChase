@@ -9,6 +9,8 @@
 #include <stdint.h>
 #include <stdio.h>
 
+#include "rato_xpm.h"
+
 
 enum RGB_components {R, G, B};
 

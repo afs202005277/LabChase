@@ -5,6 +5,7 @@
 #include "video_gr_gameAPI.h"
 #include "video_new.h"
 
+
 #define MOVEMENT_STEP 5;
 #define SIZE_FRONT_END 5;
 #define COLOR_BLUE 0x000000FF;
@@ -23,6 +24,8 @@ uint16_t img_width;
 
 static struct PlayerPosition bluePlayer, orangePlayer;
 // iniciar o modo e zerar as posicoes dos jogadores
+
+struct mousePos mouse;
 
 uint8_t get_red_mask_size() {
   return RedMaskSize;
@@ -90,7 +93,7 @@ int new_vg_init(uint16_t mode) {
     panic("couldn’t map video memory");
     return 2;
   }
-  return set_mode(mode);
+  return set_mode(mode); 
 }
 
 int vg_draw_pixel(uint16_t x, uint16_t y, uint32_t color) {
@@ -119,14 +122,21 @@ int(vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, 
 
 int xpm_drawer(xpm_map_t xpm, uint16_t x, uint16_t y) {
   xpm_image_t img;
-  xpm_load(xpm, XPM_INDEXED, &img);
+  xpm_load(xpm, XPM_8_8_8, &img);
   img_height = img.height;
   img_width = img.width;
   for (int height = 0; height < img.height; height++) {
-    for (int width = 0; width < img.width; width++) {
-      vg_draw_hline(x + width, y + height, 1, img.bytes[height * img.width + width]);
-    }
+    memcpy((char *) video_mem + (img.width * (y + height) + x) * bytes_per_pixel, img.bytes + img.width * bytes_per_pixel * height, img.width);
   }
+  return 0;
+}
+
+int xpmDrawer(xpm_map_t xpm) {
+  xpm_image_t img;
+  xpm_load(xpm, XPM_8_8_8, &img);
+  img_height = img.height;
+  img_width = img.width;
+  memcpy(video_mem, img.bytes, img.height * img.width * bytes_per_pixel);
   return 0;
 }
 
@@ -139,7 +149,7 @@ bool continueLoop(uint16_t xi, uint16_t xf, uint16_t yi, uint16_t yf, bool isHor
     return false;
   return true;
 }
-
+/*
 int xpm_move(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate) {
   uint16_t prevX = xi;
   uint16_t prevY = yi;
@@ -210,7 +220,7 @@ int xpm_move(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, 
   keyboard_unsubscribe_int();
   return 0;
 }
-
+*/
 // PROJECT:
 
 int start_screen(uint16_t x1, uint16_t y1, uint32_t color1, uint16_t x2, uint16_t y2, uint32_t color2, uint16_t OBJ_SIZE) {
@@ -310,3 +320,42 @@ int(find_color)(uint16_t x, uint16_t y) {
   memcpy(&color, (char *) video_mem + (y * h_res + x) * bytes_per_pixel, bytes_per_pixel);
   return color;
 }
+
+int(setMouseInitPos)(){
+  mouse.x = h_res/2;
+  mouse.y = v_res/2;
+  vg_draw_rectangle(mouse.x, mouse.y, 10, 10, 0xffff);
+  return 0;
+}
+
+int(mouseMovement)(uint16_t x, uint16_t y){
+  vg_draw_rectangle(mouse.x, mouse.y, 10, 10, 0);
+
+  mouse.x += x;
+  mouse.y -= y;
+
+  if(mouse.x >= h_res - 30){
+    mouse.x = h_res - 30;
+  }
+  if(mouse.x <= 30){
+    mouse.x = 30;
+  }
+  if(mouse.y >= v_res - 30){
+    mouse.y = v_res - 30;
+  }
+  if(mouse.y <= 30){
+    mouse.y = 30;
+  }
+
+  vg_draw_rectangle(mouse.x, mouse.y, 10, 10, 0xffffff);
+  return 0;
+}
+
+/*
+bool(mouseInStart)(){
+  if(mouse.x >= xInitStart && mouse.x <= xEndStart && mouse.y >= tInitStart && mouse.y <= yInitStart){
+    return true;
+  }
+  return false;
+}*/
+

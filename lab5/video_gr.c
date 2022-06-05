@@ -2,6 +2,7 @@
 #include "video_new.h"
 #include <lcom/lcf.h>
 #include <lcom/video_gr.h>
+#include "rato_xpm.h"
 
 static void *video_mem; /* Process (virtual) address to which VRAM is mapped */
 
@@ -106,7 +107,7 @@ int(vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, 
 
 int xpm_drawer(xpm_map_t xpm, uint16_t x, uint16_t y) {
   xpm_image_t img;
-  xpm_load(xpm, XPM_INDEXED, &img);
+  xpm_load((xpm_map_t) rato, XPM_8_8_8, &img);
   img_height = img.height;
   img_width = img.width;
   for (int height = 0; height < img.height; height++) {

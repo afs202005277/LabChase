@@ -4,6 +4,8 @@
 #include <lcom/lcf.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include "rato_xpm.h"
+#include "video_new.h"
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -50,6 +52,7 @@ int(proj_main_loop)() {
   mouse_subscribe_int(&bit_no_mouse);
   start_game(0x14C);
   bool continueLoop = true;
+  //setMouseInitPos();
   while (gameState != QUIT && continueLoop) {
     if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
       printf("driver_receive failed with: %d", r);
@@ -58,7 +61,7 @@ int(proj_main_loop)() {
     if (is_ipc_notify(ipc_status)) {
       switch (_ENDPOINT_P(msg.m_source)) {
         case HARDWARE:
-          if (msg.m_notify.interrupts & BIT(bit_no_timer)) {
+          /*if (msg.m_notify.interrupts & BIT(bit_no_timer)) {
             timer_int_handler();
             if (totalInterrupts % 5 == 0) {
               if (passive_move_players() == 1){
@@ -66,13 +69,14 @@ int(proj_main_loop)() {
               }
             }
           }
-          if (msg.m_notify.interrupts & BIT(bit_no_keyboard)) {
+            if (msg.m_notify.interrupts & BIT(bit_no_keyboard)) {
             kbc_ih();
             if (nextMove.dir != UNCHANGED)
               if (move_player(nextMove, false) == 1){
                 continueLoop = false;
               }
           }
+          */
           if (msg.m_notify.interrupts & BIT(bit_no_mouse)) {
             mouse_ih();
             if (!(counter == 0 && (byteFromMouse & BIT(3)) == 0)) {
@@ -81,7 +85,13 @@ int(proj_main_loop)() {
             }
             if (counter == 3) {
               counter = 0;
+              parse_mouse_bytes(&pp);
               parse_mouse_info(&pp, &gameState);
+              xpmDrawer(rato);
+              //mouseMovement(pp.delta_x, pp.delta_y);
+              /*if(mouseInStart() && pp.lb){
+                //começar joguinho
+              }*/
             }
           }
           break;
