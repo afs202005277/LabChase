@@ -194,6 +194,18 @@ int passive_move_players() {
   return 0;
 }
 
+int draw_cursor(xpm_image_t img, uint16_t x, uint16_t y) {
+  for (int offset_x = 0; offset_x < img.width; offset_x++) {
+    for (int offset_y = 0; offset_y < img.height; offset_y++) {
+      uint32_t color;
+      memcpy(&color, &img.bytes[(offset_y * img.width + offset_x)*bytes_per_pixel], bytes_per_pixel);
+      if (color != 0x123456)
+        vg_draw_pixel(x + offset_x, y + offset_y, color);
+    }
+  }
+  return 0;
+}
+
 int move_player(struct MovementInfo movementInfo, bool isPassiveMovement) {
   uint16_t movementStep = MOVEMENT_STEP;
   uint16_t dimensions = SIZE_FRONT_END;
@@ -270,7 +282,7 @@ int(find_color)(uint16_t x, uint16_t y) {
 int(setMouseInitPos)(xpm_image_t cursor) {
   mouse.x = h_res / 2;
   mouse.y = v_res / 2;
-  draw_img(cursor, mouse.x, mouse.y);
+  draw_cursor(cursor, mouse.x, mouse.y);
   return 0;
 }
 
@@ -291,7 +303,7 @@ int(mouseMovement)(uint16_t x, uint16_t y, xpm_image_t cursor) {
     mouse.y = 30;
   }
 
-  draw_img(cursor, mouse.x, mouse.y);
+  draw_cursor(cursor, mouse.x, mouse.y);
   return 0;
 }
 

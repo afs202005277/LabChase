@@ -7,7 +7,7 @@
 static xpm_row_t const Cursor[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 15 1 ",
-"  c #000000",
+"  c #123456",
 ". c #1C0B04",
 "X c #311306",
 "o c #371609",
