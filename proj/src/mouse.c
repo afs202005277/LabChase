@@ -11,7 +11,6 @@ void(mouse_ih)() {
   util_sys_inb(KBC_ST_REG, &status);
   util_sys_inb(KBC_OUT_BUF, &temp);
   if (((status & KBC_PAR_ERR) | (status & KBC_TO_ERR)) == 0 && (status & KBC_OUT_FULL) == 1 && (status & KBC_AUX) != 0) {
-    // printf("INSIDE IH\n");
     byteFromMouse = temp;
   }
 }
@@ -36,27 +35,6 @@ void(parse_mouse_bytes)(struct packet *pp) {
     pp->delta_y = -256 + pp->bytes[2];
   }
 }
-
-/*int parse_mouse_info(struct packet *pp, enum mouseAction *gameState) {
-  parse_mouse_bytes(pp);
-
-  if (pp->lb && !pp->rb && !pp->mb && *gameState != START) {
-    *gameState = START;
-    printf("START");
-  }
-  if (!pp->lb && pp->rb && !pp->mb) {
-    if (*gameState == PAUSE && *gameState != RESUME)
-      *gameState = RESUME;
-    else if (*gameState != PAUSE)
-      *gameState = PAUSE;
-    printf("PAUSE/RESUME");
-  }
-  if (!pp->lb && !pp->rb && pp->mb && *gameState != QUIT) {
-    *gameState = QUIT;
-    printf("QUIT");
-  }
-  return 0;
-}*/
 
 void(disableDataReporting)() {
   send_KBC_command_byte(0xD4);

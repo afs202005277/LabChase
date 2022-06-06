@@ -50,7 +50,6 @@ void(kbc_ih)(){
   uint8_t status, temp;
   util_sys_inb(KBC_ST_REG, &status);
   util_sys_inb(KBC_OUT_BUF, &temp);
-  printf("%u\n", temp);
   if ( (status & LSB) == 1 && (status & (KBC_PAR_ERR | KBC_TO_ERR | KBC_AUX)) == 0){
 
     if (temp == 153) {
@@ -77,7 +76,6 @@ void(kbc_ih)(){
           nextMove.dir = RIGHT;
           break;
       }
-      printf("PLAYER: %d DIRECTION: %d\n", (int) nextMove.playerColor, (int) nextMove.dir);
     }
 
     if (temp == 200 || temp == 203 || temp == 205 || temp == 208) {
@@ -96,9 +94,8 @@ void(kbc_ih)(){
           nextMove.dir = RIGHT;
           break;
       }
-      printf("PLAYER: %d DIRECTION: %d\n", (int) nextMove.playerColor, (int) nextMove.dir);
     }
-
     scanCode = temp;
+    printf("%d\n", scanCode);
   }
 }

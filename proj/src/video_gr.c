@@ -81,7 +81,6 @@ int new_vg_init(uint16_t mode) {
   h_res = info.XResolution;
   v_res = info.YResolution;
   bytes_per_pixel = (info.BitsPerPixel + 7) / 8;
-  printf("%u\n", bytes_per_pixel);
   BlueMaskSize = info.BlueMaskSize;
   RedMaskSize = info.RedMaskSize;
   GreenMaskSize = info.GreenMaskSize;
@@ -117,8 +116,9 @@ int(vg_draw_hline)(uint16_t x, uint16_t y, uint16_t len, uint32_t color) {
 
 int(vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color) {
   uint8_t flag = 0;
-  if (find_color(x, y) != 0 && find_color(x, y) != 255) {
+  if (find_color(x, y) != 0 && find_color(x, y) != 0xffffff) {
     flag = 1;
+    printf("parou\n");
   }
   for (int offset = 0; offset < height; offset++) {
     vg_draw_hline(x, y + offset, width, color);
@@ -261,8 +261,9 @@ int move_player(struct MovementInfo movementInfo, bool isPassiveMovement) {
 int start_game(uint8_t hour) {
   unsigned char a = 0x19;
   if (hour >= a) {
-    // printf("H_RES: %d, V_RES: %d, BPP: %d", h_res, v_res, bytes_per_pixel);
     memset(video_mem, 255, h_res * v_res * bytes_per_pixel);
+  } else{
+    memset(video_mem, 0, h_res * v_res * bytes_per_pixel);
   }
   bluePlayer.currentDirection = RIGHT;
   bluePlayer.x = h_res / 2 - 100;
