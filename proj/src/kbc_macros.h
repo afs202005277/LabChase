@@ -1,6 +1,10 @@
+#ifndef __KBC_MACROS
+#define __KBC_MACROS
+
 // KBC commands: 
 #define READ_CMD_BYTE 0x20
 #define WRITE_CMD_BYTE 0x60
+#define WRITE_TO_MOUSE 0xD4
 
 // KBC ports:
 #define KBC_OUT_BUF 0x60
@@ -16,6 +20,7 @@
 #define KBC_AUX BIT(5)      // Aux bit (set if there is input from mouse)
 
 #define MOUSE_IRQ 12
+#define KBD_IRQ 1
 
 #define MOUSE_DELAY 20000
 #define KEYBOARD_DELAY 5000
@@ -30,4 +35,4 @@
 #define NACK 0xFE
 #define ERROR 0xFC
 
-#define WRITE_TO_MOUSE 0xD4
+#endif

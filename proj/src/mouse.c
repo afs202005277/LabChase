@@ -1,5 +1,6 @@
 #include "mouse.h"
 #include "kbc_macros.h"
+#include "mouse_masks.h"
 #include <lcom/lcf.h>
 
 uint8_t byteFromMouse;
@@ -23,15 +24,15 @@ void(mouse_ih)() {
 }
 
 void(parse_mouse_bytes)(struct packet *pp) {
-  pp->lb = pp->bytes[0] & BIT(0);
-  pp->rb = pp->bytes[0] & BIT(1);
-  pp->mb = pp->bytes[0] & BIT(2);
+  pp->lb = pp->bytes[0] & LB;
+  pp->rb = pp->bytes[0] & RB;
+  pp->mb = pp->bytes[0] & MB;
 
-  pp->x_ov = pp->bytes[0] & BIT(6);
-  pp->y_ov = pp->bytes[0] & BIT(7);
+  pp->x_ov = pp->bytes[0] & X_OV;
+  pp->y_ov = pp->bytes[0] & Y_OV;
 
-  uint8_t signalX = pp->bytes[0] & BIT(4);
-  uint8_t signalY = pp->bytes[0] & BIT(5);
+  uint8_t signalX = pp->bytes[0] & X_SIGNAL;
+  uint8_t signalY = pp->bytes[0] & Y_SIGNAL;
 
   if (signalX == 0)
     pp->delta_x = pp->bytes[1];

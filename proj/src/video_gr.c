@@ -132,22 +132,6 @@ xpm_image_t load_image(xpm_map_t xpm) {
   return img;
 }
 
-/* int xpm_drawer(xpm_map_t xpm) {
-  xpm_image_t img;
-  xpm_load(xpm, XPM_8_8_8, &img);
-  img_height = img.height;
-  img_width = img.width;
-  memcpy(video_mem, img.bytes, img.height * img.width * bytes_per_pixel);
-  return 0;
-} */
-
-/* xpm_image_t draw_xpm(xpm_map_t xpm, uint16_t x, uint16_t y) {
-  xpm_image_t img;
-  xpm_load(xpm, XPM_8_8_8, &img);
-  draw_img(img, x, y);
-  return img;
-} */
-
 int draw_img2(xpm_image_t img, uint16_t x, uint16_t y) {
   for (int offset_x = 0; offset_x < img.width; offset_x++) {
     for (int offset_y = 0; offset_y < img.height; offset_y++) {

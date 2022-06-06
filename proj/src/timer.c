@@ -11,7 +11,7 @@ int totalInterrupts=0;
 int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
   uint8_t initial_conf, port;
   timer_get_conf(timer, &initial_conf);
-  initial_conf &= 0x0F; // selecionar 4 bits menos significativos
+  initial_conf &= 0x0F;
   uint8_t controlW = timer << 6 |  TIMER_LSB_MSB | initial_conf;
   sys_outb(TIMER_CTRL, controlW);
   if (timer == 0){
