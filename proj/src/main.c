@@ -1,6 +1,7 @@
 #include "keyboard.h"
 #include "mouse.h"
 #include "rtc.h"
+#include "serial.h"
 #include "video_gr_gameAPI.h"
 #include <lcom/lcf.h>
 #include <stdbool.h>
@@ -11,7 +12,7 @@
 #include "XPMs/MainScreen.xpm"
 #include "XPMs/PauseScreen.xpm"
 
-enum screenState screenState = S_GAME;
+enum screenState screenState = MAIN;
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -37,6 +38,39 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
+int wait_for_connection(uint8_t bit_no_serial) {
+  int r, ipc_status;
+  message msg;
+  extern uint8_t receivedChar;
+  send_character('p');
+  unsigned char character;
+  read_character(&character);
+  if (character == 'c')
+    return 0;
+  while (true) {
+    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) {
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE:
+          if (msg.m_notify.interrupts & BIT(bit_no_serial)) {
+            serial_ih();
+            if (receivedChar == 'c') {
+              send_character('p');
+              return 0;
+            }
+          }
+          break;
+        default:
+          break;
+      }
+    }
+  }
+  return 1;
+}
+
 void load_images(struct images *imgs) {
   imgs->main = load_image(MainScreen);
   imgs->pause = load_image(PauseScreen);
@@ -55,7 +89,8 @@ int(proj_main_loop)() {
   extern uint8_t scanCode;
   extern struct MovementInfo nextMove;
   int r;
-  unsigned char bit_no_timer, bit_no_keyboard, bit_no_mouse, bit_no_rtc;
+  unsigned char bit_no_timer, bit_no_keyboard, bit_no_mouse, bit_no_rtc, bit_no_serial;
+  extern uint8_t receivedChar;
 
   /* Mouse Variables */
   struct packet pp;
@@ -122,6 +157,17 @@ int(proj_main_loop)() {
               }
             }
           }
+          if (msg.m_notify.interrupts & BIT(bit_no_serial)) {
+            serial_ih();
+            struct MovementInfo mov;
+            mov.dir = receivedChar;
+            mov.playerID = OTHER;
+            bool validReceive = receivedChar == UP || receivedChar == DOWN || receivedChar == LEFT || receivedChar == RIGHT;
+            if (validReceive && move_player(mov, false) == 1) {
+              screenState = QUIT;
+              serial_unsubscribe();
+            }
+          }
           if (msg.m_notify.interrupts & BIT(bit_no_keyboard)) {
             kbc_ih();
             if (screenState == S_GAME || screenState == M_GAME) {
@@ -151,9 +197,12 @@ int(proj_main_loop)() {
                   }
                   else if (mouseInPlace(268, 352, 532, 376) && pp.lb) {
                     screenState = M_GAME;
+                    serial_subscribe(&bit_no_serial);
+                    wait_for_connection(bit_no_serial);
                   }
                   else if (mouseInPlace(358, 412, 442, 437) && pp.lb) {
                     screenState = QUIT;
+                    serial_unsubscribe();
                   }
                   break;
                 case GOONE:

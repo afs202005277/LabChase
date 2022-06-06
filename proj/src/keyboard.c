@@ -1,12 +1,12 @@
 #include "keyboard.h"
 #include "auxiliary_data_structures.h"
 #include "kbc_macros.h"
+#include "key_codes.h"
 #include <lcom/lab3.h>
 #include <lcom/lcf.h>
-#include "key_codes.h"
 
 uint8_t scanCode = 0;
-struct MovementInfo nextMove = {UNCHANGED, BLUE};
+struct MovementInfo nextMove = {UNCHANGED, ME};
 static int hook_id_keyboard = KBD_IRQ;
 
 int(keyboard_subscribe_int)(uint8_t *bit_no) {
@@ -19,20 +19,20 @@ int(keyboard_unsubscribe_int)() {
 }
 
 void(kbc_ih)() {
+  extern enum screenState screenState;
   uint8_t status, temp;
   util_sys_inb(KBC_ST_REG, &status);
   util_sys_inb(KBC_OUT_BUF, &temp);
   if ((status & KBC_OUT_FULL) == 1 && (status & (KBC_PAR_ERR | KBC_TO_ERR | KBC_AUX)) == 0) {
 
     if (temp == 153) {
-      extern enum screenState screenState;
       if (screenState == PAUSE)
         screenState = S_GAME;
       else
-        screenState = PAUSE; // Multiplayer
+        screenState = PAUSE;
     }
 
-    nextMove.playerColor = BLUE;
+    nextMove.playerID = ME;
     switch (temp) {
       case UP_PLAYER1_BR:
         nextMove.dir = UP;
@@ -46,23 +46,27 @@ void(kbc_ih)() {
       case RIGHT_PLAYER1_BR:
         nextMove.dir = RIGHT;
         break;
-      case UP_PLAYER2_BR:
-        nextMove.playerColor = ORANGE;
-        nextMove.dir = UP;
-        break;
-      case DOWN_PLAYER2_BR:
-        nextMove.playerColor = ORANGE;
-        nextMove.dir = DOWN;
-        break;
-      case LEFT_PLAYER2_BR:
-        nextMove.playerColor = ORANGE;
-        nextMove.dir = LEFT;
-        break;
-      case RIGHT_PLAYER2_BR:
-        nextMove.playerColor = ORANGE;
-        nextMove.dir = RIGHT;
-        break;
     }
-    scanCode = temp;
+    if (screenState == S_GAME) {
+      switch (temp) {
+        case UP_PLAYER2_BR:
+          nextMove.playerID = OTHER;
+          nextMove.dir = UP;
+          break;
+        case DOWN_PLAYER2_BR:
+          nextMove.playerID = OTHER;
+          nextMove.dir = DOWN;
+          break;
+        case LEFT_PLAYER2_BR:
+          nextMove.playerID = OTHER;
+          nextMove.dir = LEFT;
+          break;
+        case RIGHT_PLAYER2_BR:
+          nextMove.playerID = OTHER;
+          nextMove.dir = RIGHT;
+          break;
+      }
+    }
   }
+  scanCode = temp;
 }

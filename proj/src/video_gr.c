@@ -11,6 +11,8 @@
 #define COLOR_BLUE 0x1F51FF;
 #define COLOR_ORANGE 0xFF5F1F;
 
+uint32_t my_color = 0x1F51FF, other_color = 0xFF5F1F;
+
 static void *video_mem;
 static unsigned h_res;
 static unsigned v_res;
@@ -22,7 +24,7 @@ static uint8_t BlueMaskSize;
 uint16_t img_height;
 uint16_t img_width;
 
-static struct PlayerPosition bluePlayer, orangePlayer;
+static struct PlayerPosition me, other;
 // iniciar o modo e zerar as posicoes dos jogadores
 
 struct mousePos mouse;
@@ -118,7 +120,6 @@ int(vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, 
   uint8_t flag = 0;
   if (find_color(x, y) != 0 && find_color(x, y) != 0xffffff) {
     flag = 1;
-    printf("parou\n");
   }
   for (int offset = 0; offset < height; offset++) {
     vg_draw_hline(x, y + offset, width, color);
@@ -185,10 +186,10 @@ int opposite(int dir) {
 }
 
 int passive_move_players() {
-  struct MovementInfo passive_movement_blue = {.dir = bluePlayer.currentDirection, .playerColor = BLUE}, passive_movement_orange = {.dir = orangePlayer.currentDirection, .playerColor = ORANGE};
-  if (move_player(passive_movement_blue, true) != 0)
+  struct MovementInfo passive_movement_me = {.dir = me.currentDirection, .playerID = ME}, passive_movement_other = {.dir = other.currentDirection, .playerID = OTHER};
+  if (move_player(passive_movement_me, true) != 0)
     return 1;
-  if (move_player(passive_movement_orange, true) != 0)
+  if (move_player(passive_movement_other, true) != 0)
     return 2;
   return 0;
 }
@@ -199,13 +200,13 @@ int move_player(struct MovementInfo movementInfo, bool isPassiveMovement) {
   struct PlayerPosition tmp;
   uint32_t color;
   uint8_t flag;
-  if (movementInfo.playerColor == BLUE) {
-    tmp = bluePlayer;
-    color = COLOR_BLUE;
+  if (movementInfo.playerID == ME) {
+    tmp = me;
+    color = my_color;
   }
   else {
-    tmp = orangePlayer;
-    color = COLOR_ORANGE;
+    tmp = other;
+    color = other_color;
   }
   if (!isPassiveMovement && movementInfo.dir == tmp.currentDirection) {
     return 0;
@@ -235,10 +236,10 @@ int move_player(struct MovementInfo movementInfo, bool isPassiveMovement) {
     default:
       return 1;
   }
-  if (movementInfo.playerColor == BLUE)
-    bluePlayer = tmp;
+  if (movementInfo.playerID == ME)
+    me = tmp;
   else
-    orangePlayer = tmp;
+    other = tmp;
   return flag;
 }
 
@@ -249,13 +250,14 @@ int start_game(uint8_t hour) {
   } else{
     memset(video_mem, 0, h_res * v_res * bytes_per_pixel);
   }
-  bluePlayer.currentDirection = RIGHT;
-  bluePlayer.x = h_res / 2 - 100;
-  bluePlayer.y = v_res / 2;
+  me.currentDirection = RIGHT;
+  me.x = h_res / 2 - 100;
+  me.y = v_res / 2;
 
-  orangePlayer.currentDirection = LEFT;
-  orangePlayer.x = h_res / 2 + 100;
-  orangePlayer.y = v_res / 2;
+  other.currentDirection = LEFT;
+  other.x = h_res / 2 + 100;
+  other.y = v_res / 2;
+  start_screen(me.x, me.y, my_color, other.x, other.y, other_color, 5);
   return 0;
 }
 
