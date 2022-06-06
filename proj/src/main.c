@@ -37,7 +37,17 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
+void load_images(struct images *imgs) {
+  imgs->main = load_image(MainScreen);
+  imgs->pause = load_image(PauseScreen);
+  imgs->gameOver1 = load_image(GOPOneWins);
+  imgs->gameOver1 = load_image(GOPTwoWins);
+  imgs->cursor = load_image(Cursor);
+}
+
 int(proj_main_loop)() {
+  struct images imgs;
+  load_images(&imgs);
   uint8_t hour;
   int ipc_status;
   extern int totalInterrupts;
@@ -69,13 +79,13 @@ int(proj_main_loop)() {
 
   void *saveGameScreen = malloc(get_h_res() * get_v_res() * get_bits_per_pixel() / 8);
 
-  setMouseInitPos();
+  setMouseInitPos(imgs.cursor);
 
   while (screenState != QUIT) {
 
     while (screenState == MAIN) {
       if (!printed) {
-        xpm_drawer(MainScreen);
+        draw_img(imgs.main, 0, 0);
         printed = true;
         startGame = false;
       }
@@ -95,16 +105,15 @@ int(proj_main_loop)() {
               if (counter == 3) {
                 counter = 0;
                 parse_mouse_bytes(&pp);
-                mouse_print_packet(&pp);
-                xpm_drawer(MainScreen);
-                mouseMovement(pp.delta_x, pp.delta_y);
-                if (mouseInPlace(253, 288, 547, 313) && pp.lb) {
+                draw_img(imgs.main, 0, 0);
+                mouseMovement(pp.delta_x, pp.delta_y, imgs.cursor);
+                if (pp.lb && mouseInPlace(253, 288, 547, 313)) {
                   screenState = S_GAME;
                 }
-                else if (mouseInPlace(268, 352, 532, 376) && pp.lb) {
+                else if (pp.lb && mouseInPlace(268, 352, 532, 376)) {
                   screenState = M_GAME;
                 }
-                else if (mouseInPlace(358, 412, 442, 437) && pp.lb) {
+                else if (pp.lb && mouseInPlace(358, 412, 442, 437)) {
                   screenState = QUIT;
                 }
               }
@@ -115,11 +124,11 @@ int(proj_main_loop)() {
 
     while (screenState == GOONE) {
       if (!printed) {
-        xpm_drawer(GOPOneWins);
+        draw_img(imgs.gameOver1, 0, 0);
         printed = true;
         startGame = false;
       }
-            if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+      if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
         printf("driver_receive failed with: %d", r);
         continue;
       }
@@ -135,9 +144,8 @@ int(proj_main_loop)() {
               if (counter == 3) {
                 counter = 0;
                 parse_mouse_bytes(&pp);
-                mouse_print_packet(&pp);
-                xpm_drawer(GOPOneWins);
-                mouseMovement(pp.delta_x, pp.delta_y);
+                draw_img(imgs.gameOver2, 0, 0);
+                mouseMovement(pp.delta_x, pp.delta_y, imgs.cursor);
                 if (mouseInPlace(253, 288, 547, 313) && pp.lb) {
                   screenState = S_GAME;
                 }
@@ -155,11 +163,11 @@ int(proj_main_loop)() {
 
     while (screenState == GOTWO) {
       if (!printed) {
-        xpm_drawer(GOPTwoWins);
+        draw_img(imgs.gameOver2, 0, 0);
         printed = true;
         startGame = false;
       }
-            if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+      if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
         printf("driver_receive failed with: %d", r);
         continue;
       }
@@ -175,9 +183,8 @@ int(proj_main_loop)() {
               if (counter == 3) {
                 counter = 0;
                 parse_mouse_bytes(&pp);
-                mouse_print_packet(&pp);
-                xpm_drawer(GOPTwoWins);
-                mouseMovement(pp.delta_x, pp.delta_y);
+                draw_img(imgs.gameOver2, 0, 0);
+                mouseMovement(pp.delta_x, pp.delta_y, imgs.cursor);
                 if (mouseInPlace(253, 288, 547, 313) && pp.lb) {
                   screenState = S_GAME;
                 }
@@ -198,7 +205,7 @@ int(proj_main_loop)() {
         memcpy(saveGameScreen, get_video_mem(), get_h_res() * get_v_res() * get_bits_per_pixel() / 8);
         printed = true;
         paused = true;
-        xpm_drawer(PauseScreen);
+        draw_img(imgs.pause, 0, 0);
       }
       if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
         printf("driver_receive failed with: %d", r);
@@ -223,7 +230,7 @@ int(proj_main_loop)() {
 
     while (screenState == S_GAME) {
       if (!startGame) {
-        memset((char *)get_video_mem(), 0, get_h_res() * get_v_res() * (get_bits_per_pixel() + 7)/8);
+        memset((char *) get_video_mem(), 0, get_h_res() * get_v_res() * (get_bits_per_pixel() + 7) / 8);
         start_game(hour);
         startGame = true;
         printed = false;
@@ -267,7 +274,7 @@ int(proj_main_loop)() {
     }
     while (screenState == M_GAME) {
       if (!startGame) { // Function that runs once when game starts
-        memset((char *)get_video_mem(), 0, get_h_res() * get_v_res() * (get_bits_per_pixel() + 7)/8);
+        memset((char *) get_video_mem(), 0, get_h_res() * get_v_res() * (get_bits_per_pixel() + 7) / 8);
         start_game(hour);
         startGame = true;
         printed = false;

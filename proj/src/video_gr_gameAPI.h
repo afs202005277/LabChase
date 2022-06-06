@@ -25,8 +25,10 @@ int draw_img(xpm_image_t img, uint16_t x, uint16_t y);
 
 xpm_image_t draw_xpm(xpm_map_t xpm, uint16_t x, uint16_t y);
 
-int(mouseMovement)(uint16_t x, uint16_t y);
+int(mouseMovement)(uint16_t x, uint16_t y, xpm_image_t cursor);
 
 bool mouseInPlace(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2);
 
-int(setMouseInitPos)();
+int(setMouseInitPos)(xpm_image_t cursor);
+
+xpm_image_t load_image(xpm_map_t xpm);

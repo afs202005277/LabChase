@@ -2,6 +2,7 @@
 #define __AUX
 
 #include <stdint.h>
+#include <lcom/xpm.h>
 #include "XPMs/cursor.xpm"
 
 enum direction { UP,
@@ -37,6 +38,10 @@ struct PlayerPosition {
 struct mousePos {
   uint16_t x;
   uint16_t y;
+};
+
+struct images{
+  xpm_image_t main, gameOver1, gameOver2, pause, cursor;
 };
 
 #endif

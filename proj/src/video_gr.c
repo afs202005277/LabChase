@@ -6,7 +6,6 @@
 
 #include "auxiliary_data_structures.h"
 
-
 #define MOVEMENT_STEP 5;
 #define SIZE_FRONT_END 5;
 #define COLOR_BLUE 0x1F51FF;
@@ -48,7 +47,7 @@ unsigned get_v_res() {
   return v_res;
 }
 
-void* get_video_mem() {
+void *get_video_mem() {
   return video_mem;
 }
 
@@ -81,7 +80,7 @@ int new_vg_init(uint16_t mode) {
   unsigned int vram_size = (info.BitsPerPixel * info.XResolution * info.YResolution) / 8;
   h_res = info.XResolution;
   v_res = info.YResolution;
-  bytes_per_pixel = (info.BitsPerPixel+7) / 8;
+  bytes_per_pixel = (info.BitsPerPixel + 7) / 8;
   printf("%u\n", bytes_per_pixel);
   BlueMaskSize = info.BlueMaskSize;
   RedMaskSize = info.RedMaskSize;
@@ -127,33 +126,46 @@ int(vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, 
   return flag;
 }
 
-int xpm_drawer(xpm_map_t xpm) {
+xpm_image_t load_image(xpm_map_t xpm) {
+  xpm_image_t img;
+  xpm_load(xpm, XPM_8_8_8, &img);
+  return img;
+}
+
+/* int xpm_drawer(xpm_map_t xpm) {
   xpm_image_t img;
   xpm_load(xpm, XPM_8_8_8, &img);
   img_height = img.height;
   img_width = img.width;
-  memcpy(video_mem, img.bytes, img.height*img.width*bytes_per_pixel);
+  memcpy(video_mem, img.bytes, img.height * img.width * bytes_per_pixel);
   return 0;
-}
+} */
 
-xpm_image_t draw_xpm(xpm_map_t xpm, uint16_t x, uint16_t y) {
+/* xpm_image_t draw_xpm(xpm_map_t xpm, uint16_t x, uint16_t y) {
   xpm_image_t img;
   xpm_load(xpm, XPM_8_8_8, &img);
   draw_img(img, x, y);
   return img;
-}
+} */
 
-int draw_img(xpm_image_t img, uint16_t x, uint16_t y) {
+int draw_img2(xpm_image_t img, uint16_t x, uint16_t y) {
   for (int offset_x = 0; offset_x < img.width; offset_x++) {
     for (int offset_y = 0; offset_y < img.height; offset_y++) {
       uint32_t color;
-      memcpy(&color, &img.bytes[(offset_y * img.width + offset_x)*bytes_per_pixel], bytes_per_pixel);
+      memcpy(&color, &img.bytes[(offset_y * img.width + offset_x) * bytes_per_pixel], bytes_per_pixel);
       vg_draw_pixel(x + offset_x, y + offset_y, color);
     }
   }
   return 0;
 }
 
+int draw_img(xpm_image_t img, uint16_t x, uint16_t y) {
+  uint32_t numBytes = bytes_per_pixel * img.width;
+  for (int offset_y = 0; offset_y < img.height; offset_y++) {
+    memcpy((char *) video_mem + ((y + offset_y) * h_res + x) * bytes_per_pixel, img.bytes + (offset_y * img.width) * bytes_per_pixel, numBytes);
+  }
+  return 0;
+}
 
 bool continueLoop(uint16_t xi, uint16_t xf, uint16_t yi, uint16_t yf, bool isHorizontal, uint8_t scanCode) {
   if (scanCode == 0x81)
@@ -164,7 +176,6 @@ bool continueLoop(uint16_t xi, uint16_t xf, uint16_t yi, uint16_t yf, bool isHor
     return false;
   return true;
 }
-
 
 // PROJECT:
 
@@ -249,8 +260,8 @@ int move_player(struct MovementInfo movementInfo, bool isPassiveMovement) {
 
 int start_game(uint8_t hour) {
   unsigned char a = 0x19;
-  if(hour >= a){
-    //printf("H_RES: %d, V_RES: %d, BPP: %d", h_res, v_res, bytes_per_pixel);
+  if (hour >= a) {
+    // printf("H_RES: %d, V_RES: %d, BPP: %d", h_res, v_res, bytes_per_pixel);
     memset(video_mem, 255, h_res * v_res * bytes_per_pixel);
   }
   bluePlayer.currentDirection = RIGHT;
@@ -269,14 +280,14 @@ int(find_color)(uint16_t x, uint16_t y) {
   return color;
 }
 
-int(setMouseInitPos)() {
+int(setMouseInitPos)(xpm_image_t cursor) {
   mouse.x = h_res / 2;
   mouse.y = v_res / 2;
-  draw_xpm(Cursor, mouse.x, mouse.y);
+  draw_img(cursor, mouse.x, mouse.y);
   return 0;
 }
 
-int(mouseMovement)(uint16_t x, uint16_t y) {
+int(mouseMovement)(uint16_t x, uint16_t y, xpm_image_t cursor) {
   mouse.x += x;
   mouse.y -= y;
 
@@ -293,15 +304,13 @@ int(mouseMovement)(uint16_t x, uint16_t y) {
     mouse.y = 30;
   }
 
-  draw_xpm(Cursor, mouse.x, mouse.y);
+  draw_img(cursor, mouse.x, mouse.y);
   return 0;
 }
 
-
-bool mouseInPlace(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2){
-  if(mouse.x >= x1 && mouse.x <= x2 && mouse.y >= y1 && mouse.y <= y2){
+bool mouseInPlace(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2) {
+  if (mouse.x >= x1 && mouse.x <= x2 && mouse.y >= y1 && mouse.y <= y2) {
     return true;
   }
   return false;
 }
-
