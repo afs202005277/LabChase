@@ -1,0 +1,16 @@
+#ifndef __KEY_CODES
+#define __KEY_CODES
+
+#define PAUSE_BUTTON_BR 153
+
+#define UP_PLAYER1_BR 145
+#define DOWN_PLAYER1_BR 159
+#define LEFT_PLAYER1_BR 158
+#define RIGHT_PLAYER1_BR 160
+
+#define UP_PLAYER2_BR 200
+#define DOWN_PLAYER2_BR 208
+#define LEFT_PLAYER2_BR 203
+#define RIGHT_PLAYER2_BR 205
+
+#endif
