@@ -2,6 +2,7 @@
 #define __AUX
 
 #include <stdint.h>
+#include "XPMs/cursor.xpm"
 
 enum direction { UP,
                  DOWN,
@@ -38,13 +39,4 @@ struct mousePos {
   uint16_t y;
 };
 
-enum screenState {
-  MAIN,
-  S_GAME,
-  M_GAME,
-  PAUSEE,
-  GOONE,
-  GOTWO,
-  OUT,
-};
 #endif

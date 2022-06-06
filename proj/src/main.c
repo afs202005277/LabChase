@@ -1,20 +1,17 @@
 #include "keyboard.h"
 #include "mouse.h"
-#include "video_gr_gameAPI.h"
 #include "rtc.h"
+#include "video_gr_gameAPI.h"
 #include <lcom/lcf.h>
 #include <stdbool.h>
 #include <stdint.h>
-#include "rato.xpm"
-#include "video_new.h"
-#include "cursor.xpm"
 
-#include "XPMs/MainScreen.xpm"
 #include "XPMs/GameOverPlayerOneWins.xpm"
 #include "XPMs/GameOverPlayerTwoWins.xpm"
+#include "XPMs/MainScreen.xpm"
 #include "XPMs/PauseScreen.xpm"
 
-enum screenState screenState = S_GAME;
+enum screenState screenState = MAIN;
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -51,9 +48,9 @@ int(proj_main_loop)() {
   unsigned char bit_no_timer, bit_no_keyboard, bit_no_mouse, bit_no_rtc;
 
   /* Mouse Variables */
-  // struct packet pp;
-  // extern uint8_t byteFromMouse;
-  // uint8_t counter = 0;
+  struct packet pp;
+  extern uint8_t byteFromMouse;
+  uint8_t counter = 0;
 
   timer_subscribe_int(&bit_no_timer);
   keyboard_subscribe_int(&bit_no_keyboard);
@@ -70,7 +67,9 @@ int(proj_main_loop)() {
   bool startGame = false;
   bool paused = false;
 
-  void* saveGameScreen = malloc(get_h_res()*get_v_res()*get_bits_per_pixel()/8);
+  void *saveGameScreen = malloc(get_h_res() * get_v_res() * get_bits_per_pixel() / 8);
+
+  setMouseInitPos();
 
   while (screenState != QUIT) {
 
@@ -80,6 +79,38 @@ int(proj_main_loop)() {
         printed = true;
         startGame = false;
       }
+      if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+        printf("driver_receive failed with: %d", r);
+        continue;
+      }
+      if (is_ipc_notify(ipc_status)) { /* received notification */
+        switch (_ENDPOINT_P(msg.m_source)) {
+          case HARDWARE:                                       /* hardware interrupt notification */
+            if (msg.m_notify.interrupts & BIT(bit_no_mouse)) { /* subscribed interrupt */
+              mouse_ih();
+              if (!(counter == 0 && (byteFromMouse & BIT(3)) == 0)) {
+                pp.bytes[counter] = byteFromMouse;
+                counter++;
+              }
+              if (counter == 3) {
+                counter = 0;
+                parse_mouse_bytes(&pp);
+                mouse_print_packet(&pp);
+                xpm_drawer(MainScreen);
+                mouseMovement(pp.delta_x, pp.delta_y);
+                if (mouseInPlace(253, 288, 547, 313) && pp.lb) {
+                  screenState = S_GAME;
+                }
+                else if (mouseInPlace(268, 352, 532, 376) && pp.lb) {
+                  screenState = M_GAME;
+                }
+                else if (mouseInPlace(358, 412, 442, 437) && pp.lb) {
+                  screenState = QUIT;
+                }
+              }
+            }
+        }
+      }
     }
 
     while (screenState == GOONE) {
@@ -87,6 +118,38 @@ int(proj_main_loop)() {
         xpm_drawer(GOPOneWins);
         printed = true;
         startGame = false;
+      }
+            if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+        printf("driver_receive failed with: %d", r);
+        continue;
+      }
+      if (is_ipc_notify(ipc_status)) { /* received notification */
+        switch (_ENDPOINT_P(msg.m_source)) {
+          case HARDWARE:                                       /* hardware interrupt notification */
+            if (msg.m_notify.interrupts & BIT(bit_no_mouse)) { /* subscribed interrupt */
+              mouse_ih();
+              if (!(counter == 0 && (byteFromMouse & BIT(3)) == 0)) {
+                pp.bytes[counter] = byteFromMouse;
+                counter++;
+              }
+              if (counter == 3) {
+                counter = 0;
+                parse_mouse_bytes(&pp);
+                mouse_print_packet(&pp);
+                xpm_drawer(GOPOneWins);
+                mouseMovement(pp.delta_x, pp.delta_y);
+                if (mouseInPlace(253, 288, 547, 313) && pp.lb) {
+                  screenState = S_GAME;
+                }
+                else if (mouseInPlace(268, 352, 532, 376) && pp.lb) {
+                  screenState = M_GAME;
+                }
+                else if (mouseInPlace(358, 412, 442, 437) && pp.lb) {
+                  screenState = QUIT;
+                }
+              }
+            }
+        }
       }
     }
 
@@ -96,11 +159,43 @@ int(proj_main_loop)() {
         printed = true;
         startGame = false;
       }
+            if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+        printf("driver_receive failed with: %d", r);
+        continue;
+      }
+      if (is_ipc_notify(ipc_status)) { /* received notification */
+        switch (_ENDPOINT_P(msg.m_source)) {
+          case HARDWARE:                                       /* hardware interrupt notification */
+            if (msg.m_notify.interrupts & BIT(bit_no_mouse)) { /* subscribed interrupt */
+              mouse_ih();
+              if (!(counter == 0 && (byteFromMouse & BIT(3)) == 0)) {
+                pp.bytes[counter] = byteFromMouse;
+                counter++;
+              }
+              if (counter == 3) {
+                counter = 0;
+                parse_mouse_bytes(&pp);
+                mouse_print_packet(&pp);
+                xpm_drawer(GOPTwoWins);
+                mouseMovement(pp.delta_x, pp.delta_y);
+                if (mouseInPlace(253, 288, 547, 313) && pp.lb) {
+                  screenState = S_GAME;
+                }
+                else if (mouseInPlace(268, 352, 532, 376) && pp.lb) {
+                  screenState = M_GAME;
+                }
+                else if (mouseInPlace(358, 412, 442, 437) && pp.lb) {
+                  screenState = QUIT;
+                }
+              }
+            }
+        }
+      }
     }
 
     while (screenState == PAUSE) {
       if (!printed) {
-        memcpy(saveGameScreen, get_video_mem(), get_h_res()*get_v_res()*get_bits_per_pixel()/8);
+        memcpy(saveGameScreen, get_video_mem(), get_h_res() * get_v_res() * get_bits_per_pixel() / 8);
         printed = true;
         paused = true;
         xpm_drawer(PauseScreen);
@@ -128,12 +223,13 @@ int(proj_main_loop)() {
 
     while (screenState == S_GAME) {
       if (!startGame) {
-        start_game(0x115,hour);
+        memset((char *)get_video_mem(), 0, get_h_res() * get_v_res() * (get_bits_per_pixel() + 7)/8);
+        start_game(hour);
         startGame = true;
         printed = false;
       }
       if (paused) {
-        memcpy(get_video_mem(), saveGameScreen, get_h_res()*get_v_res()*get_bits_per_pixel()/8);
+        memcpy(get_video_mem(), saveGameScreen, get_h_res() * get_v_res() * get_bits_per_pixel() / 8);
         paused = false;
         printed = false;
       }
@@ -171,14 +267,14 @@ int(proj_main_loop)() {
     }
     while (screenState == M_GAME) {
       if (!startGame) { // Function that runs once when game starts
-        start_game(0x115, hour);
+        memset((char *)get_video_mem(), 0, get_h_res() * get_v_res() * (get_bits_per_pixel() + 7)/8);
+        start_game(hour);
         startGame = true;
         printed = false;
       }
       // Multiplayer
     }
   }
-
   vg_exit();
   keyboard_unsubscribe_int();
   timer_unsubscribe_int();

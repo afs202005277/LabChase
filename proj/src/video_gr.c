@@ -4,6 +4,8 @@
 #include "keyboard.h"
 #include "video_gr_gameAPI.h"
 
+#include "auxiliary_data_structures.h"
+
 
 #define MOVEMENT_STEP 5;
 #define SIZE_FRONT_END 5;
@@ -141,6 +143,18 @@ xpm_image_t draw_xpm(xpm_map_t xpm, uint16_t x, uint16_t y) {
   return img;
 }
 
+int draw_img(xpm_image_t img, uint16_t x, uint16_t y) {
+  for (int offset_x = 0; offset_x < img.width; offset_x++) {
+    for (int offset_y = 0; offset_y < img.height; offset_y++) {
+      uint32_t color;
+      memcpy(&color, &img.bytes[(offset_y * img.width + offset_x)*bytes_per_pixel], bytes_per_pixel);
+      vg_draw_pixel(x + offset_x, y + offset_y, color);
+    }
+  }
+  return 0;
+}
+
+
 bool continueLoop(uint16_t xi, uint16_t xf, uint16_t yi, uint16_t yf, bool isHorizontal, uint8_t scanCode) {
   if (scanCode == 0x81)
     return false;
@@ -233,9 +247,7 @@ int move_player(struct MovementInfo movementInfo, bool isPassiveMovement) {
   return flag;
 }
 
-int start_game(uint16_t mode, uint8_t hour) {
-  if (new_vg_init(mode) != 0)
-    return 1;
+int start_game(uint8_t hour) {
   unsigned char a = 0x19;
   if(hour >= a){
     //printf("H_RES: %d, V_RES: %d, BPP: %d", h_res, v_res, bytes_per_pixel);
@@ -260,7 +272,7 @@ int(find_color)(uint16_t x, uint16_t y) {
 int(setMouseInitPos)() {
   mouse.x = h_res / 2;
   mouse.y = v_res / 2;
-  vg_draw_rectangle(mouse.x, mouse.y, 10, 10, 0xffff);
+  draw_xpm(Cursor, mouse.x, mouse.y);
   return 0;
 }
 
@@ -281,7 +293,6 @@ int(mouseMovement)(uint16_t x, uint16_t y) {
     mouse.y = 30;
   }
 
-  memset((char *) video_mem, 0, v_res * h_res * bytes_per_pixel);
   draw_xpm(Cursor, mouse.x, mouse.y);
   return 0;
 }
