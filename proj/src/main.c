@@ -190,10 +190,13 @@ int(proj_main_loop)() {
       }
     }
   }
+  printf("%d\n", timer_unsubscribe_int());
+  printf("%d\n", keyboard_unsubscribe_int());
+  printf("%d\n", mouse_unsubscribe_int());
+  disableDataReporting();
+  printf("%d\n", rtc_unsubscribe_int());
+  printf("ola\n");
   vg_exit();
-  keyboard_unsubscribe_int();
-  timer_unsubscribe_int();
-  mouse_unsubscribe_int();
-  rtc_unsubscribe_int();
+  printf("ola\n");
   return 0;
 }

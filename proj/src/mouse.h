@@ -4,7 +4,6 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <util.h>
-#include "auxiliary_data_structures.h"
 
 int(mouse_subscribe_int)(uint8_t *bit_no);
 
@@ -15,5 +14,7 @@ void(mouse_ih)();
 void(parse_mouse_bytes)(struct packet* pp);
 
 void(disableDataReporting)();
+
+void(mouse_enable_reporting)();
 
 #endif /* __KEYBOARD_H */
