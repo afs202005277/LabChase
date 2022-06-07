@@ -89,8 +89,9 @@ int(proj_main_loop)() {
   extern uint8_t scanCode;
   extern struct MovementInfo nextMove;
   int r;
-  unsigned char bit_no_timer, bit_no_keyboard, bit_no_mouse, bit_no_rtc, bit_no_serial=4;
+  unsigned char bit_no_timer, bit_no_keyboard, bit_no_mouse, bit_no_rtc, bit_no_serial;
   extern uint8_t receivedChar;
+  uint8_t speed = 5;
 
   /* Mouse Variables */
   struct packet pp;
@@ -118,7 +119,7 @@ int(proj_main_loop)() {
   setMouseInitPos(imgs.cursor);
 
   while (screenState != QUIT) {
-    if (!startGame && screenState == S_GAME) {
+    if (!startGame && (screenState == S_GAME || screenState == M_GAME)) {
       start_game(hour);
       startGame = true;
     }
@@ -141,7 +142,7 @@ int(proj_main_loop)() {
           if (msg.m_notify.interrupts & BIT(bit_no_timer)) {
             timer_int_handler();
             if (screenState == S_GAME || screenState == M_GAME) {
-              if (totalInterrupts % 5 == 0) {
+              if (totalInterrupts % speed == 0) {
                 int tmp = passive_move_players();
                 if (tmp == 1) {
                   screenState = GOTWO;
@@ -171,11 +172,14 @@ int(proj_main_loop)() {
           }
           if (msg.m_notify.interrupts & BIT(bit_no_keyboard)) {
             kbc_ih();
+            printf("INPUT HANDLER: %d\n", scanCode);
             if (screenState == S_GAME || screenState == M_GAME) {
-              if (nextMove.dir != UNCHANGED)
+              if (nextMove.dir != UNCHANGED) {
+                send_character(nextMove.dir);
                 if (move_player(nextMove, false) == 1) {
                   screenState = QUIT;
                 }
+              }
             }
           }
           if (msg.m_notify.interrupts & BIT(bit_no_mouse)) {
@@ -194,15 +198,19 @@ int(proj_main_loop)() {
                     mouseMovement(pp.delta_x, pp.delta_y, imgs.cursor);
                     if (mouseInPlace(253, 288, 547, 313) && pp.lb) {
                       screenState = S_GAME;
+                      pp.lb = false;
                     }
                     else if (mouseInPlace(268, 352, 532, 376) && pp.lb) {
                       screenState = M_GAME;
                       serial_subscribe(&bit_no_serial);
                       wait_for_connection(bit_no_serial);
+                      speed = 20;
+                      pp.lb = false;
                     }
                     else if (mouseInPlace(358, 412, 442, 437) && pp.lb) {
                       screenState = QUIT;
                       serial_unsubscribe();
+                      pp.lb = false;
                     }
                     break;
                   case GOONE:

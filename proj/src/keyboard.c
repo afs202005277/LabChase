@@ -25,7 +25,7 @@ void(kbc_ih)() {
   util_sys_inb(KBC_OUT_BUF, &temp);
   if ((status & KBC_OUT_FULL) == 1 && (status & (KBC_PAR_ERR | KBC_TO_ERR | KBC_AUX)) == 0) {
 
-    if (temp == 153) {
+    if (temp == 153 && screenState != M_GAME) {
       if (screenState == PAUSE)
         screenState = S_GAME;
       else
@@ -35,15 +35,19 @@ void(kbc_ih)() {
     nextMove.playerID = ME;
     switch (temp) {
       case UP_PLAYER1_BR:
+        printf("UP\n");
         nextMove.dir = UP;
         break;
       case DOWN_PLAYER1_BR:
+        printf("DOWN\n");
         nextMove.dir = DOWN;
         break;
       case LEFT_PLAYER1_BR:
+        printf("LEFT\n");
         nextMove.dir = LEFT;
         break;
       case RIGHT_PLAYER1_BR:
+        printf("RIGHT\n");
         nextMove.dir = RIGHT;
         break;
     }
