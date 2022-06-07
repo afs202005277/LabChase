@@ -89,11 +89,12 @@ int(proj_main_loop)() {
   extern uint8_t scanCode;
   extern struct MovementInfo nextMove;
   int r;
-  unsigned char bit_no_timer, bit_no_keyboard, bit_no_mouse, bit_no_rtc, bit_no_serial;
+  unsigned char bit_no_timer, bit_no_keyboard, bit_no_mouse, bit_no_rtc, bit_no_serial=4;
   extern uint8_t receivedChar;
 
   /* Mouse Variables */
   struct packet pp;
+  memset(&pp, 0, sizeof(pp));
   extern uint8_t byteFromMouse;
   uint8_t counter = 0;
 
@@ -186,53 +187,53 @@ int(proj_main_loop)() {
             if (counter == 3) {
               counter = 0;
               parse_mouse_bytes(&pp);
-            }
-            if (screenState == MAIN || screenState == GOONE || screenState == GOTWO) {
-              switch (screenState) {
-                case MAIN:
-                  draw_img(imgs.main, 0, 0);
-                  mouseMovement(pp.delta_x, pp.delta_y, imgs.cursor);
-                  if (mouseInPlace(253, 288, 547, 313) && pp.lb) {
-                    screenState = S_GAME;
-                  }
-                  else if (mouseInPlace(268, 352, 532, 376) && pp.lb) {
-                    screenState = M_GAME;
-                    serial_subscribe(&bit_no_serial);
-                    wait_for_connection(bit_no_serial);
-                  }
-                  else if (mouseInPlace(358, 412, 442, 437) && pp.lb) {
-                    screenState = QUIT;
-                    serial_unsubscribe();
-                  }
-                  break;
-                case GOONE:
-                  draw_img(imgs.gameOver1, 0, 0);
-                  mouseMovement(pp.delta_x, pp.delta_y, imgs.cursor);
-                  if (mouseInPlace(236, 341, 367, 371) && pp.lb) {
-                    screenState = S_GAME;
-                    pp.lb = false;
-                  }
-                  else if (mouseInPlace(451, 341, 565, 372) && pp.lb) {
-                    screenState = MAIN;
-                    startGame = false;
-                    pp.lb = false;
-                  }
-                  break;
-                case GOTWO:
-                  draw_img(imgs.gameOver2, 0, 0);
-                  mouseMovement(pp.delta_x, pp.delta_y, imgs.cursor);
-                  if (mouseInPlace(236, 341, 367, 371) && pp.lb) {
-                    screenState = S_GAME;
-                    pp.lb = false;
-                  }
-                  else if (mouseInPlace(451, 341, 565, 372) && pp.lb) {
-                    screenState = MAIN;
-                    startGame = false;
-                    pp.lb = false;
-                  }
-                  break;
-                default:
-                  break;
+              if (screenState == MAIN || screenState == GOONE || screenState == GOTWO) {
+                switch (screenState) {
+                  case MAIN:
+                    draw_img(imgs.main, 0, 0);
+                    mouseMovement(pp.delta_x, pp.delta_y, imgs.cursor);
+                    if (mouseInPlace(253, 288, 547, 313) && pp.lb) {
+                      screenState = S_GAME;
+                    }
+                    else if (mouseInPlace(268, 352, 532, 376) && pp.lb) {
+                      screenState = M_GAME;
+                      serial_subscribe(&bit_no_serial);
+                      wait_for_connection(bit_no_serial);
+                    }
+                    else if (mouseInPlace(358, 412, 442, 437) && pp.lb) {
+                      screenState = QUIT;
+                      serial_unsubscribe();
+                    }
+                    break;
+                  case GOONE:
+                    draw_img(imgs.gameOver1, 0, 0);
+                    mouseMovement(pp.delta_x, pp.delta_y, imgs.cursor);
+                    if (mouseInPlace(236, 341, 367, 371) && pp.lb) {
+                      screenState = S_GAME;
+                      pp.lb = false;
+                    }
+                    else if (mouseInPlace(451, 341, 565, 372) && pp.lb) {
+                      screenState = MAIN;
+                      startGame = false;
+                      pp.lb = false;
+                    }
+                    break;
+                  case GOTWO:
+                    draw_img(imgs.gameOver2, 0, 0);
+                    mouseMovement(pp.delta_x, pp.delta_y, imgs.cursor);
+                    if (mouseInPlace(236, 341, 367, 371) && pp.lb) {
+                      screenState = S_GAME;
+                      pp.lb = false;
+                    }
+                    else if (mouseInPlace(451, 341, 565, 372) && pp.lb) {
+                      screenState = MAIN;
+                      startGame = false;
+                      pp.lb = false;
+                    }
+                    break;
+                  default:
+                    break;
+                }
               }
             }
           }
