@@ -33,21 +33,18 @@ void(kbc_ih)() {
     }
 
     nextMove.playerID = ME;
+    nextMove.dir = UNCHANGED;
     switch (temp) {
       case UP_PLAYER1_BR:
-        printf("UP\n");
         nextMove.dir = UP;
         break;
       case DOWN_PLAYER1_BR:
-        printf("DOWN\n");
         nextMove.dir = DOWN;
         break;
       case LEFT_PLAYER1_BR:
-        printf("LEFT\n");
         nextMove.dir = LEFT;
         break;
       case RIGHT_PLAYER1_BR:
-        printf("RIGHT\n");
         nextMove.dir = RIGHT;
         break;
     }

@@ -25,7 +25,6 @@ uint16_t img_height;
 uint16_t img_width;
 
 static struct PlayerPosition me, other;
-// iniciar o modo e zerar as posicoes dos jogadores
 
 struct mousePos mouse;
 

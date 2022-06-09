@@ -54,7 +54,6 @@ int(proj_main_loop)() {
   int ipc_status;
   extern int totalInterrupts;
   message msg;
-  extern uint8_t scanCode;
   extern struct MovementInfo nextMove;
   int r;
   unsigned char bit_no_timer, bit_no_keyboard, bit_no_mouse, bit_no_rtc, bit_no_serial;
@@ -120,8 +119,10 @@ int(proj_main_loop)() {
                     draw_img(imgs.gameOver2, 0, 0);
                     startGame = false;
                     nextMove.dir = UNCHANGED;
+                    isConnected = false;
                   }
                   else if (tmp == 2) {
+                    isConnected = false;
                     screenState = GOONE;
                     draw_img(imgs.gameOver1, 0, 0);
                     startGame = false;
@@ -140,7 +141,7 @@ int(proj_main_loop)() {
               screenState = M_GAME;
               speed = 20;
             }
-            else {
+            else if (isConnected) {
               struct MovementInfo mov;
               mov.dir = receivedChar;
               mov.playerID = OTHER;
@@ -155,9 +156,24 @@ int(proj_main_loop)() {
             if (!isWaiting) {
               if (screenState == S_GAME || screenState == M_GAME) {
                 if (nextMove.dir != UNCHANGED) {
-                  send_character(nextMove.dir);
-                  if (nextMove.playerID == ME && move_player(nextMove, false) == 1) {
-                    screenState = QUIT;
+                  if (isConnected) {
+                    send_character(nextMove.dir);
+                    if (nextMove.playerID == ME && move_player(nextMove, false) == 1) {
+                      isConnected = false;
+                      screenState = GOONE;
+                      draw_img(imgs.gameOver1, 0, 0);
+                      startGame = false;
+                      nextMove.dir = UNCHANGED;
+                    }
+                  }
+                  else {
+                    if (move_player(nextMove, false) == 1) {
+                      screenState = GOONE;
+                      draw_img(imgs.gameOver1, 0, 0);
+                      startGame = false;
+                      nextMove.dir = UNCHANGED;
+                      nextMove.playerID = ME;
+                    }
                   }
                 }
               }
