@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <util.h>
+#include "auxiliary_data_structures.h"
 
 /**
  * @brief Subscribes and enables keyboard interrupts
@@ -28,7 +29,7 @@ int(keyboard_unsubscribe_int)();
  */
 void(kbc_ih)();
 
-struct MovementInfo key_code_interpreter();
+struct MovementInfo key_code_interpreter(enum screenState* screenState);
 
 
 #endif /* __KEYBOARD_H */

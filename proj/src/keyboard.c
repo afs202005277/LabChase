@@ -17,15 +17,14 @@ int(keyboard_unsubscribe_int)() {
   return sys_irqrmpolicy(&hook_id_keyboard);
 }
 
-struct MovementInfo key_code_interpreter() {
+struct MovementInfo key_code_interpreter(enum screenState* screenState) {
   struct MovementInfo nextMove = {UNCHANGED, ME};
   kbc_ih();
-  extern enum screenState screenState;
-  if (keycode == PAUSE_BUTTON_BR && screenState != M_GAME) {
-    if (screenState == PAUSE)
-      screenState = S_GAME;
+  if (keycode == PAUSE_BUTTON_BR && *screenState != M_GAME) {
+    if (*screenState == PAUSE)
+      *screenState = S_GAME;
     else
-      screenState = PAUSE;
+      *screenState = PAUSE;
   }
   else {
     switch (keycode) {
@@ -42,7 +41,7 @@ struct MovementInfo key_code_interpreter() {
         nextMove.dir = RIGHT;
         break;
     }
-    if (screenState == S_GAME) {
+    if (*screenState == S_GAME) {
       switch (keycode) {
         case UP_PLAYER2_BR:
           nextMove.playerID = OTHER;

@@ -12,8 +12,6 @@
 #include "XPMs/MainScreen.xpm"
 #include "XPMs/PauseScreen.xpm"
 
-enum screenState screenState = MAIN;
-
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
   lcf_set_language("EN-US");
@@ -47,6 +45,7 @@ void load_images(struct images *imgs) {
 }
 
 int(proj_main_loop)() {
+  enum screenState screenState = MAIN;
   extern uint8_t receivedChar;
   struct images imgs;
   load_images(&imgs);
@@ -57,14 +56,13 @@ int(proj_main_loop)() {
   struct MovementInfo nextMove;
   memset(&nextMove, 0, sizeof(nextMove));
   int r;
-  unsigned char bit_no_timer, bit_no_keyboard, bit_no_mouse, bit_no_rtc, bit_no_serial;
-  uint8_t speed = 20;
+  uint8_t bit_no_timer, bit_no_keyboard, bit_no_mouse, bit_no_rtc, bit_no_serial, speed = 5;
 
   /* Mouse Variables */
   struct packet pp;
   memset(&pp, 0, sizeof(pp));
   extern uint8_t byteFromMouse;
-  uint8_t counter = 0;
+  uint8_t numBytesReceivedMouse = 0;
 
   timer_subscribe_int(&bit_no_timer);
   keyboard_subscribe_int(&bit_no_keyboard);
@@ -83,7 +81,8 @@ int(proj_main_loop)() {
   bool isWaiting = false;
   bool isConnected = false;
 
-  void *saveGameScreen = malloc(get_h_res() * get_v_res() * get_bits_per_pixel() / 8);
+  unsigned long numBytesSavedGame = (get_h_res() * get_v_res() * get_bits_per_pixel() + 7) / 8;
+  void *saveGameScreen = malloc(numBytesSavedGame);
 
   draw_img(imgs.main, 0, 0);
   setMouseInitPos(imgs.cursor);
@@ -94,11 +93,11 @@ int(proj_main_loop)() {
       startGame = true;
     }
     if (paused && screenState == S_GAME) {
-      memcpy(get_video_mem(), saveGameScreen, get_h_res() * get_v_res() * get_bits_per_pixel() / 8);
+      memcpy(get_video_mem(), saveGameScreen, numBytesSavedGame);
       paused = false;
     }
     if (!paused && screenState == PAUSE) {
-      memcpy(saveGameScreen, get_video_mem(), get_h_res() * get_v_res() * get_bits_per_pixel() / 8);
+      memcpy(saveGameScreen, get_video_mem(), numBytesSavedGame);
       paused = true;
       draw_img(imgs.pause, 0, 0);
     }
@@ -151,7 +150,7 @@ int(proj_main_loop)() {
             }
           }
           if (msg.m_notify.interrupts & BIT(bit_no_keyboard)) {
-            nextMove = key_code_interpreter();
+            nextMove = key_code_interpreter(&screenState);
             if (!isWaiting) {
               if (screenState == S_GAME || screenState == M_GAME) {
                 if (nextMove.dir != UNCHANGED) {
@@ -177,12 +176,12 @@ int(proj_main_loop)() {
           }
           if (msg.m_notify.interrupts & BIT(bit_no_mouse)) {
             mouse_ih();
-            if (!(counter == 0 && (byteFromMouse & BIT(3)) == 0)) {
-              pp.bytes[counter] = byteFromMouse;
-              counter++;
+            if (!(numBytesReceivedMouse == 0 && (byteFromMouse & BIT(3)) == 0)) {
+              pp.bytes[numBytesReceivedMouse] = byteFromMouse;
+              numBytesReceivedMouse++;
             }
-            if (counter == 3) {
-              counter = 0;
+            if (numBytesReceivedMouse == 3) {
+              numBytesReceivedMouse = 0;
               parse_mouse_bytes(&pp);
               if (!isWaiting) {
                 if (screenState == MAIN || screenState == GOONE || screenState == GOTWO) {
