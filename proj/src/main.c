@@ -38,39 +38,6 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
-int wait_for_connection(uint8_t bit_no_serial) {
-  int r, ipc_status;
-  message msg;
-  extern uint8_t receivedChar;
-  send_character('p');
-  unsigned char character;
-  read_character(&character);
-  if (character == 'c')
-    return 0;
-  while (true) {
-    if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
-      printf("driver_receive failed with: %d", r);
-      continue;
-    }
-    if (is_ipc_notify(ipc_status)) {
-      switch (_ENDPOINT_P(msg.m_source)) {
-        case HARDWARE:
-          if (msg.m_notify.interrupts & BIT(bit_no_serial)) {
-            serial_ih();
-            if (receivedChar == 'c') {
-              send_character('p');
-              return 0;
-            }
-          }
-          break;
-        default:
-          break;
-      }
-    }
-  }
-  return 1;
-}
-
 void load_images(struct images *imgs) {
   imgs->main = load_image(MainScreen);
   imgs->pause = load_image(PauseScreen);
@@ -170,6 +137,7 @@ int(proj_main_loop)() {
               send_character('p');
               isConnected = true;
               isWaiting = false;
+              screenState = M_GAME;
               speed = 20;
             }
             else {
@@ -216,12 +184,12 @@ int(proj_main_loop)() {
                         pp.lb = false;
                       }
                       else if (mouseInPlace(268, 352, 532, 376) && pp.lb) {
-                        screenState = M_GAME;
                         isWaiting = true;
                         send_character('p');
                         unsigned char character;
                         read_character(&character);
                         if (character == 'c') {
+                          screenState = M_GAME;
                           isConnected = true;
                           isWaiting = false;
                         }
