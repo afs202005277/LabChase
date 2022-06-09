@@ -54,7 +54,8 @@ int(proj_main_loop)() {
   int ipc_status;
   extern int totalInterrupts;
   message msg;
-  extern struct MovementInfo nextMove;
+  struct MovementInfo nextMove;
+  memset(&nextMove, 0, sizeof(nextMove));
   int r;
   unsigned char bit_no_timer, bit_no_keyboard, bit_no_mouse, bit_no_rtc, bit_no_serial;
   uint8_t speed = 20;
@@ -118,7 +119,6 @@ int(proj_main_loop)() {
                     screenState = GOTWO;
                     draw_img(imgs.gameOver2, 0, 0);
                     startGame = false;
-                    nextMove.dir = UNCHANGED;
                     isConnected = false;
                   }
                   else if (tmp == 2) {
@@ -126,7 +126,6 @@ int(proj_main_loop)() {
                     screenState = GOONE;
                     draw_img(imgs.gameOver1, 0, 0);
                     startGame = false;
-                    nextMove.dir = UNCHANGED;
                   }
                 }
               }
@@ -152,7 +151,7 @@ int(proj_main_loop)() {
             }
           }
           if (msg.m_notify.interrupts & BIT(bit_no_keyboard)) {
-            kbc_ih();
+            nextMove = key_code_interpreter();
             if (!isWaiting) {
               if (screenState == S_GAME || screenState == M_GAME) {
                 if (nextMove.dir != UNCHANGED) {
@@ -163,7 +162,6 @@ int(proj_main_loop)() {
                       screenState = GOONE;
                       draw_img(imgs.gameOver1, 0, 0);
                       startGame = false;
-                      nextMove.dir = UNCHANGED;
                     }
                   }
                   else {
@@ -171,8 +169,6 @@ int(proj_main_loop)() {
                       screenState = GOONE;
                       draw_img(imgs.gameOver1, 0, 0);
                       startGame = false;
-                      nextMove.dir = UNCHANGED;
-                      nextMove.playerID = ME;
                     }
                   }
                 }

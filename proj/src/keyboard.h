@@ -28,5 +28,7 @@ int(keyboard_unsubscribe_int)();
  */
 void(kbc_ih)();
 
+struct MovementInfo key_code_interpreter();
+
 
 #endif /* __KEYBOARD_H */

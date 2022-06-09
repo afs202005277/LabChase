@@ -21,7 +21,7 @@
 
 #define MOUSE_IRQ 12
 #define KBD_IRQ 1
-
+#define KBD_ERROR_BYTE 0xFF
 #define MOUSE_DELAY 20000
 #define KEYBOARD_DELAY 5000
 

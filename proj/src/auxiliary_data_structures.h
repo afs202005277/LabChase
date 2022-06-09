@@ -1,15 +1,15 @@
 #ifndef __AUX
 #define __AUX
 
-#include <stdint.h>
-#include <lcom/xpm.h>
 #include "XPMs/cursor.xpm"
+#include <lcom/xpm.h>
+#include <stdint.h>
 
-enum direction { UP,
+enum direction { UNCHANGED,
+                 UP,
                  DOWN,
                  LEFT,
-                 RIGHT,
-                 UNCHANGED };
+                 RIGHT };
 
 enum player { ME,
               OTHER };
@@ -40,7 +40,7 @@ struct mousePos {
   uint16_t y;
 };
 
-struct images{
+struct images {
   xpm_image_t main, gameOver1, gameOver2, pause, cursor;
 };
 
