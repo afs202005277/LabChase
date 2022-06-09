@@ -151,7 +151,6 @@ int(proj_main_loop)() {
             }
           }
           if (msg.m_notify.interrupts & BIT(bit_no_keyboard)) {
-            printf("INPUT HANDLER\n");
             kbc_ih();
             if (!isWaiting) {
               if (screenState == S_GAME || screenState == M_GAME) {
