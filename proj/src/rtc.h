@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __RTC
+#define __RTC
 #include "stdint.h"
 
 /** @defgroup rtc rtc
@@ -23,12 +24,14 @@
  * @return int - Returns 0 if sucessful and 1 if not
  */
 int rtc_subscribe_int(uint8_t *irq_bitmask);
+
 /**
  * @brief Unsbscribes the rtc interrupts
  *
  * @return int - Returns 0 if sucessful and 1 if not
  */
 int rtc_unsubscribe_int();
+
 /**
  * @brief Reads the register passed as a argument
  *
@@ -37,6 +40,7 @@ int rtc_unsubscribe_int();
  * @return int - Returns 0 if sucessful and 1 if not
  */
 int rtc_read_reg(uint8_t reg, uint8_t *data);
+
 /**
  * @brief
  *
@@ -45,6 +49,7 @@ int rtc_read_reg(uint8_t reg, uint8_t *data);
  * @return int - Returns 0 if sucessful and 1 if not
  */
 int rtc_write_reg(uint8_t reg, uint8_t data);
+
 /**
  * @brief Read the year
  *
@@ -53,6 +58,7 @@ int rtc_write_reg(uint8_t reg, uint8_t data);
  */
 
 int read_hours(uint8_t *hours);
+
 /**
  * @brief Reads the minutes
  *
@@ -60,11 +66,6 @@ int read_hours(uint8_t *hours);
  * @return int - Returns 0 if sucessful and 1 if not
  */
 int read_minutes(uint8_t *minutes);
-/**
- * @brief Reads the seconds
- *
- * @param seconds - Where the seconds value is returned
- * @return int - Returns 0 if sucessful and 1 if not
- */
 
-/** @} end of rtc */
+/** @} */
+#endif /** __RTC */

@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-/** @defgroup timer timer
+/** @defgroup serial serial
  * @{
  *
  * Functions for using the serial port
@@ -150,4 +150,5 @@ int read_LSR(uint8_t *byte);
  */
 int read_RBR(uint8_t *byte);
 
-#endif
+/**@}*/
+#endif /* __SERIAL_H */

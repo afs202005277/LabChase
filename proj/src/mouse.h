@@ -11,7 +11,7 @@ int(mouse_unsubscribe_int)();
 
 void(mouse_ih)();
 
-void(parse_mouse_bytes)(struct packet* pp);
+void(parse_mouse_bytes)(struct packet *pp);
 
 void(disableDataReporting)();
 
@@ -19,4 +19,4 @@ void(mouse_enable_reporting)();
 
 uint8_t get_received_byte();
 
-#endif /* __KEYBOARD_H */
+#endif
