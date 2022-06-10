@@ -17,4 +17,6 @@ void(disableDataReporting)();
 
 void(mouse_enable_reporting)();
 
+uint8_t get_received_byte();
+
 #endif /* __KEYBOARD_H */

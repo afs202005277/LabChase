@@ -2,15 +2,18 @@
 #include "mouse.h"
 #include "rtc.h"
 #include "serial.h"
+#include "timer.h"
 #include "video_gr_gameAPI.h"
 #include <lcom/lcf.h>
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "XPMs/GameOverPlayerOneWins.xpm"
-#include "XPMs/GameOverPlayerTwoWins.xpm"
-#include "XPMs/MainScreen.xpm"
-#include "XPMs/PauseScreen.xpm"
+#include "XPMs/GameOverPlayerOneWins.h"
+#include "XPMs/GameOverPlayerTwoWins.h"
+#include "XPMs/MainScreen.h"
+#include "XPMs/PauseScreen.h"
+
+#define GRAPHICS_MODE 0x115
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -46,23 +49,23 @@ void load_images(struct images *imgs) {
 
 int(proj_main_loop)() {
   enum screenState screenState = MAIN;
-  extern uint8_t receivedChar;
-  struct images imgs;
-  load_images(&imgs);
-  uint8_t hour;
-  int ipc_status;
-  extern int totalInterrupts;
-  message msg;
+
   struct MovementInfo nextMove;
   memset(&nextMove, 0, sizeof(nextMove));
-  int r;
-  uint8_t bit_no_timer, bit_no_keyboard, bit_no_mouse, bit_no_rtc, bit_no_serial, speed = 5;
 
-  /* Mouse Variables */
+  struct images imgs;
+  load_images(&imgs);
+
   struct packet pp;
   memset(&pp, 0, sizeof(pp));
-  extern uint8_t byteFromMouse;
-  uint8_t numBytesReceivedMouse = 0;
+
+  message msg;
+
+  uint8_t bit_no_timer, bit_no_keyboard, bit_no_mouse, bit_no_rtc, bit_no_serial;
+  uint8_t speed = 5, hour, numBytesReceivedMouse = 0, mouseReceivedByte;
+
+  extern uint8_t receivedChar;
+  int r, ipc_status;
 
   timer_subscribe_int(&bit_no_timer);
   keyboard_subscribe_int(&bit_no_keyboard);
@@ -71,15 +74,10 @@ int(proj_main_loop)() {
   rtc_subscribe_int(&bit_no_rtc);
   serial_subscribe(&bit_no_serial);
 
-  read_hours(&hour);
-
-  if (new_vg_init(0x115) != 0)
+  if (new_vg_init(GRAPHICS_MODE) != OK)
     return 1;
 
-  bool startGame = false;
-  bool paused = false;
-  bool isWaiting = false;
-  bool isConnected = false;
+  bool startGame = false, paused = false, isWaiting = false, isConnected = false;
 
   unsigned long numBytesSavedGame = (get_h_res() * get_v_res() * get_bits_per_pixel() + 7) / 8;
   void *saveGameScreen = malloc(numBytesSavedGame);
@@ -89,6 +87,7 @@ int(proj_main_loop)() {
 
   while (screenState != QUIT) {
     if (!startGame && (screenState == S_GAME || screenState == M_GAME)) {
+      read_hours(&hour);
       start_game(hour);
       startGame = true;
     }
@@ -112,7 +111,7 @@ int(proj_main_loop)() {
             timer_int_handler();
             if (!isWaiting) {
               if (screenState == S_GAME || screenState == M_GAME) {
-                if (totalInterrupts % speed == 0) {
+                if (get_num_interrupts_timer() % speed == 0) {
                   int tmp = passive_move_players();
                   if (tmp == 1) {
                     screenState = GOTWO;
@@ -176,8 +175,9 @@ int(proj_main_loop)() {
           }
           if (msg.m_notify.interrupts & BIT(bit_no_mouse)) {
             mouse_ih();
-            if (!(numBytesReceivedMouse == 0 && (byteFromMouse & BIT(3)) == 0)) {
-              pp.bytes[numBytesReceivedMouse] = byteFromMouse;
+            mouseReceivedByte = get_received_byte();
+            if (!(numBytesReceivedMouse == 0 && (mouseReceivedByte & BIT(3)) == 0)) {
+              pp.bytes[numBytesReceivedMouse] = mouseReceivedByte;
               numBytesReceivedMouse++;
             }
             if (numBytesReceivedMouse == 3) {

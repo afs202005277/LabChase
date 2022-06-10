@@ -69,10 +69,6 @@ int read_RBR(uint8_t *byte){
   return util_sys_inb(COM1_PORT + RBR, byte);
 }
 
-int read_IIR(uint8_t* byte){
-  return util_sys_inb(COM1_PORT + IIR, byte);
-}
-
 int send_character(uint8_t character) {
   uint8_t numTimesWaited = 0;
   uint8_t lsr;

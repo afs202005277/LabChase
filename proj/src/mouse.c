@@ -3,8 +3,12 @@
 #include "mouse_masks.h"
 #include <lcom/lcf.h>
 
-uint8_t byteFromMouse;
+static uint8_t receivedByte;
 static int hook_id_mouse = MOUSE_IRQ;
+
+uint8_t get_received_byte(){
+  return receivedByte;
+}
 
 int get_kbc_status(uint8_t *status) {
   return util_sys_inb(KBC_ST_REG, status);
@@ -19,7 +23,7 @@ void(mouse_ih)() {
   get_kbc_status(&status);
   read_output_buffer(&tmp);
   if ((status & KBC_PAR_ERR) == 0 && (status & KBC_TO_ERR) == 0 && (status & KBC_AUX) != 0 && (status & KBC_OUT_FULL) == 1) {
-    byteFromMouse = tmp;
+    receivedByte = tmp;
   }
 }
 

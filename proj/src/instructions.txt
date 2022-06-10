@@ -1,0 +1,3 @@
+trocar cores no video_gr.c
+trocar os chars no ciclo wait for connection
+trocar as structs no start game
