@@ -1,44 +1,19 @@
 #include <lcom/lcf.h>
 #include <lcom/video_gr.h>
 
-#include "keyboard.h"
 #include "video_gr_gameAPI.h"
+#include "video_gr_macros.h"
 
 #include "auxiliary_data_structures.h"
-
-#define MOVEMENT_STEP 5;
-#define SIZE_FRONT_END 5;
-#define COLOR_BLUE 0x1F51FF;
-#define COLOR_ORANGE 0xFF5F1F;
-
-uint32_t my_color = 0x1F51FF, other_color = 0xFF5F1F;
 
 static void *video_mem;
 static unsigned h_res;
 static unsigned v_res;
 static unsigned bytes_per_pixel;
-static uint16_t operatingMode;
-static uint8_t RedMaskSize;
-static uint8_t GreenMaskSize;
-static uint8_t BlueMaskSize;
-uint16_t img_height;
-uint16_t img_width;
 
 static struct PlayerPosition me, other;
 
 struct mousePos mouse;
-
-uint8_t get_red_mask_size() {
-  return RedMaskSize;
-}
-
-uint8_t get_blue_mask_size() {
-  return BlueMaskSize;
-}
-
-uint8_t get_green_mask_size() {
-  return GreenMaskSize;
-}
 
 unsigned get_h_res() {
   return h_res;
@@ -57,67 +32,66 @@ unsigned get_bits_per_pixel() {
 }
 
 int(set_mode)(uint16_t mode) {
-  operatingMode = mode;
   reg86_t reg;
   memset(&reg, 0, sizeof(reg));
-  reg.ah = 0x4F;
-  reg.al = 0x02;
-  reg.bx = mode | BIT(14);
-  reg.intno = 0x10;
+  reg.ah = VBE_SERVICES;
+  reg.al = SET_VBE_MOD;
+  reg.bx = mode | ENABLE_LIN_BUF;
+  reg.intno = BIOS_VIDEO_SERVICES;
   if (sys_int86(&reg) != OK) {
     printf("set_vbe_mode: sys_int86() failed \n");
     return 1;
   }
-  return 0;
+  return OK;
 }
 
-int new_vg_init(uint16_t mode) {
+void* vg_init(uint16_t mode) {
   vbe_mode_info_t info;
   int r;
   struct minix_mem_range mr;
-  vbe_get_mode_info(mode, &info);
+  if (vbe_get_mode_info(mode, &info) != OK) {
+    printf("Unable to get vbe mode info.\n");
+    return NULL;
+  }
 
   unsigned int vram_base = info.PhysBasePtr;
   unsigned int vram_size = (info.BitsPerPixel * info.XResolution * info.YResolution) / 8;
   h_res = info.XResolution;
   v_res = info.YResolution;
   bytes_per_pixel = (info.BitsPerPixel + 7) / 8;
-  BlueMaskSize = info.BlueMaskSize;
-  RedMaskSize = info.RedMaskSize;
-  GreenMaskSize = info.GreenMaskSize;
 
   mr.mr_base = (phys_bytes) vram_base;
   mr.mr_limit = mr.mr_base + vram_size;
   if (OK != (r = sys_privctl(SELF, SYS_PRIV_ADD_MEM, &mr))) {
     panic("sys_privctl (ADD_MEM) failed: %d\n", r);
-    return 1;
+    return NULL;
   }
 
   video_mem = vm_map_phys(SELF, (void *) mr.mr_base, vram_size);
   if (video_mem == MAP_FAILED) {
     panic("couldn't map video memory");
-    return 2;
+    return NULL;
   }
-
-  return set_mode(mode);
+  set_mode(mode);
+  return video_mem;
 }
 
 int vg_draw_pixel(uint16_t x, uint16_t y, uint32_t color) {
   char *start = (char *) video_mem + (y * h_res + x) * bytes_per_pixel;
   memcpy(start, &color, bytes_per_pixel);
-  return 0;
+  return OK;
 }
 
 int(vg_draw_hline)(uint16_t x, uint16_t y, uint16_t len, uint32_t color) {
   for (int offset_x = 0; offset_x < len; offset_x++) {
     vg_draw_pixel(x + offset_x, y, color);
   }
-  return 0;
+  return OK;
 }
 
 int(vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color) {
   uint8_t flag = 0;
-  if (find_color(x, y) != 0 && find_color(x, y) != 0xffffff) {
+  if (find_color(x, y) != NIGHT_BACKGROUND && find_color(x, y) != DAY_BACKGROUND) {
     flag = 1;
   }
   for (int offset = 0; offset < height; offset++) {
@@ -137,25 +111,12 @@ int draw_img(xpm_image_t img, uint16_t x, uint16_t y) {
   for (int offset_y = 0; offset_y < img.height; offset_y++) {
     memcpy((char *) video_mem + ((y + offset_y) * h_res + x) * bytes_per_pixel, img.bytes + (offset_y * img.width) * bytes_per_pixel, numBytes);
   }
-  return 0;
+  return OK;
 }
 
-bool continueLoop(uint16_t xi, uint16_t xf, uint16_t yi, uint16_t yf, bool isHorizontal, uint8_t scanCode) {
-  if (scanCode == 0x81)
-    return false;
-  if (isHorizontal && xi >= xf)
-    return false;
-  else if (!isHorizontal && yi >= yf)
-    return false;
-  return true;
-}
-
-// PROJECT:
-
-int start_screen(uint16_t x1, uint16_t y1, uint32_t color1, uint16_t x2, uint16_t y2, uint32_t color2, uint16_t OBJ_SIZE) {
-  if (vg_draw_rectangle(x1, y1, OBJ_SIZE, OBJ_SIZE, color1) || vg_draw_rectangle(x2, y2, OBJ_SIZE, OBJ_SIZE, color2))
-    return 1;
-  return 0;
+int start_screen(uint16_t x1, uint16_t y1, uint32_t color1, uint16_t x2, uint16_t y2, uint32_t color2) {
+  uint8_t size = SIZE_FRONT_END;
+  return vg_draw_rectangle(x1, y1, size, size, color1) || vg_draw_rectangle(x2, y2, size, size, color2);
 }
 
 int opposite(int dir) {
@@ -188,12 +149,12 @@ int draw_cursor(xpm_image_t img, uint16_t x, uint16_t y) {
     for (int offset_y = 0; offset_y < img.height; offset_y++) {
       color = 0;
       memcpy(&color, &img.bytes[(offset_y * img.width + offset_x) * bytes_per_pixel], bytes_per_pixel);
-      if (color != 0x123456) {
+      if (color != TRANSPARENCY) {
         vg_draw_pixel(x + offset_x, y + offset_y, color);
       }
     }
   }
-  return 0;
+  return OK;
 }
 
 int move_player(struct MovementInfo movementInfo, bool isPassiveMovement) {
@@ -204,40 +165,36 @@ int move_player(struct MovementInfo movementInfo, bool isPassiveMovement) {
   uint8_t flag;
   if (movementInfo.playerID == ME) {
     tmp = me;
-    color = my_color;
+    color = COLOR_PLAYER1;
   }
   else {
     tmp = other;
-    color = other_color;
+    color = COLOR_PLAYER2;
   }
   if (!isPassiveMovement && movementInfo.dir == tmp.currentDirection) {
-    return 0;
+    return OK;
   }
   if (movementInfo.dir == opposite(tmp.currentDirection))
-    return 0;
+    return OK;
   tmp.currentDirection = movementInfo.dir;
 
-  // idk why, but i need to pass the parameters like this
   switch (movementInfo.dir) {
     case UP:
       tmp.y -= movementStep;
-      flag = vg_draw_rectangle(tmp.x, tmp.y, dimensions, dimensions, color);
       break;
     case DOWN:
       tmp.y += movementStep;
-      flag = vg_draw_rectangle(tmp.x, tmp.y, dimensions, dimensions, color);
       break;
     case LEFT:
       tmp.x -= movementStep;
-      flag = vg_draw_rectangle(tmp.x, tmp.y, dimensions, dimensions, color);
       break;
     case RIGHT:
       tmp.x += movementStep;
-      flag = vg_draw_rectangle(tmp.x, tmp.y, dimensions, dimensions, color);
       break;
     default:
       return 1;
   }
+  flag = vg_draw_rectangle(tmp.x, tmp.y, dimensions, dimensions, color);
   if (movementInfo.playerID == ME)
     me = tmp;
   else
@@ -256,51 +213,48 @@ int start_game(uint8_t hour) {
   me.currentDirection = RIGHT;
   me.x = h_res / 2 - 100;
   me.y = v_res / 2;
+  uint32_t player1Color = COLOR_PLAYER1;
 
   other.currentDirection = LEFT;
   other.x = h_res / 2 + 100;
   other.y = v_res / 2;
-  start_screen(me.x, me.y, my_color, other.x, other.y, other_color, 5);
-  return 0;
+  uint32_t player2Color = COLOR_PLAYER2;
+
+  return start_screen(me.x, me.y, player1Color, other.x, other.y, player2Color);
 }
 
-int(find_color)(uint16_t x, uint16_t y) {
+int find_color(uint16_t x, uint16_t y) {
   unsigned int color = 0;
   memcpy(&color, (char *) video_mem + (y * h_res + x) * bytes_per_pixel, bytes_per_pixel);
   return color;
 }
 
-int(setMouseInitPos)(xpm_image_t cursor) {
+int setMouseInitPos(xpm_image_t cursor) {
   mouse.x = h_res / 2;
   mouse.y = v_res / 2;
-  draw_cursor(cursor, mouse.x, mouse.y);
-  return 0;
+  return draw_cursor(cursor, mouse.x, mouse.y);
 }
 
-int(mouseMovement)(uint16_t x, uint16_t y, xpm_image_t cursor) {
+int mouseMovement(uint16_t x, uint16_t y, xpm_image_t cursor) {
   mouse.x += x;
   mouse.y -= y;
 
-  if (mouse.x + 30 >= (int) h_res) {
-    mouse.x = h_res - 30;
+  if (mouse.x + MOUSE_BORDER_WIDTH >= (int) h_res) {
+    mouse.x = h_res - MOUSE_BORDER_WIDTH;
   }
-  if (mouse.x <= 30) {
-    mouse.x = 30;
+  if (mouse.x <= MOUSE_BORDER_WIDTH) {
+    mouse.x = MOUSE_BORDER_WIDTH;
   }
-  if (mouse.y + 30 >= (int) v_res) {
-    mouse.y = v_res - 30;
+  if (mouse.y + MOUSE_BORDER_WIDTH >= (int) v_res) {
+    mouse.y = v_res - MOUSE_BORDER_WIDTH;
   }
-  if (mouse.y <= 30) {
-    mouse.y = 30;
+  if (mouse.y <= MOUSE_BORDER_WIDTH) {
+    mouse.y = MOUSE_BORDER_WIDTH;
   }
 
-  draw_cursor(cursor, mouse.x, mouse.y);
-  return 0;
+  return draw_cursor(cursor, mouse.x, mouse.y);
 }
 
 bool mouseInPlace(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2) {
-  if (mouse.x >= x1 && mouse.x <= x2 && mouse.y >= y1 && mouse.y <= y2) {
-    return true;
-  }
-  return false;
+  return mouse.x >= x1 && mouse.x <= x2 && mouse.y >= y1 && mouse.y <= y2;
 }

@@ -74,7 +74,7 @@ int(proj_main_loop)() {
   rtc_subscribe_int(&bit_no_rtc);
   serial_subscribe(&bit_no_serial);
 
-  if (new_vg_init(GRAPHICS_MODE) != OK)
+  if (vg_init(GRAPHICS_MODE) != OK)
     return 1;
 
   bool startGame = false, paused = false, isWaiting = false, isConnected = false;
