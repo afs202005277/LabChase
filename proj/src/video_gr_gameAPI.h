@@ -121,3 +121,4 @@ xpm_image_t load_image(xpm_map_t xpm);
  */
 int draw_cursor(xpm_image_t img, uint16_t x, uint16_t y);
 
+void* new_vg_init(uint16_t mode);

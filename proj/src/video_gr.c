@@ -45,7 +45,7 @@ int(set_mode)(uint16_t mode) {
   return OK;
 }
 
-void* vg_init(uint16_t mode) {
+void* new_vg_init(uint16_t mode) {
   vbe_mode_info_t info;
   int r;
   struct minix_mem_range mr;

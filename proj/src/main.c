@@ -68,7 +68,6 @@ int(proj_main_loop)() {
 
   extern uint8_t receivedChar;
   int r, ipc_status;
-
   timer_subscribe_int(&bit_no_timer);
   keyboard_subscribe_int(&bit_no_keyboard);
   mouse_enable_data_reporting();
@@ -76,9 +75,8 @@ int(proj_main_loop)() {
   rtc_subscribe_int(&bit_no_rtc);
   serial_subscribe(&bit_no_serial);
 
-  if (vg_init(GRAPHICS_MODE) != OK)
+  if (new_vg_init(GRAPHICS_MODE) == NULL)
     return 1;
-
   bool startGame = false, paused = false, isWaiting = false, isConnected = false;
 
   unsigned long numBytesSavedGame = (get_h_res() * get_v_res() * get_bits_per_pixel() + 7) / 8;
