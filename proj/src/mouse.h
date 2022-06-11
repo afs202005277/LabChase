@@ -11,14 +11,14 @@
  * Functions for using the mouse.
  */
 
-#define PACKET_SIZE 3 /**< @brief Anumber of bytes of each mouse packet */
+#define PACKET_SIZE 3 /**< @brief Number of bytes of each mouse packet */
 
 /**
  * @brief Subscribes the interrupts sent by the mouse (in exclusive mode).
  *
  * @param bit_no address of memory to be initialized with the
  *         bit number to be set in the mask returned upon an interrupt
- * @return 0 upon success, non-zero otherwize
+ * @return 0 upon success, non-zero otherwise
  */
 int(mouse_subscribe_int)(uint8_t *bit_no);
 
@@ -26,7 +26,7 @@ int(mouse_subscribe_int)(uint8_t *bit_no);
  * @brief Get the status byte from the KBC
  *
  * @param status memory address used to return the status
- * @return 0 upon success, non-zero otherwize
+ * @return 0 upon success, non-zero otherwise
  */
 int get_kbc_status(uint8_t *status);
 
@@ -40,7 +40,7 @@ int(mouse_unsubscribe_int)();
  * @brief reads a byte from the KBC's output buffer
  *
  * @param result memory address used to return the byte
- * @return 0 upon success, non-zero otherwize
+ * @return 0 upon success, non-zero otherwise
  */
 int read_output_buffer(uint8_t *result);
 
@@ -82,7 +82,7 @@ void(mouse_enable_reporting)();
  *
  * @param port the memory address of the port that will receive the byte
  * @param byte the byte to be sent
- * @return 0 upon success, non-zero otherwize
+ * @return 0 upon success, non-zero otherwise
  */
 int send_byte_to_KBC(uint8_t port, uint8_t byte);
 
@@ -90,7 +90,7 @@ int send_byte_to_KBC(uint8_t port, uint8_t byte);
  * @brief sends a command to the KBC command register
  *
  * @param command command to be sent
- * @return 0 upon success, non-zero otherwize
+ * @return 0 upon success, non-zero otherwise
  */
 int send_cmd_to_KBC(uint8_t command);
 
@@ -98,7 +98,7 @@ int send_cmd_to_KBC(uint8_t command);
  * @brief sends a argument of a command to the KBC's input buffer
  *
  * @param argument argument to be sent
- * @return 0 upon success, non-zero otherwize
+ * @return 0 upon success, non-zero otherwise
  */
 int send_argument_to_KBC(uint8_t argument);
 
@@ -106,7 +106,7 @@ int send_argument_to_KBC(uint8_t argument);
  * @brief reads the mouse's response
  *
  * @param ack memory address to be filled with the response
- * @return 0 upon success, non-zero otherwize
+ * @return 0 upon success, non-zero otherwise
  */
 int read_ack_mouse(uint8_t *ack);
 
@@ -116,7 +116,7 @@ int read_ack_mouse(uint8_t *ack);
  * Keeps sending the command until the mouse returns an error or a successfull response
  *
  * @param command command to be sent
- * @return 0 upon success, non-zero otherwize
+ * @return 0 upon success, non-zero otherwise
  */
 int send_cmd_to_mouse(uint8_t command);
 
@@ -131,7 +131,7 @@ void(mouse_enable_reporting)();
 /**
  * @brief Get the received byte
  *
- * @return uint8_t the received byte
+ * @return the received byte
  */
 uint8_t get_received_byte();
 

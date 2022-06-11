@@ -253,7 +253,7 @@ int(proj_main_loop)() {
   timer_unsubscribe_int();
   keyboard_unsubscribe_int();
   mouse_unsubscribe_int();
-  disableDataReporting();
+  disable_data_reporting();
   rtc_unsubscribe_int();
   vg_exit();
   return 0;

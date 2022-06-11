@@ -32,7 +32,7 @@
  *
  * @param bit_no address of memory to be initialized with the
  *         bit number to be set in the mask returned upon an interrupt
- * @return 0 upon success, non-zero otherwize
+ * @return 0 upon success, non-zero otherwise
  */
 int serial_subscribe(uint8_t *bit_no);
 
