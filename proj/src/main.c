@@ -209,6 +209,7 @@ int(proj_main_loop)() {
                         screenState = QUIT;
                         pp.lb = false;
                       }
+                      memset(&pp, 0, sizeof(pp));
                       break;
                     case GOONE:
                       draw_img(imgs.gameOver1, 0, 0);
@@ -223,6 +224,7 @@ int(proj_main_loop)() {
                         pp.lb = false;
                       }
                       break;
+                      memset(&pp, 0, sizeof(pp));
                     case GOTWO:
                       draw_img(imgs.gameOver2, 0, 0);
                       mouseMovement(pp.delta_x, pp.delta_y, imgs.cursor);
@@ -235,6 +237,7 @@ int(proj_main_loop)() {
                         startGame = false;
                         pp.lb = false;
                       }
+                      memset(&pp, 0, sizeof(pp));
                       break;
                     default:
                       break;
