@@ -1,0 +1,28 @@
+var group__serial =
+[
+    [ "CAN_WRITE_TO_THR", "group__serial.html#ga6b30f8dc1ab7b4b17bbafd727aec652e", null ],
+    [ "COM1_IRQ", "group__serial.html#ga3685c78b9bd6dd0fa3861807e24a4e1b", null ],
+    [ "COM1_PORT", "group__serial.html#ga8982f081d8608e775b0739cde65373d5", null ],
+    [ "DATA_AVAILABLE", "group__serial.html#ga361f5c696ea1c92c5f6bcc10579dc71c", null ],
+    [ "FCR", "group__serial.html#ga264b36b13386e3f62fe69e04711bc006", null ],
+    [ "IER", "group__serial.html#ga3e27fa35f9febccdc4a0c28a5c8cffbb", null ],
+    [ "LCR", "group__serial.html#ga851cb396b6eaa97346364a772b439f37", null ],
+    [ "LSR", "group__serial.html#gad51d51aee21f6cc77d4955221aee3dcb", null ],
+    [ "MAX_WAIT", "group__serial.html#ga41b0180f12af925ed6e81a3566c0e448", null ],
+    [ "RBR", "group__serial.html#gaa6f7e7a9f4551d6151f9d45362118a50", null ],
+    [ "SERIAL_DELAY", "group__serial.html#gaaa81a4b4d4d2a337ca9177b3c05dd627", null ],
+    [ "THR", "group__serial.html#ga5e9787adf3c9afcc4b781e85bb545b35", null ],
+    [ "clear_DLAB", "group__serial.html#ga6c4f819bf49d0da33c1dee7a6e401d88", null ],
+    [ "read_character", "group__serial.html#ga6178bef82c4e14efa82ec6c07cb5e3f3", null ],
+    [ "read_from_LCR", "group__serial.html#ga09f7039ee3e77b8d3c09707f2fa7298e", null ],
+    [ "read_LSR", "group__serial.html#ga6fe3e47707baee767bcda1c8d6658c4c", null ],
+    [ "read_RBR", "group__serial.html#ga4e483fd5c1163fb3f954069757b49ed7", null ],
+    [ "send_character", "group__serial.html#ga90442b4177ec93b4370630055d781680", null ],
+    [ "serial_ih", "group__serial.html#gaca716492412cfe5a50efc3471caae7f6", null ],
+    [ "serial_subscribe", "group__serial.html#ga7b4a68816c36345162f68a5ca751c59e", null ],
+    [ "serial_unsubscribe", "group__serial.html#ga2bc63af8c3b6860fe91175bd5aa01771", null ],
+    [ "write_to_FCR", "group__serial.html#ga454e2eaf2505c1c04754b0634d75171f", null ],
+    [ "write_to_IER", "group__serial.html#gad54d8e2d1e18806ac3d03ce238c304e9", null ],
+    [ "write_to_LCR", "group__serial.html#gac00f90ae7bc08bf48ac61bd60422eaa0", null ],
+    [ "write_to_THR", "group__serial.html#ga27a913bc7943fc9b3ad25f7cb90d9e87", null ]
+];

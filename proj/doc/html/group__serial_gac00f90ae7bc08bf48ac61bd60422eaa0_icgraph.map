@@ -1,0 +1,10 @@
+<map id="write_to_LCR" name="write_to_LCR">
+<area shape="rect" id="node1" title="Writes a given byte to the Line Control Register." alt="" coords="727,81,825,108"/>
+<area shape="rect" id="node2" href="$group__serial.html#ga6c4f819bf49d0da33c1dee7a6e401d88" title="Sets the DLAB flag (bit 7 of the LCR) to 0." alt="" coords="588,56,679,83"/>
+<area shape="rect" id="node8" href="$group__serial.html#ga7b4a68816c36345162f68a5ca751c59e" title="Subscribes the interrupts sent by the serial port (in exclusive mode)." alt="" coords="281,81,397,108"/>
+<area shape="rect" id="node3" href="$group__serial.html#ga4e483fd5c1163fb3f954069757b49ed7" title="Reads a byte from the Receiver Buffer Register." alt="" coords="452,5,533,32"/>
+<area shape="rect" id="node7" href="$group__serial.html#gad54d8e2d1e18806ac3d03ce238c304e9" title="Writes a given byte to the Interrupt Enable Register." alt="" coords="445,56,540,83"/>
+<area shape="rect" id="node4" href="$group__serial.html#ga6178bef82c4e14efa82ec6c07cb5e3f3" title="Reads a character from the Receiver Buffer Register Used by the interrupt handler to get the received..." alt="" coords="285,5,393,32"/>
+<area shape="rect" id="node5" href="$main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,31,115,57"/>
+<area shape="rect" id="node6" href="$group__serial.html#gaca716492412cfe5a50efc3471caae7f6" title="Serial port interrupt handler." alt="" coords="163,31,233,57"/>
+</map>

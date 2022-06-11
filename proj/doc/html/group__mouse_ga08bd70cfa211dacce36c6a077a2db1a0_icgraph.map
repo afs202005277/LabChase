@@ -1,0 +1,9 @@
+<map id="send_byte_to_KBC" name="send_byte_to_KBC">
+<area shape="rect" id="node1" title="sends a byte to the given port" alt="" coords="779,31,913,57"/>
+<area shape="rect" id="node2" href="$group__mouse.html#ga432788b7e69e0e4c23af0a460f36ea2a" title="sends a argument of a command to the KBC&#39;s input buffer" alt="" coords="568,5,731,32"/>
+<area shape="rect" id="node7" href="$group__mouse.html#gaf28e86a0b02c40f866f280fdeb8304ca" title="sends a command to the KBC command register" alt="" coords="582,56,717,83"/>
+<area shape="rect" id="node3" href="$group__mouse.html#gadb688a0a952836b3b646c12d6b793bf7" title="sends a command to the mouse" alt="" coords="373,31,520,57"/>
+<area shape="rect" id="node4" href="$group__mouse.html#ga5355d192401dd421648d87b2d2326413" title="Disables the data reporting." alt="" coords="168,5,320,32"/>
+<area shape="rect" id="node6" href="$group__mouse.html#ga08c6bca1af4b48302d98cc161d378a7e" title="Enables data reporting." alt="" coords="163,56,325,83"/>
+<area shape="rect" id="node5" href="$main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
+</map>

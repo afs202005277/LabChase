@@ -1,0 +1,4 @@
+<map id="read_LSR" name="read_LSR">
+<area shape="rect" id="node1" title="Reads a byte from the Line Status Register." alt="" coords="5,5,84,32"/>
+<area shape="rect" id="node2" href="$group__utils.html#ga79a031a8611f5b2d6afa4158e92b0fb4" title="Reads 4 bytes from a given port and returns the least significant one." alt="" coords="132,5,223,32"/>
+</map>

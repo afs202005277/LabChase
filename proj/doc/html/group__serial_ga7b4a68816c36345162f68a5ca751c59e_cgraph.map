@@ -1,0 +1,9 @@
+<map id="serial_subscribe" name="serial_subscribe">
+<area shape="rect" id="node1" title="Subscribes the interrupts sent by the serial port (in exclusive mode)." alt="" coords="5,55,121,82"/>
+<area shape="rect" id="node2" href="$group__serial.html#ga09f7039ee3e77b8d3c09707f2fa7298e" title="Reads the word present in the Line Control Register." alt="" coords="456,18,567,45"/>
+<area shape="rect" id="node4" href="$group__serial.html#ga454e2eaf2505c1c04754b0634d75171f" title="Writes a byte to the FIFO Control Register." alt="" coords="169,30,269,57"/>
+<area shape="rect" id="node5" href="$group__serial.html#gad54d8e2d1e18806ac3d03ce238c304e9" title="Writes a given byte to the Interrupt Enable Register." alt="" coords="172,81,267,107"/>
+<area shape="rect" id="node7" href="$group__serial.html#gac00f90ae7bc08bf48ac61bd60422eaa0" title="Writes a given byte to the Line Control Register." alt="" coords="462,106,561,133"/>
+<area shape="rect" id="node3" href="$group__utils.html#ga79a031a8611f5b2d6afa4158e92b0fb4" title="Reads 4 bytes from a given port and returns the least significant one." alt="" coords="615,18,705,45"/>
+<area shape="rect" id="node6" href="$group__serial.html#ga6c4f819bf49d0da33c1dee7a6e401d88" title="Sets the DLAB flag (bit 7 of the LCR) to 0." alt="" coords="317,81,408,107"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="start_game" name="start_game">
+<area shape="rect" id="node1" title="Starts the game and changes the background color according to the hour of the day." alt="" coords="163,5,249,32"/>
+<area shape="rect" id="node2" href="$main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
+</map>

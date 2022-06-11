@@ -1,0 +1,4 @@
+<map id="read_ack_mouse" name="read_ack_mouse">
+<area shape="rect" id="node1" title="reads the mouse&#39;s response" alt="" coords="5,5,127,32"/>
+<area shape="rect" id="node2" href="$group__utils.html#ga79a031a8611f5b2d6afa4158e92b0fb4" title="Reads 4 bytes from a given port and returns the least significant one." alt="" coords="175,5,265,32"/>
+</map>

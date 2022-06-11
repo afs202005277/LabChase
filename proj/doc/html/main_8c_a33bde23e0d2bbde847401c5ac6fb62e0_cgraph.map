@@ -1,0 +1,52 @@
+<map id="proj_main_loop" name="proj_main_loop">
+<area shape="rect" id="node1" title=" " alt="" coords="5,883,115,909"/>
+<area shape="rect" id="node2" href="$group__mouse.html#ga5355d192401dd421648d87b2d2326413" title="Disables the data reporting." alt="" coords="173,31,325,57"/>
+<area shape="rect" id="node6" href="$video__gr_8c.html#a934f8dddd38ccf03b57b3df1cb6bdb25" title="Draws an image in the specified coordinates." alt="" coords="211,81,288,108"/>
+<area shape="rect" id="node7" href="$video__gr_8c.html#a719496aadf8f431ed96adace6df5576e" title="Get the amount of bits of each pixel." alt="" coords="186,132,313,159"/>
+<area shape="rect" id="node8" href="$video__gr_8c.html#ac19350f0662b5c8fbb1a41e051411014" title="Gets the horizontal resolution of the screen." alt="" coords="210,183,289,209"/>
+<area shape="rect" id="node9" href="$group__timer.html#ga00688c86172f5ff528f94ff33e03bebd" title="Get the total number of interrupts received by the timer 0." alt="" coords="183,234,316,275"/>
+<area shape="rect" id="node10" href="$group__mouse.html#ga9070b8f7b5b92726616cdae353593f82" title="Get the received byte." alt="" coords="186,300,313,327"/>
+<area shape="rect" id="node11" href="$video__gr_8c.html#ab226d056720011120b05e68e5f4d4449" title="Gets the vertical resolution of the screen." alt="" coords="211,351,288,377"/>
+<area shape="rect" id="node12" href="$video__gr_8c.html#a9ad69d2ba32f60cff5d9e3723d1f36a3" title="Gets the memory address of the video memory (mapped in the process adress space)" alt="" coords="193,401,305,428"/>
+<area shape="rect" id="node13" href="$keyboard_8c.html#ac1cafb9d68b2d1506ad740db6490294e" title="Makes the interpretation of the keycode received and returns the corresponding movement." alt="" coords="178,452,321,479"/>
+<area shape="rect" id="node15" href="$keyboard_8c.html#a178b1db0b319dccad2840cc3fd273132" title="Subscribes and enables keyboard interrupts." alt="" coords="170,503,329,529"/>
+<area shape="rect" id="node16" href="$keyboard_8c.html#a32cc4de66854f8a7bd909e7aa8b901ed" title="Unsubscribes keyboard interrupts." alt="" coords="163,553,336,580"/>
+<area shape="rect" id="node17" href="$main_8c.html#a9165d629cabb06ce74758986c2ac0e09" title=" " alt="" coords="202,604,297,631"/>
+<area shape="rect" id="node19" href="$group__mouse.html#ga210374b50462acdedab00df64d5cea3c" title="mouse interrupt handler" alt="" coords="210,655,289,681"/>
+<area shape="rect" id="node22" href="$group__mouse.html#ga20285aed4b3ef45812cd967532dd09db" title="Subscribes the interrupts sent by the mouse (in exclusive mode)." alt="" coords="177,705,322,732"/>
+<area shape="rect" id="node23" href="$group__mouse.html#ga3ecf823d80520009ae5e0d76ae40a3c3" title="Unsubscribes the mouse&#39;s interrupts." alt="" coords="170,756,329,783"/>
+<area shape="rect" id="node24" href="$video__gr_8c.html#ac1b80367aafbd9c82107a1bb31b21e46" title="Checks if the cursor of the mouse is inside a given rectangle." alt="" coords="197,807,301,833"/>
+<area shape="rect" id="node25" href="$video__gr_8c.html#acb34c46693ce37d3209572ed39678c33" title="Moves the cursor of the mouse." alt="" coords="189,857,309,884"/>
+<area shape="rect" id="node26" href="$video__gr_8c.html#a5618b8580340444db9a21a2684c9326a" title="moves the plyer according to information received" alt="" coords="202,908,297,935"/>
+<area shape="rect" id="node27" href="$group__mouse.html#ga72224526e9aeb23ea04ae35636fa8d2b" title="Parses the bytes sent by the mouse into a more usable way." alt="" coords="180,959,319,985"/>
+<area shape="rect" id="node28" href="$video__gr_8c.html#aa9765690ba3c71fa7aa19683bd3c7e59" title="Moves the players without their action." alt="" coords="174,1009,325,1036"/>
+<area shape="rect" id="node29" href="$group__serial.html#ga6178bef82c4e14efa82ec6c07cb5e3f3" title="Reads a character from the Receiver Buffer Register Used by the interrupt handler to get the received..." alt="" coords="403,1187,511,1213"/>
+<area shape="rect" id="node32" href="$group__rtc.html#ga49d112e7da6f83f064bfcb9d34fa0ac4" title="Read the year." alt="" coords="206,1060,293,1087"/>
+<area shape="rect" id="node34" href="$group__rtc.html#gadfccb8a2ec32a7b57eaf18682d4c417d" title="Subscribes interrupts from the rtc." alt="" coords="189,1161,310,1188"/>
+<area shape="rect" id="node35" href="$group__rtc.html#gab8f17bf5280c908c8b199a90fefcc758" title="Unsbscribes the rtc interrupts." alt="" coords="182,1212,317,1239"/>
+<area shape="rect" id="node36" href="$group__serial.html#ga90442b4177ec93b4370630055d781680" title="Sends a byte through the serial port, using polling to check if the Transmitter Holding Register is e..." alt="" coords="194,1313,305,1340"/>
+<area shape="rect" id="node38" href="$group__serial.html#gaca716492412cfe5a50efc3471caae7f6" title="Serial port interrupt handler." alt="" coords="214,1263,285,1289"/>
+<area shape="rect" id="node39" href="$group__serial.html#ga7b4a68816c36345162f68a5ca751c59e" title="Subscribes the interrupts sent by the serial port (in exclusive mode)." alt="" coords="191,1364,307,1391"/>
+<area shape="rect" id="node44" href="$group__serial.html#ga2bc63af8c3b6860fe91175bd5aa01771" title="Unsubscribes the interrupts from serial port." alt="" coords="184,1415,315,1441"/>
+<area shape="rect" id="node45" href="$video__gr_8c.html#a3a5d5130cc8225f6db8c785295ce4a70" title="Initializes the position of the cursor of the mouse." alt="" coords="190,1465,309,1492"/>
+<area shape="rect" id="node46" href="$video__gr_8c.html#ae76098d2670c95e2900cd8715c95d677" title="Starts the game and changes the background color according to the hour of the day." alt="" coords="206,1516,293,1543"/>
+<area shape="rect" id="node47" href="$group__timer.html#ga91a2072306c68353712a6b771287dc2c" title="Timer 0 interrupt handler." alt="" coords="189,1567,310,1593"/>
+<area shape="rect" id="node48" href="$group__timer.html#gac57a7e1140a7e00ad95ac5488d2a671b" title="Subscribes and enables Timer 0 interrupts." alt="" coords="182,1617,317,1644"/>
+<area shape="rect" id="node49" href="$group__timer.html#gafabd21de449be154dd65d5fdb2d8045d" title="Unsubscribes Timer 0 interrupts." alt="" coords="175,1668,324,1695"/>
+<area shape="rect" id="node50" href="$video__gr_8c.html#acc11b311c479b1904fd45e8c6da5fcc3" title=" " alt="" coords="220,1719,279,1745"/>
+<area shape="rect" id="node3" href="$group__mouse.html#gadb688a0a952836b3b646c12d6b793bf7" title="sends a command to the mouse" alt="" coords="384,31,531,57"/>
+<area shape="rect" id="node4" href="$group__mouse.html#ga0e33b1b5368d04439e73f0c264ca01e5" title="reads the mouse&#39;s response" alt="" coords="599,5,721,32"/>
+<area shape="rect" id="node5" href="$group__mouse.html#ga432788b7e69e0e4c23af0a460f36ea2a" title="sends a argument of a command to the KBC&#39;s input buffer" alt="" coords="579,56,741,83"/>
+<area shape="rect" id="node14" href="$keyboard_8c.html#aea970a154161a35f6894898a092ed70a" title="keyboard interrupt handler" alt="" coords="427,452,487,479"/>
+<area shape="rect" id="node18" href="$video__gr_8c.html#a55237e8e252e1ed0bed62d51d0e795b3" title="Loads an image from a xpm image." alt="" coords="413,604,501,631"/>
+<area shape="rect" id="node20" href="$group__mouse.html#ga1ea22dc7f1cd587ad7715408bddb3c4e" title="Get the status byte from the KBC." alt="" coords="402,705,513,732"/>
+<area shape="rect" id="node21" href="$group__mouse.html#gac60cbe0a0bedce0af65dff3110e142df" title="reads a byte from the KBC&#39;s output buffer" alt="" coords="393,655,521,681"/>
+<area shape="rect" id="node30" href="$group__serial.html#ga6fe3e47707baee767bcda1c8d6658c4c" title="Reads a byte from the Line Status Register." alt="" coords="621,1263,699,1289"/>
+<area shape="rect" id="node31" href="$group__serial.html#ga4e483fd5c1163fb3f954069757b49ed7" title="Reads a byte from the Receiver Buffer Register." alt="" coords="619,1187,701,1213"/>
+<area shape="rect" id="node33" href="$group__rtc.html#ga76827856de45c0728d613f90c5f6e009" title="Reads the register passed as a argument." alt="" coords="410,1060,505,1087"/>
+<area shape="rect" id="node37" href="$group__serial.html#ga27a913bc7943fc9b3ad25f7cb90d9e87" title="Writes a byte in the Transmitter Holding Register." alt="" coords="408,1237,507,1264"/>
+<area shape="rect" id="node40" href="$group__serial.html#ga09f7039ee3e77b8d3c09707f2fa7298e" title="Reads the word present in the Line Control Register." alt="" coords="402,1389,513,1416"/>
+<area shape="rect" id="node41" href="$group__serial.html#ga454e2eaf2505c1c04754b0634d75171f" title="Writes a byte to the FIFO Control Register." alt="" coords="407,1440,507,1467"/>
+<area shape="rect" id="node42" href="$group__serial.html#gad54d8e2d1e18806ac3d03ce238c304e9" title="Writes a given byte to the Interrupt Enable Register." alt="" coords="410,1491,505,1517"/>
+<area shape="rect" id="node43" href="$group__serial.html#gac00f90ae7bc08bf48ac61bd60422eaa0" title="Writes a given byte to the Line Control Register." alt="" coords="408,1339,507,1365"/>
+</map>

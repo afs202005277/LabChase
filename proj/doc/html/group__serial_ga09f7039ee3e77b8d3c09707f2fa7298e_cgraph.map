@@ -1,0 +1,4 @@
+<map id="read_from_LCR" name="read_from_LCR">
+<area shape="rect" id="node1" title="Reads the word present in the Line Control Register." alt="" coords="5,5,116,32"/>
+<area shape="rect" id="node2" href="$group__utils.html#ga79a031a8611f5b2d6afa4158e92b0fb4" title="Reads 4 bytes from a given port and returns the least significant one." alt="" coords="164,5,255,32"/>
+</map>

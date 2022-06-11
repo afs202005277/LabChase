@@ -1,0 +1,7 @@
+<map id="start_screen" name="start_screen">
+<area shape="rect" id="node1" title=" " alt="" coords="5,31,100,57"/>
+<area shape="rect" id="node2" href="$video__gr_8c.html#a99d2da2559e11200c6b40c469e9977ec" title=" " alt="" coords="148,31,276,57"/>
+<area shape="rect" id="node3" href="$video__gr_8c.html#af65d602db7cb06bc9f8239d4e8a6779c" title="Gets the color of the pixel in the given position." alt="" coords="337,5,414,32"/>
+<area shape="rect" id="node4" href="$video__gr_8c.html#a5e5b25bd525250f61f40b9e9f212d5e6" title=" " alt="" coords="324,56,427,83"/>
+<area shape="rect" id="node5" href="$video__gr_8c.html#a6f895de9725f9f231f9a7f74b6087f60" title=" " alt="" coords="475,56,577,83"/>
+</map>

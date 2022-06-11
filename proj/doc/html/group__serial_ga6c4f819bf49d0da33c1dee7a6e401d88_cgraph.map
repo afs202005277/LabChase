@@ -1,0 +1,6 @@
+<map id="clear_DLAB" name="clear_DLAB">
+<area shape="rect" id="node1" title="Sets the DLAB flag (bit 7 of the LCR) to 0." alt="" coords="5,31,96,57"/>
+<area shape="rect" id="node2" href="$group__serial.html#ga09f7039ee3e77b8d3c09707f2fa7298e" title="Reads the word present in the Line Control Register." alt="" coords="144,5,255,32"/>
+<area shape="rect" id="node4" href="$group__serial.html#gac00f90ae7bc08bf48ac61bd60422eaa0" title="Writes a given byte to the Line Control Register." alt="" coords="150,56,249,83"/>
+<area shape="rect" id="node3" href="$group__utils.html#ga79a031a8611f5b2d6afa4158e92b0fb4" title="Reads 4 bytes from a given port and returns the least significant one." alt="" coords="303,5,393,32"/>
+</map>

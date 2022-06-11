@@ -1,0 +1,11 @@
+<map id="get_kbc_status" name="get_kbc_status">
+<area shape="rect" id="node1" title="Get the status byte from the KBC." alt="" coords="961,31,1072,57"/>
+<area shape="rect" id="node2" href="$group__mouse.html#ga210374b50462acdedab00df64d5cea3c" title="mouse interrupt handler" alt="" coords="407,5,486,32"/>
+<area shape="rect" id="node4" href="$group__mouse.html#ga08bd70cfa211dacce36c6a077a2db1a0" title="sends a byte to the given port" alt="" coords="779,56,913,83"/>
+<area shape="rect" id="node3" href="$main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,31,115,57"/>
+<area shape="rect" id="node5" href="$group__mouse.html#ga432788b7e69e0e4c23af0a460f36ea2a" title="sends a argument of a command to the KBC&#39;s input buffer" alt="" coords="568,56,731,83"/>
+<area shape="rect" id="node9" href="$group__mouse.html#gaf28e86a0b02c40f866f280fdeb8304ca" title="sends a command to the KBC command register" alt="" coords="582,107,717,133"/>
+<area shape="rect" id="node6" href="$group__mouse.html#gadb688a0a952836b3b646c12d6b793bf7" title="sends a command to the mouse" alt="" coords="373,81,520,108"/>
+<area shape="rect" id="node7" href="$group__mouse.html#ga5355d192401dd421648d87b2d2326413" title="Disables the data reporting." alt="" coords="168,56,320,83"/>
+<area shape="rect" id="node8" href="$group__mouse.html#ga08c6bca1af4b48302d98cc161d378a7e" title="Enables data reporting." alt="" coords="163,107,325,133"/>
+</map>

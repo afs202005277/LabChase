@@ -1,0 +1,5 @@
+<map id="key_code_interpreter" name="key_code_interpreter">
+<area shape="rect" id="node1" title="Makes the interpretation of the keycode received and returns the corresponding movement." alt="" coords="5,5,148,32"/>
+<area shape="rect" id="node2" href="$keyboard_8c.html#aea970a154161a35f6894898a092ed70a" title="keyboard interrupt handler" alt="" coords="196,5,256,32"/>
+<area shape="rect" id="node3" href="$group__utils.html#ga79a031a8611f5b2d6afa4158e92b0fb4" title="Reads 4 bytes from a given port and returns the least significant one." alt="" coords="304,5,395,32"/>
+</map>

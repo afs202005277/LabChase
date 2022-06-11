@@ -1,0 +1,5 @@
+<map id="kbc_ih" name="kbc_ih">
+<area shape="rect" id="node1" title="keyboard interrupt handler" alt="" coords="353,5,413,32"/>
+<area shape="rect" id="node2" href="$keyboard_8c.html#ac1cafb9d68b2d1506ad740db6490294e" title="Makes the interpretation of the keycode received and returns the corresponding movement." alt="" coords="163,5,305,32"/>
+<area shape="rect" id="node3" href="$main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
+</map>
