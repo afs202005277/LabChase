@@ -14,6 +14,8 @@
 #include "XPMs/PauseScreen.h"
 
 #define GRAPHICS_MODE 0x115
+#define SEND_BYTE 'p'
+#define RECEIVE_BYTE 'c'
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -131,8 +133,8 @@ int(proj_main_loop)() {
           }
           if (msg.m_notify.interrupts & BIT(bit_no_serial)) {
             serial_ih();
-            if (isWaiting && receivedChar == 'c') {
-              send_character('p');
+            if (isWaiting && receivedChar == RECEIVE_BYTE) {
+              send_character(SEND_BYTE);
               isConnected = true;
               isWaiting = false;
               screenState = M_GAME;
@@ -180,7 +182,7 @@ int(proj_main_loop)() {
               pp.bytes[numBytesReceivedMouse] = mouseReceivedByte;
               numBytesReceivedMouse++;
             }
-            if (numBytesReceivedMouse == 3) {
+            if (numBytesReceivedMouse == PACKET_SIZE) {
               numBytesReceivedMouse = 0;
               parse_mouse_bytes(&pp);
               if (!isWaiting) {
@@ -195,10 +197,10 @@ int(proj_main_loop)() {
                       }
                       else if (mouseInPlace(268, 352, 532, 376) && pp.lb) {
                         isWaiting = true;
-                        send_character('p');
+                        send_character(SEND_BYTE);
                         unsigned char character;
                         read_character(&character);
-                        if (character == 'c') {
+                        if (character == RECEIVE_BYTE) {
                           screenState = M_GAME;
                           isConnected = true;
                           isWaiting = false;

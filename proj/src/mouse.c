@@ -62,7 +62,7 @@ int send_byte_to_KBC(uint8_t port, uint8_t byte){
   uint8_t wait = 15;
   do {
     get_kbc_status(&status);
-    if ((status & BIT(1)) == 0) {
+    if ((status & KBC_ST_IBF) == 0) {
       return sys_outb(port, byte);
     }
     tickdelay(micros_to_ticks(KEYBOARD_DELAY));
@@ -95,19 +95,11 @@ int send_cmd_to_mouse(uint8_t command){
   return ack == ERROR;
 }
 
-void(disableDataReporting)() {
+void(disable_data_reporting)() {
   send_cmd_to_mouse(DISABLE_DATA_REPORT);
 }
 
-void(enableStreamMode)(){
-  send_cmd_to_mouse(SET_STREAM_MODE);
-}
-
-void(enableDataReporting)(){
-  send_cmd_to_mouse(ENABLE_DATA_REPORT);
-}
-
 void(mouse_enable_reporting)(){
-  enableStreamMode();
-  enableDataReporting();
+  send_cmd_to_mouse(SET_STREAM_MODE);
+  send_cmd_to_mouse(ENABLE_DATA_REPORT);
 }
