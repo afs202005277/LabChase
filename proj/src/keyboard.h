@@ -29,7 +29,13 @@ int(keyboard_unsubscribe_int)();
  */
 void(kbc_ih)();
 
-struct MovementInfo key_code_interpreter(enum screenState* screenState);
+/**
+ * @brief Makes the interpretation of the keycode received and returns the corresponding movement
+ *
+ * @param screenState memory address of the screen state (needed if the user pressed the pause button)
+ * @return struct MovementInfo struct that contains the interpretation of the keycode
+ */
+struct MovementInfo key_code_interpreter(enum screenState *screenState);
 
-
+/**@}*/
 #endif /* __KEYBOARD_H */

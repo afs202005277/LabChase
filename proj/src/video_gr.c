@@ -132,17 +132,6 @@ xpm_image_t load_image(xpm_map_t xpm) {
   return img;
 }
 
-int draw_img2(xpm_image_t img, uint16_t x, uint16_t y) {
-  for (int offset_x = 0; offset_x < img.width; offset_x++) {
-    for (int offset_y = 0; offset_y < img.height; offset_y++) {
-      uint32_t color;
-      memcpy(&color, &img.bytes[(offset_y * img.width + offset_x) * bytes_per_pixel], bytes_per_pixel);
-      vg_draw_pixel(x + offset_x, y + offset_y, color);
-    }
-  }
-  return 0;
-}
-
 int draw_img(xpm_image_t img, uint16_t x, uint16_t y) {
   uint32_t numBytes = bytes_per_pixel * img.width;
   for (int offset_y = 0; offset_y < img.height; offset_y++) {
@@ -194,12 +183,14 @@ int passive_move_players() {
 }
 
 int draw_cursor(xpm_image_t img, uint16_t x, uint16_t y) {
+  uint32_t color;
   for (int offset_x = 0; offset_x < img.width; offset_x++) {
     for (int offset_y = 0; offset_y < img.height; offset_y++) {
-      uint32_t color;
-      memcpy(&color, &img.bytes[(offset_y * img.width + offset_x)*bytes_per_pixel], bytes_per_pixel);
-      if (color != 0x123456)
+      color = 0;
+      memcpy(&color, &img.bytes[(offset_y * img.width + offset_x) * bytes_per_pixel], bytes_per_pixel);
+      if (color != 0x123456) {
         vg_draw_pixel(x + offset_x, y + offset_y, color);
+      }
     }
   }
   return 0;
@@ -258,7 +249,8 @@ int start_game(uint8_t hour) {
   unsigned char a = 0x19;
   if (hour >= a) {
     memset(video_mem, 255, h_res * v_res * bytes_per_pixel);
-  } else{
+  }
+  else {
     memset(video_mem, 0, h_res * v_res * bytes_per_pixel);
   }
   me.currentDirection = RIGHT;

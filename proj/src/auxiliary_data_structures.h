@@ -12,16 +12,6 @@
  */
 
 /**
- * @brief Enumerated type for specifying the timer value initialization
- */
-enum timer_init {
-  INVAL_val,    /*!< Invalid initialization mode */
-  LSB_only,     /*!< Initialization only of the LSB */
-  MSB_only,     /*!< Initialization only of the MSB */
-  MSB_after_LSB /*!< Initialization of LSB and MSB, in this order */
-};
-
-/**
  * @brief Enumerated type for specifying the direction of the movement
  */
 enum direction { UNCHANGED, /*!< There wasn't a change in direction */

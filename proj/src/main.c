@@ -1,8 +1,8 @@
+#include "timer_proj.h"
 #include "keyboard.h"
 #include "mouse.h"
 #include "rtc.h"
 #include "serial.h"
-#include "timer.h"
 #include "video_gr_gameAPI.h"
 #include <lcom/lcf.h>
 #include <stdbool.h>

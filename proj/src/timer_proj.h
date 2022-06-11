@@ -112,6 +112,11 @@ int(timer_print_config)(uint8_t timer, enum timer_status_field field,
  */
 uint32_t(timer_print_elapsed_time)();
 
+/**
+ * @brief Get the total number of interrupts received by the timer 0
+ * 
+ * @return unsigned int the number of interrupts
+ */
 unsigned int get_num_interrupts_timer();
 
 #endif /* __TIMER_H */

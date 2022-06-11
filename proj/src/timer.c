@@ -1,5 +1,5 @@
 #include <lcom/lcf.h>
-#include "timer.h"
+#include "timer_proj.h"
 
 #include <stdint.h>
 
