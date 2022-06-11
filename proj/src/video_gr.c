@@ -4,6 +4,8 @@
 #include "video_gr_gameAPI.h"
 #include "video_gr_macros.h"
 
+#include "XPMs/DarkModeGame.xpm"
+#include "XPMs/LightModeGame.xpm"
 #include "auxiliary_data_structures.h"
 
 static void *video_mem;
@@ -205,10 +207,10 @@ int move_player(struct MovementInfo movementInfo, bool isPassiveMovement) {
 int start_game(uint8_t hour) {
   unsigned char a = 0x19;
   if (hour >= a) {
-    memset(video_mem, 255, h_res * v_res * bytes_per_pixel);
+    draw_img(load_image(LightModeGameScreen), 0, 0);
   }
   else {
-    memset(video_mem, 0, h_res * v_res * bytes_per_pixel);
+    draw_img(load_image(DarkModeGameScreen), 0, 0);
   }
   me.currentDirection = RIGHT;
   me.x = h_res / 2 - 100;
