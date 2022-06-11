@@ -281,13 +281,13 @@ int(mouseMovement)(uint16_t x, uint16_t y, xpm_image_t cursor) {
   mouse.x += x;
   mouse.y -= y;
 
-  if (mouse.x >= h_res - 30) {
+  if (mouse.x + 30 >= (int) h_res) {
     mouse.x = h_res - 30;
   }
   if (mouse.x <= 30) {
     mouse.x = 30;
   }
-  if (mouse.y >= v_res - 30) {
+  if (mouse.y + 30 >= (int) v_res) {
     mouse.y = v_res - 30;
   }
   if (mouse.y <= 30) {

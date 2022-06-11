@@ -64,8 +64,8 @@ struct PlayerPosition {
  *
  */
 struct mousePos {
-  uint16_t x; /*!< The position of the mouse in the X axis */
-  uint16_t y; /*!< The position of the mouse in the Y axis */
+  int16_t x; /*!< The position of the mouse in the X axis */
+  int16_t y; /*!< The position of the mouse in the Y axis */
 };
 
 /**
