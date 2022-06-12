@@ -89,6 +89,13 @@ void load_images(struct images *imgs) {
   imgs->cursor = load_image(Cursor);
 }
 
+uint8_t convert_from_bcd(uint8_t bcdNum) {
+  uint8_t decNum = (bcdNum >> 4);
+  decNum *= 10;
+  decNum += (bcdNum & 0x0F);
+  return decNum;
+}
+
 /**
  * @brief Starts the game and changes background according to the current hour
  *
@@ -96,7 +103,9 @@ void load_images(struct images *imgs) {
 void start_game() {
   uint8_t hour;
   read_hours(&hour);
-  set_up_game(hour);
+  uint8_t decHour = convert_from_bcd(hour);
+  printf("HEREEE: %u", decHour);
+  set_up_game(decHour);
 }
 
 /**
@@ -119,11 +128,11 @@ int main(int argc, char *argv[]) {
 
   // enables to log function invocations that are being "wrapped" by LCF
   // [comment this out if you don't want/need it]
-  lcf_trace_calls("/home/lcom/labs/proj/src/trace.txt");
+  lcf_trace_calls("/home/lcom/labs/g02/proj/src/trace.txt");
 
   // enables to save the output of printf function calls on a file
   // [comment this out if you don't want/need it]
-  lcf_log_output("/home/lcom/labs/proj/src/output.txt");
+  lcf_log_output("/home/lcom/labs/g02/proj/src/output.txt");
 
   // handles control over to LCF
   // [LCF handles command line arguments and invokes the right function]

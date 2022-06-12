@@ -18,7 +18,7 @@ int rtc_subscribe_int(uint8_t *bit_no) {
 int rtc_unsubscribe_int() {
   if (sys_irqrmpolicy(&hook_id) != OK) {
     printf("Error unsubscribing to RTC\n");
-    return 1;
+    return 2;
   }
   return 0;
 }
@@ -33,7 +33,7 @@ int rtc_read_reg(uint8_t reg, uint8_t *data) {
 
   if (sys_inb(RTC_DATA_REG, &temp) != OK) {
     printf("Error reading the register\n");
-    return 1;
+    return 2;
   }
   *data = (uint8_t) temp;
   return 0;

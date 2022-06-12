@@ -202,6 +202,7 @@ int move_player(struct MovementInfo movementInfo, bool isPassiveMovement, bool b
 
 int set_up_game(uint8_t hour) {
   unsigned char a = 0x19;
+
   if (hour >= a) {
     draw_img(load_image(LightModeGameScreen), 0, 0);
   }
