@@ -154,6 +154,16 @@ int(proj_main_loop)() {
           }
           if (msg.m_notify.interrupts & BIT(bit_no_serial)) {
             serial_ih();
+            uint8_t playerID = receivedChar & BIT(7);
+            receivedChar &= 0x7F;
+            if (receivedChar == BOOST) {
+              if (playerID == OTHER && speedOffsetPlayer1 == 0) {
+                speedOffsetPlayer1 += BOOST_INCREMENT;
+              }
+              else if (playerID == ME && speedOffsetPlayer2 == 0) {
+                speedOffsetPlayer2 += BOOST_INCREMENT;
+              }
+            }
             if (receivedChar == STOP) {
               isConnected = false;
               startGame = false;
@@ -182,6 +192,8 @@ int(proj_main_loop)() {
             if (!isWaiting) {
               if (screenState == S_GAME || screenState == M_GAME) {
                 if (nextMove.dir == BOOST) {
+                  uint8_t tmp=BOOST | (nextMove.playerID << 7);
+                  send_character(tmp);
                   if (nextMove.playerID == ME && speedOffsetPlayer1 == 0) {
                     speedOffsetPlayer1 += BOOST_INCREMENT;
                   }
@@ -190,6 +202,7 @@ int(proj_main_loop)() {
                   }
                 }
                 else if (nextMove.dir == STOP) {
+                  send_character(STOP);
                   isConnected = false;
                   startGame = false;
                   screenState = MAIN;
@@ -198,7 +211,9 @@ int(proj_main_loop)() {
                 else if (nextMove.dir != UNCHANGED) {
                   bool isBoosted = (nextMove.playerID == ME && speedOffsetPlayer1 > 0) || (nextMove.playerID == OTHER && speedOffsetPlayer2 > 0);
                   if (isConnected) {
-                    send_character(nextMove.dir);
+                    uint8_t id = nextMove.playerID;
+                    id <<= 7;
+                    send_character(nextMove.dir | id);
                     if (nextMove.playerID == ME && move_player(nextMove, false, isBoosted) == 1) {
                       isConnected = false;
                       screenState = GOONE;
@@ -235,6 +250,7 @@ int(proj_main_loop)() {
                       mouseMovement(pp.delta_x, pp.delta_y, imgs.cursor);
                       if (mouseInPlace(253, 288, 547, 313) && pp.lb) {
                         screenState = S_GAME;
+                        mainSpeed = 5;
                         pp.lb = false;
                       }
                       else if (mouseInPlace(268, 352, 532, 376) && pp.lb) {
@@ -260,6 +276,7 @@ int(proj_main_loop)() {
                       mouseMovement(pp.delta_x, pp.delta_y, imgs.cursor);
                       if (mouseInPlace(236, 341, 367, 371) && pp.lb) {
                         screenState = S_GAME;
+                        mainSpeed = 5;
                         pp.lb = false;
                       }
                       else if (mouseInPlace(451, 341, 565, 372) && pp.lb) {
@@ -274,6 +291,7 @@ int(proj_main_loop)() {
                       mouseMovement(pp.delta_x, pp.delta_y, imgs.cursor);
                       if (mouseInPlace(236, 341, 367, 371) && pp.lb) {
                         screenState = S_GAME;
+                        mainSpeed = 5;
                         pp.lb = false;
                       }
                       else if (mouseInPlace(451, 341, 565, 372) && pp.lb) {
