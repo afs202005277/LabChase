@@ -104,7 +104,6 @@ void start_game() {
   uint8_t hour;
   read_hours(&hour);
   uint8_t decHour = convert_from_bcd(hour);
-  printf("HEREEE: %u", decHour);
   set_up_game(decHour);
 }
 
