@@ -14,7 +14,7 @@ int passive_move_players();
  * @param isPassiveMovement boolean flag to distinguish passive movement from active movement
  * @return 0 if there was no collision, non-zero otherwise
  */
-int move_player(struct MovementInfo movementInfo, bool isPassiveMovement);
+int move_player(struct MovementInfo movementInfo, bool isPassiveMovement, bool boostEnabled);
 
 /**
  * @brief Starts the game and changes the background color according to the hour of the day 

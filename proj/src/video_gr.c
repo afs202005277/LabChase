@@ -47,7 +47,7 @@ int(set_mode)(uint16_t mode) {
   return OK;
 }
 
-void* new_vg_init(uint16_t mode) {
+void *new_vg_init(uint16_t mode) {
   vbe_mode_info_t info;
   int r;
   struct minix_mem_range mr;
@@ -136,15 +136,6 @@ int opposite(int dir) {
   }
 }
 
-int passive_move_players() {
-  struct MovementInfo passive_movement_me = {.dir = me.currentDirection, .playerID = ME}, passive_movement_other = {.dir = other.currentDirection, .playerID = OTHER};
-  if (move_player(passive_movement_me, true) != 0)
-    return 1;
-  if (move_player(passive_movement_other, true) != 0)
-    return 2;
-  return 0;
-}
-
 int draw_cursor(xpm_image_t img, uint16_t x, uint16_t y) {
   uint32_t color;
   for (int offset_x = 0; offset_x < img.width; offset_x++) {
@@ -159,7 +150,7 @@ int draw_cursor(xpm_image_t img, uint16_t x, uint16_t y) {
   return OK;
 }
 
-int move_player(struct MovementInfo movementInfo, bool isPassiveMovement) {
+int move_player(struct MovementInfo movementInfo, bool isPassiveMovement, bool boostEnabled) {
   uint16_t movementStep = MOVEMENT_STEP;
   uint16_t dimensions = SIZE_FRONT_END;
   struct PlayerPosition tmp;
@@ -178,6 +169,9 @@ int move_player(struct MovementInfo movementInfo, bool isPassiveMovement) {
   }
   if (movementInfo.dir == opposite(tmp.currentDirection))
     return OK;
+  if (movementInfo.dir == UNCHANGED) {
+    movementInfo.dir = tmp.currentDirection;
+  }
   tmp.currentDirection = movementInfo.dir;
 
   switch (movementInfo.dir) {
@@ -196,6 +190,8 @@ int move_player(struct MovementInfo movementInfo, bool isPassiveMovement) {
     default:
       return 1;
   }
+  if (boostEnabled)
+    color = 0xFFEA00;
   flag = vg_draw_rectangle(tmp.x, tmp.y, dimensions, dimensions, color);
   if (movementInfo.playerID == ME)
     me = tmp;

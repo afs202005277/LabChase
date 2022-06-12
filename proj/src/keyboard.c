@@ -17,7 +17,7 @@ int(keyboard_unsubscribe_int)() {
   return sys_irqrmpolicy(&hook_id_keyboard);
 }
 
-struct MovementInfo key_code_interpreter(enum screenState* screenState) {
+struct MovementInfo key_code_interpreter(enum screenState *screenState) {
   struct MovementInfo nextMove = {UNCHANGED, ME};
   kbc_ih();
   if (keycode == PAUSE_BUTTON_BR && *screenState != M_GAME) {
@@ -25,6 +25,9 @@ struct MovementInfo key_code_interpreter(enum screenState* screenState) {
       *screenState = S_GAME;
     else
       *screenState = PAUSE;
+  }
+  else if (keycode == RETURN_MAIN) {
+    nextMove.dir = STOP;
   }
   else {
     switch (keycode) {
@@ -39,6 +42,9 @@ struct MovementInfo key_code_interpreter(enum screenState* screenState) {
         break;
       case RIGHT_PLAYER1_BR:
         nextMove.dir = RIGHT;
+        break;
+      case BOOST_PLAYER1_BR:
+        nextMove.dir = BOOST;
         break;
     }
     if (*screenState == S_GAME) {
@@ -59,6 +65,10 @@ struct MovementInfo key_code_interpreter(enum screenState* screenState) {
           nextMove.playerID = OTHER;
           nextMove.dir = RIGHT;
           break;
+        case BOOST_PLAYER2_BR:
+          nextMove.dir = BOOST;
+          nextMove.playerID = OTHER;
+          break;
       }
     }
   }
@@ -71,7 +81,8 @@ void(kbc_ih)() {
   util_sys_inb(KBC_OUT_BUF, &temp);
   if ((status & KBC_OUT_FULL) == 1 && (status & (KBC_PAR_ERR | KBC_TO_ERR | KBC_AUX)) == 0) {
     keycode = temp;
-  } else{
+  }
+  else {
     keycode = KBD_ERROR_BYTE;
   }
 }

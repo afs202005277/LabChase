@@ -16,6 +16,9 @@
 #define GRAPHICS_MODE 0x115
 #define SEND_BYTE 'p'
 #define RECEIVE_BYTE 'c'
+#define BOOST_INCREMENT 4
+
+uint8_t boostPlayer1;
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -64,7 +67,8 @@ int(proj_main_loop)() {
   message msg;
 
   uint8_t bit_no_timer, bit_no_keyboard, bit_no_mouse, bit_no_rtc, bit_no_serial;
-  uint8_t speed = 5, hour, numBytesReceivedMouse = 0, mouseReceivedByte;
+  uint8_t mainSpeed = 5, hour, numBytesReceivedMouse = 0, mouseReceivedByte;
+  uint8_t speedOffsetPlayer1 = 0, speedOffsetPlayer2 = 0;
 
   extern uint8_t receivedChar;
   int r, ipc_status;
@@ -111,19 +115,38 @@ int(proj_main_loop)() {
             timer_int_handler();
             if (!isWaiting) {
               if (screenState == S_GAME || screenState == M_GAME) {
-                if (get_num_interrupts_timer() % speed == 0) {
-                  int tmp = passive_move_players();
-                  if (tmp == 1) {
+                if (get_num_interrupts_timer() % (mainSpeed - speedOffsetPlayer1) == 0) {
+                  if (get_num_interrupts_timer() % 2 == 0) {
+                    if (((int) speedOffsetPlayer1) - 1 < 0)
+                      speedOffsetPlayer1 = 0;
+                    else
+                      speedOffsetPlayer1 -= 1;
+                  }
+                  struct MovementInfo mov;
+                  mov.dir = UNCHANGED;
+                  mov.playerID = ME;
+                  if (move_player(mov, true, speedOffsetPlayer1 > 0) != 0) {
                     screenState = GOTWO;
                     draw_img(imgs.gameOver2, 0, 0);
                     startGame = false;
                     isConnected = false;
                   }
-                  else if (tmp == 2) {
-                    isConnected = false;
+                }
+                if (get_num_interrupts_timer() % (mainSpeed - speedOffsetPlayer2) == 0) {
+                  if (get_num_interrupts_timer() % 2 == 0) {
+                    if (((int) speedOffsetPlayer2) - 1 < 0)
+                      speedOffsetPlayer2 = 0;
+                    else
+                      speedOffsetPlayer2 -= 1;
+                  }
+                  struct MovementInfo mov;
+                  mov.dir = UNCHANGED;
+                  mov.playerID = OTHER;
+                  if (move_player(mov, true, speedOffsetPlayer2 > 0) != 0) {
                     screenState = GOONE;
                     draw_img(imgs.gameOver1, 0, 0);
                     startGame = false;
+                    isConnected = false;
                   }
                 }
               }
@@ -131,19 +154,25 @@ int(proj_main_loop)() {
           }
           if (msg.m_notify.interrupts & BIT(bit_no_serial)) {
             serial_ih();
+            if (receivedChar == STOP) {
+              isConnected = false;
+              startGame = false;
+              screenState = MAIN;
+              draw_img(imgs.main, 0, 0);
+            }
             if (isWaiting && receivedChar == RECEIVE_BYTE) {
               send_character(SEND_BYTE);
               isConnected = true;
               isWaiting = false;
               screenState = M_GAME;
-              speed = 20;
+              mainSpeed = 20;
             }
             else if (isConnected) {
               struct MovementInfo mov;
               mov.dir = receivedChar;
               mov.playerID = OTHER;
               bool validReceive = receivedChar == UP || receivedChar == DOWN || receivedChar == LEFT || receivedChar == RIGHT;
-              if (validReceive && move_player(mov, false) == 1) {
+              if (validReceive && move_player(mov, false, false) == 1) {
                 screenState = QUIT;
               }
             }
@@ -152,10 +181,25 @@ int(proj_main_loop)() {
             nextMove = key_code_interpreter(&screenState);
             if (!isWaiting) {
               if (screenState == S_GAME || screenState == M_GAME) {
-                if (nextMove.dir != UNCHANGED) {
+                if (nextMove.dir == BOOST) {
+                  if (nextMove.playerID == ME && speedOffsetPlayer1 == 0) {
+                    speedOffsetPlayer1 += BOOST_INCREMENT;
+                  }
+                  else if (nextMove.playerID == OTHER && speedOffsetPlayer2 == 0) {
+                    speedOffsetPlayer2 += BOOST_INCREMENT;
+                  }
+                }
+                else if (nextMove.dir == STOP) {
+                  isConnected = false;
+                  startGame = false;
+                  screenState = MAIN;
+                  draw_img(imgs.main, 0, 0);
+                }
+                else if (nextMove.dir != UNCHANGED) {
+                  bool isBoosted = (nextMove.playerID == ME && speedOffsetPlayer1 > 0) || (nextMove.playerID == OTHER && speedOffsetPlayer2 > 0);
                   if (isConnected) {
                     send_character(nextMove.dir);
-                    if (nextMove.playerID == ME && move_player(nextMove, false) == 1) {
+                    if (nextMove.playerID == ME && move_player(nextMove, false, isBoosted) == 1) {
                       isConnected = false;
                       screenState = GOONE;
                       draw_img(imgs.gameOver1, 0, 0);
@@ -163,7 +207,7 @@ int(proj_main_loop)() {
                     }
                   }
                   else {
-                    if (move_player(nextMove, false) == 1) {
+                    if (move_player(nextMove, false, isBoosted) == 1) {
                       screenState = GOONE;
                       draw_img(imgs.gameOver1, 0, 0);
                       startGame = false;

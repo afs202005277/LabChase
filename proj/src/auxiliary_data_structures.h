@@ -18,7 +18,10 @@ enum direction { UNCHANGED, /*!< There wasn't a change in direction */
                  UP,        /*!< The player is moving up */
                  DOWN,      /*!< The player is moving down */
                  LEFT,      /*!< The player is moving left */
-                 RIGHT };   /*!< The player is moving right */
+                 RIGHT,     /*!< The player is moving right */
+                 STOP,      /*!< The player returned to the menu */
+                 BOOST      /*!< The player used the boost */
+};
 
 /**
  * @brief Enumerated type for specifying the player
