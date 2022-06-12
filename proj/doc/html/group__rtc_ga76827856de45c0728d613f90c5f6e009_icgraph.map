@@ -1,6 +1,7 @@
 <map id="rtc_read_reg" name="rtc_read_reg">
-<area shape="rect" id="node1" title="Reads the register passed as a argument." alt="" coords="311,31,405,57"/>
-<area shape="rect" id="node2" href="$group__rtc.html#ga49d112e7da6f83f064bfcb9d34fa0ac4" title="Read the year." alt="" coords="169,5,256,32"/>
-<area shape="rect" id="node4" href="$group__rtc.html#gabd9ce5c6eea2eb684c2044a3b4711030" title="Reads the minutes." alt="" coords="163,56,263,83"/>
-<area shape="rect" id="node3" href="$main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
+<area shape="rect" id="node1" title="Reads the register passed as a argument." alt="" coords="445,31,540,57"/>
+<area shape="rect" id="node2" href="$group__rtc.html#ga49d112e7da6f83f064bfcb9d34fa0ac4" title="Read the year." alt="" coords="304,5,391,32"/>
+<area shape="rect" id="node5" href="$group__rtc.html#gabd9ce5c6eea2eb684c2044a3b4711030" title="Reads the minutes." alt="" coords="297,56,397,83"/>
+<area shape="rect" id="node3" href="$group___main.html#ga671b58f5509a3a9fa692bacccfc32cc9" title="Starts the game and changes background according to the current hour." alt="" coords="163,5,249,32"/>
+<area shape="rect" id="node4" href="$group___main.html#ga33bde23e0d2bbde847401c5ac6fb62e0" title="Handles the game logic and assign tasks to the different devices." alt="" coords="5,5,115,32"/>
 </map>

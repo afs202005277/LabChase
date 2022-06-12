@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('key__codes_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,11 +81,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">key_codes.h</div></div>
 </div><!--header-->
@@ -73,19 +89,26 @@ $(function() {
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define __KEY_CODES</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="group__key__codes.html#ga314307cf0288c1d8960061648ca9a421">   10</a></span><span class="preprocessor">#define PAUSE_BUTTON_BR 153 </span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="group__key__codes.html#ga842b73fb7cb80fa068a2115c1bad672f">   12</a></span><span class="preprocessor">#define UP_PLAYER1_BR 145    </span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="group__key__codes.html#ga30a461f248d3078e8b048457b4548fcb">   13</a></span><span class="preprocessor">#define DOWN_PLAYER1_BR 159  </span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="group__key__codes.html#ga4fe3d704b3e645536e4c5652484877ce">   14</a></span><span class="preprocessor">#define LEFT_PLAYER1_BR 158  </span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="group__key__codes.html#gad677e7b3f1b3f01383d286926dfd13d4">   15</a></span><span class="preprocessor">#define RIGHT_PLAYER1_BR 160 </span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="group__key__codes.html#ga7c06e436303898a43ccb7777f9b99da7">   17</a></span><span class="preprocessor">#define UP_PLAYER2_BR 200    </span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="group__key__codes.html#ga53e06c223df4f7ff83769afcce575e36">   18</a></span><span class="preprocessor">#define DOWN_PLAYER2_BR 208  </span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="group__key__codes.html#gae5f283a353c334fa7c671085aa4fb220">   19</a></span><span class="preprocessor">#define LEFT_PLAYER2_BR 203  </span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="group__key__codes.html#ga105d5ae68822fe81e960c845a8cce2e9">   20</a></span><span class="preprocessor">#define RIGHT_PLAYER2_BR 205 </span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#endif </span><span class="comment">/* __KEY_CODES */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="group__key__codes.html#ga842b73fb7cb80fa068a2115c1bad672f">   12</a></span><span class="preprocessor">#define UP_PLAYER1_BR 145     </span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="group__key__codes.html#ga30a461f248d3078e8b048457b4548fcb">   13</a></span><span class="preprocessor">#define DOWN_PLAYER1_BR 159   </span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="group__key__codes.html#ga4fe3d704b3e645536e4c5652484877ce">   14</a></span><span class="preprocessor">#define LEFT_PLAYER1_BR 158   </span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="group__key__codes.html#gad677e7b3f1b3f01383d286926dfd13d4">   15</a></span><span class="preprocessor">#define RIGHT_PLAYER1_BR 160  </span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="group__key__codes.html#gad5c5f979b0b769e9fc27d209e98c2306">   16</a></span><span class="preprocessor">#define BOOST_PLAYER1_BR 0xAD </span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="group__key__codes.html#ga7c06e436303898a43ccb7777f9b99da7">   18</a></span><span class="preprocessor">#define UP_PLAYER2_BR 200     </span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="group__key__codes.html#ga53e06c223df4f7ff83769afcce575e36">   19</a></span><span class="preprocessor">#define DOWN_PLAYER2_BR 208   </span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="group__key__codes.html#gae5f283a353c334fa7c671085aa4fb220">   20</a></span><span class="preprocessor">#define LEFT_PLAYER2_BR 203   </span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="group__key__codes.html#ga105d5ae68822fe81e960c845a8cce2e9">   21</a></span><span class="preprocessor">#define RIGHT_PLAYER2_BR 205  </span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="group__key__codes.html#ga4e88cce79ecb93c02ce6e50665998ea6">   22</a></span><span class="preprocessor">#define BOOST_PLAYER2_BR 0xB6 </span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="group__key__codes.html#gac29c91ebbf30e6f2385db32d7baeef74">   24</a></span><span class="preprocessor">#define RETURN_MAIN 0x81 </span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#endif </span><span class="comment">/* __KEY_CODES */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="key__codes_8h.html">key_codes.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
 </body>
 </html>

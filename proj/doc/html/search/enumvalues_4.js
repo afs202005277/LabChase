@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['m_5fgame_0',['M_GAME',['../group__aux__data__struct.html#gga7a133017a8d65196841cc925fe08abd5ac65fb6cd954aa45aca47b9c9b461d9cc',1,'auxiliary_data_structures.h']]],
-  ['main_1',['MAIN',['../group__aux__data__struct.html#gga7a133017a8d65196841cc925fe08abd5a41c6eb506ccf657cc7e958c8e8c769cd',1,'auxiliary_data_structures.h']]],
-  ['me_2',['ME',['../group__aux__data__struct.html#gga46afbb77ee4b53026dff7b4f65384dc4af88e46564f67a88a18b9ba3af5792b02',1,'auxiliary_data_structures.h']]],
-  ['msb_5fafter_5flsb_3',['MSB_after_LSB',['../group__timer.html#gga5cc20f14fd50625eea9b20f58fbe2a55a7d392c02b4f52d93c10e4c646f8cedc7',1,'timer_proj.h']]],
-  ['msb_5fonly_4',['MSB_only',['../group__timer.html#gga5cc20f14fd50625eea9b20f58fbe2a55ae46d93c3576b5f78ae1aeb4ee4fc4938',1,'timer_proj.h']]]
+  ['left_0',['LEFT',['../group___auxiliary___data___structures.html#gga99f26e6ee9fcd62f75203b5402df8098adb45120aafd37a973140edee24708065',1,'auxiliary_data_structures.h']]],
+  ['lsb_5fonly_1',['LSB_only',['../group___timer.html#gga5cc20f14fd50625eea9b20f58fbe2a55a9a2e8b22f6d5ee33cc37829164a55955',1,'adapted_timer.h']]]
 ];

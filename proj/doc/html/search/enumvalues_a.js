@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['tsf_5fall_0',['tsf_all',['../group__timer.html#ggada782f3116a896caaa602b70c0c6d8b7a92376d84969da91547254fc7461f0da2',1,'timer_proj.h']]],
-  ['tsf_5fbase_1',['tsf_base',['../group__timer.html#ggada782f3116a896caaa602b70c0c6d8b7af4b69eace6b1cc952de198acee4c5e32',1,'timer_proj.h']]],
-  ['tsf_5finitial_2',['tsf_initial',['../group__timer.html#ggada782f3116a896caaa602b70c0c6d8b7aa89f72faf31fa0e4db8cab25364a4583',1,'timer_proj.h']]],
-  ['tsf_5fmode_3',['tsf_mode',['../group__timer.html#ggada782f3116a896caaa602b70c0c6d8b7aa84c2f6462a2deb90fda229c89453dfa',1,'timer_proj.h']]]
+  ['s_5fgame_0',['S_GAME',['../group___auxiliary___data___structures.html#gga7a133017a8d65196841cc925fe08abd5a876a6a61f3aba64cb55e7a8457e94907',1,'auxiliary_data_structures.h']]],
+  ['stop_1',['STOP',['../group___auxiliary___data___structures.html#gga99f26e6ee9fcd62f75203b5402df8098a679ee5320d66c8322e310daeb2ee99b8',1,'auxiliary_data_structures.h']]]
 ];

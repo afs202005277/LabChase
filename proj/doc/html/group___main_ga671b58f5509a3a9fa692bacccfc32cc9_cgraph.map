@@ -1,0 +1,8 @@
+<map id="start_game" name="start_game">
+<area shape="rect" id="node1" title="Starts the game and changes background according to the current hour." alt="" coords="5,31,92,57"/>
+<area shape="rect" id="node2" href="$group__rtc.html#ga49d112e7da6f83f064bfcb9d34fa0ac4" title="Read the year." alt="" coords="147,5,233,32"/>
+<area shape="rect" id="node4" href="$video__gr_8c.html#a3f1185149f43993bffd5278616ec839c" title="Starts the game and changes the background color according to the hour of the day." alt="" coords="140,56,240,83"/>
+<area shape="rect" id="node3" href="$group__rtc.html#ga76827856de45c0728d613f90c5f6e009" title="Reads the register passed as a argument." alt="" coords="288,5,383,32"/>
+<area shape="rect" id="node5" href="$video__gr_8c.html#a934f8dddd38ccf03b57b3df1cb6bdb25" title="Draws an image in the specified coordinates." alt="" coords="297,56,374,83"/>
+<area shape="rect" id="node6" href="$video__gr_8c.html#a55237e8e252e1ed0bed62d51d0e795b3" title="Loads an image from a xpm image." alt="" coords="291,107,379,133"/>
+</map>

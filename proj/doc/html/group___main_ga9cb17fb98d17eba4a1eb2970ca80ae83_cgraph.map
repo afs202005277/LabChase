@@ -1,0 +1,4 @@
+<map id="update_speed" name="update_speed">
+<area shape="rect" id="node1" title="updates the speed offset of a given player" alt="" coords="5,13,108,39"/>
+<area shape="rect" id="node2" href="$group___timer.html#ga00688c86172f5ff528f94ff33e03bebd" title="Get the total number of interrupts received by the timer 0." alt="" coords="156,5,289,47"/>
+</map>

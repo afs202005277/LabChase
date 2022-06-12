@@ -1,6 +1,7 @@
 var annotated_dup =
 [
-    [ "images", "structimages.html", null ],
+    [ "Button", "struct_button.html", "struct_button" ],
+    [ "images", "structimages.html", "structimages" ],
     [ "mousePos", "structmouse_pos.html", "structmouse_pos" ],
     [ "MovementInfo", "struct_movement_info.html", "struct_movement_info" ],
     [ "PlayerPosition", "struct_player_position.html", "struct_player_position" ],

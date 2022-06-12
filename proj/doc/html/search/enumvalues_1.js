@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['goone_0',['GOONE',['../group__aux__data__struct.html#gga7a133017a8d65196841cc925fe08abd5a6cff1c3bea0fd0fea2a2d0fe53343a0f',1,'auxiliary_data_structures.h']]],
-  ['gotwo_1',['GOTWO',['../group__aux__data__struct.html#gga7a133017a8d65196841cc925fe08abd5ab989ba6d42153ab4fb22ae315a4e052c',1,'auxiliary_data_structures.h']]]
+  ['down_0',['DOWN',['../group___auxiliary___data___structures.html#gga99f26e6ee9fcd62f75203b5402df8098a9b0b4a95b99523966e0e34ffdadac9da',1,'auxiliary_data_structures.h']]]
 ];

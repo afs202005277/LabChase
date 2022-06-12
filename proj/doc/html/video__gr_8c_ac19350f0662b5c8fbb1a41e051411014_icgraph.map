@@ -1,4 +1,4 @@
 <map id="get_h_res" name="get_h_res">
 <area shape="rect" id="node1" title="Gets the horizontal resolution of the screen." alt="" coords="163,5,241,32"/>
-<area shape="rect" id="node2" href="$main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
+<area shape="rect" id="node2" href="$group___main.html#ga33bde23e0d2bbde847401c5ac6fb62e0" title="Handles the game logic and assign tasks to the different devices." alt="" coords="5,5,115,32"/>
 </map>

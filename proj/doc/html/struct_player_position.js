@@ -1,6 +1,6 @@
 var struct_player_position =
 [
-    [ "currentDirection", "struct_player_position.html#addd928d6945d5c51be75ce0c6e9bb528", null ],
-    [ "x", "struct_player_position.html#a4211618ec9ae931d5cbbc37cb16f0291", null ],
-    [ "y", "struct_player_position.html#a138e075fd8681dc7735ad4c7b6980f03", null ]
+    [ "currentDirection", "struct_player_position.html#a3e6cb7625f048a17d1239208980cbb54", null ],
+    [ "x", "struct_player_position.html#a4dde988b1b2adba65ae3efa69f65d960", null ],
+    [ "y", "struct_player_position.html#ab0580f504a7428539be299fa71565f30", null ]
 ];

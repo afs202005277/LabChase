@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -47,6 +51,22 @@ $(function() {
 </script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('globals_defs.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -65,12 +85,15 @@ $(function() {
 &#160;
 
 <h3><a id="index_a" name="index_a"></a>- a -</h3><ul>
-<li>ACK&#160;:&#160;<a class="el" href="group__kbc__macros.html#ga6f6489887e08bff4887d0bc5dcf214d8">kbc_macros.h</a></li>
+<li>ACK&#160;:&#160;<a class="el" href="group___k_b_c__macros.html#ga6f6489887e08bff4887d0bc5dcf214d8">kbc_macros.h</a></li>
 </ul>
 
 
 <h3><a id="index_b" name="index_b"></a>- b -</h3><ul>
 <li>BIOS_VIDEO_SERVICES&#160;:&#160;<a class="el" href="group__video__graphics__macros.html#gaa53be0ee43e860ca573926b78aef894a">video_gr_macros.h</a></li>
+<li>BOOST_INCREMENT&#160;:&#160;<a class="el" href="group___main.html#gaded583781ac4f84d8dadc4c9d700cb76">main.c</a></li>
+<li>BOOST_PLAYER1_BR&#160;:&#160;<a class="el" href="group__key__codes.html#gad5c5f979b0b769e9fc27d209e98c2306">key_codes.h</a></li>
+<li>BOOST_PLAYER2_BR&#160;:&#160;<a class="el" href="group__key__codes.html#ga4e88cce79ecb93c02ce6e50665998ea6">key_codes.h</a></li>
 </ul>
 
 
@@ -86,16 +109,16 @@ $(function() {
 <h3><a id="index_d" name="index_d"></a>- d -</h3><ul>
 <li>DATA_AVAILABLE&#160;:&#160;<a class="el" href="group__serial.html#ga361f5c696ea1c92c5f6bcc10579dc71c">serial.h</a></li>
 <li>DAY_BACKGROUND&#160;:&#160;<a class="el" href="group__video__graphics__macros.html#gafe987953bbfffb5e6e4542efd687e810">video_gr_macros.h</a></li>
-<li>DISABLE_DATA_REPORT&#160;:&#160;<a class="el" href="group__kbc__macros.html#gad374b510092499b5961d3771abf9c66e">kbc_macros.h</a></li>
+<li>DISABLE_DATA_REPORT&#160;:&#160;<a class="el" href="group___k_b_c__macros.html#gad374b510092499b5961d3771abf9c66e">kbc_macros.h</a></li>
 <li>DOWN_PLAYER1_BR&#160;:&#160;<a class="el" href="group__key__codes.html#ga30a461f248d3078e8b048457b4548fcb">key_codes.h</a></li>
 <li>DOWN_PLAYER2_BR&#160;:&#160;<a class="el" href="group__key__codes.html#ga53e06c223df4f7ff83769afcce575e36">key_codes.h</a></li>
 </ul>
 
 
 <h3><a id="index_e" name="index_e"></a>- e -</h3><ul>
-<li>ENABLE_DATA_REPORT&#160;:&#160;<a class="el" href="group__kbc__macros.html#ga1c22608f41bd715500d0333001079a8a">kbc_macros.h</a></li>
+<li>ENABLE_DATA_REPORT&#160;:&#160;<a class="el" href="group___k_b_c__macros.html#ga1c22608f41bd715500d0333001079a8a">kbc_macros.h</a></li>
 <li>ENABLE_LIN_BUF&#160;:&#160;<a class="el" href="group__video__graphics__macros.html#ga4991d298bdf97dc47f53990977693dc1">video_gr_macros.h</a></li>
-<li>ERROR&#160;:&#160;<a class="el" href="group__kbc__macros.html#ga8fe83ac76edc595f6b98cd4a4127aed5">kbc_macros.h</a></li>
+<li>ERROR&#160;:&#160;<a class="el" href="group___k_b_c__macros.html#ga8fe83ac76edc595f6b98cd4a4127aed5">kbc_macros.h</a></li>
 </ul>
 
 
@@ -105,7 +128,7 @@ $(function() {
 
 
 <h3><a id="index_g" name="index_g"></a>- g -</h3><ul>
-<li>GRAPHICS_MODE&#160;:&#160;<a class="el" href="main_8c.html#a44b886efaaef4628af9bdc4afc66568e">main.c</a></li>
+<li>GRAPHICS_MODE&#160;:&#160;<a class="el" href="group___main.html#ga44b886efaaef4628af9bdc4afc66568e">main.c</a></li>
 </ul>
 
 
@@ -115,18 +138,18 @@ $(function() {
 
 
 <h3><a id="index_k" name="index_k"></a>- k -</h3><ul>
-<li>KBC_AUX&#160;:&#160;<a class="el" href="group__kbc__macros.html#gaaa796d09d1e94025da456738295342f2">kbc_macros.h</a></li>
-<li>KBC_CMD_REG&#160;:&#160;<a class="el" href="group__kbc__macros.html#ga6d57c7927a10f638c83046b52c8caac9">kbc_macros.h</a></li>
-<li>KBC_IN_BUF&#160;:&#160;<a class="el" href="group__kbc__macros.html#gaac9289c99cf0a693a211da6d6cb1bb65">kbc_macros.h</a></li>
-<li>KBC_OUT_BUF&#160;:&#160;<a class="el" href="group__kbc__macros.html#ga1ccde68b2b6d4e45b50eef1403e10bb7">kbc_macros.h</a></li>
-<li>KBC_OUT_FULL&#160;:&#160;<a class="el" href="group__kbc__macros.html#ga81193b0bdb973115c0bad972b5f34f55">kbc_macros.h</a></li>
-<li>KBC_PAR_ERR&#160;:&#160;<a class="el" href="group__kbc__macros.html#gaea2ef6dda1aabebf291eeee29b66c04a">kbc_macros.h</a></li>
-<li>KBC_ST_IBF&#160;:&#160;<a class="el" href="group__kbc__macros.html#ga141ccbc1ab10dfcdd1d450414dba13d4">kbc_macros.h</a></li>
-<li>KBC_ST_REG&#160;:&#160;<a class="el" href="group__kbc__macros.html#ga6f977b36b770dca3092d0bdf8c949cfe">kbc_macros.h</a></li>
-<li>KBC_TO_ERR&#160;:&#160;<a class="el" href="group__kbc__macros.html#gae31c3653f5881b02cbfdd4ccbb7ccf50">kbc_macros.h</a></li>
-<li>KBD_ERROR_BYTE&#160;:&#160;<a class="el" href="group__kbc__macros.html#ga9feff1db23295e41c1b77a3711de39b8">kbc_macros.h</a></li>
-<li>KBD_IRQ&#160;:&#160;<a class="el" href="group__kbc__macros.html#ga5c1072213ce8d8cd43628c4319ae0391">kbc_macros.h</a></li>
-<li>KEYBOARD_DELAY&#160;:&#160;<a class="el" href="group__kbc__macros.html#ga1844923b3e629c32b17160f1f2ad0824">kbc_macros.h</a></li>
+<li>KBC_AUX&#160;:&#160;<a class="el" href="group___k_b_c__macros.html#gaaa796d09d1e94025da456738295342f2">kbc_macros.h</a></li>
+<li>KBC_CMD_REG&#160;:&#160;<a class="el" href="group___k_b_c__macros.html#ga6d57c7927a10f638c83046b52c8caac9">kbc_macros.h</a></li>
+<li>KBC_IN_BUF&#160;:&#160;<a class="el" href="group___k_b_c__macros.html#gaac9289c99cf0a693a211da6d6cb1bb65">kbc_macros.h</a></li>
+<li>KBC_OUT_BUF&#160;:&#160;<a class="el" href="group___k_b_c__macros.html#ga1ccde68b2b6d4e45b50eef1403e10bb7">kbc_macros.h</a></li>
+<li>KBC_OUT_FULL&#160;:&#160;<a class="el" href="group___k_b_c__macros.html#ga81193b0bdb973115c0bad972b5f34f55">kbc_macros.h</a></li>
+<li>KBC_PAR_ERR&#160;:&#160;<a class="el" href="group___k_b_c__macros.html#gaea2ef6dda1aabebf291eeee29b66c04a">kbc_macros.h</a></li>
+<li>KBC_ST_IBF&#160;:&#160;<a class="el" href="group___k_b_c__macros.html#ga141ccbc1ab10dfcdd1d450414dba13d4">kbc_macros.h</a></li>
+<li>KBC_ST_REG&#160;:&#160;<a class="el" href="group___k_b_c__macros.html#ga6f977b36b770dca3092d0bdf8c949cfe">kbc_macros.h</a></li>
+<li>KBC_TO_ERR&#160;:&#160;<a class="el" href="group___k_b_c__macros.html#gae31c3653f5881b02cbfdd4ccbb7ccf50">kbc_macros.h</a></li>
+<li>KBD_ERROR_BYTE&#160;:&#160;<a class="el" href="group___k_b_c__macros.html#ga9feff1db23295e41c1b77a3711de39b8">kbc_macros.h</a></li>
+<li>KBD_IRQ&#160;:&#160;<a class="el" href="group___k_b_c__macros.html#ga5c1072213ce8d8cd43628c4319ae0391">kbc_macros.h</a></li>
+<li>KEYBOARD_DELAY&#160;:&#160;<a class="el" href="group___k_b_c__macros.html#ga1844923b3e629c32b17160f1f2ad0824">kbc_macros.h</a></li>
 </ul>
 
 
@@ -140,23 +163,24 @@ $(function() {
 
 
 <h3><a id="index_m" name="index_m"></a>- m -</h3><ul>
+<li>M_SPEED&#160;:&#160;<a class="el" href="group___main.html#ga8c3a5e0bfb0d6d1f1b462eb0d7055e4d">main.c</a></li>
 <li>MAX_WAIT&#160;:&#160;<a class="el" href="group__serial.html#ga41b0180f12af925ed6e81a3566c0e448">serial.h</a></li>
 <li>MB&#160;:&#160;<a class="el" href="group__mouse__masks.html#gaa6b38d492364d98453284934ed7caee9">mouse_masks.h</a></li>
 <li>MOUSE_BORDER_WIDTH&#160;:&#160;<a class="el" href="group__video__graphics__macros.html#gae6910bab6e08eb2ce942b30c5d295009">video_gr_macros.h</a></li>
-<li>MOUSE_DELAY&#160;:&#160;<a class="el" href="group__kbc__macros.html#gaf510d452b5e09564b6e7bbf957214258">kbc_macros.h</a></li>
-<li>MOUSE_IRQ&#160;:&#160;<a class="el" href="group__kbc__macros.html#ga85964cb90343bb1a029b1d1b4229f910">kbc_macros.h</a></li>
+<li>MOUSE_DELAY&#160;:&#160;<a class="el" href="group___k_b_c__macros.html#gaf510d452b5e09564b6e7bbf957214258">kbc_macros.h</a></li>
+<li>MOUSE_IRQ&#160;:&#160;<a class="el" href="group___k_b_c__macros.html#ga85964cb90343bb1a029b1d1b4229f910">kbc_macros.h</a></li>
 <li>MOVEMENT_STEP&#160;:&#160;<a class="el" href="group__video__graphics__macros.html#gac89125a1fd4755d7661c3e85b890486e">video_gr_macros.h</a></li>
 </ul>
 
 
 <h3><a id="index_n" name="index_n"></a>- n -</h3><ul>
-<li>NACK&#160;:&#160;<a class="el" href="group__kbc__macros.html#ga958518a45b12053ae33606ee7cb68a55">kbc_macros.h</a></li>
+<li>NACK&#160;:&#160;<a class="el" href="group___k_b_c__macros.html#ga958518a45b12053ae33606ee7cb68a55">kbc_macros.h</a></li>
 <li>NIGHT_BACKGROUND&#160;:&#160;<a class="el" href="group__video__graphics__macros.html#gaf069df071dfdd53eb9b1d479ee2706c1">video_gr_macros.h</a></li>
 </ul>
 
 
 <h3><a id="index_p" name="index_p"></a>- p -</h3><ul>
-<li>PACKET_SIZE&#160;:&#160;<a class="el" href="group__mouse.html#gaebdc7d8ca8e25ed8efc90bb88ef7ef5b">mouse.h</a></li>
+<li>PACKET_SIZE&#160;:&#160;<a class="el" href="group___mouse.html#gaebdc7d8ca8e25ed8efc90bb88ef7ef5b">mouse.h</a></li>
 <li>PAUSE_BUTTON_BR&#160;:&#160;<a class="el" href="group__key__codes.html#ga314307cf0288c1d8960061648ca9a421">key_codes.h</a></li>
 </ul>
 
@@ -164,8 +188,9 @@ $(function() {
 <h3><a id="index_r" name="index_r"></a>- r -</h3><ul>
 <li>RB&#160;:&#160;<a class="el" href="group__mouse__masks.html#ga171160a766f85c8816b898ed24d28408">mouse_masks.h</a></li>
 <li>RBR&#160;:&#160;<a class="el" href="group__serial.html#gaa6f7e7a9f4551d6151f9d45362118a50">serial.h</a></li>
-<li>READ_CMD_BYTE&#160;:&#160;<a class="el" href="group__kbc__macros.html#ga3edb96ff4ed65c98f514852bcdd4f944">kbc_macros.h</a></li>
-<li>RECEIVE_BYTE&#160;:&#160;<a class="el" href="main_8c.html#a5f6b3a3c9fb084e7e141372a2951edf7">main.c</a></li>
+<li>READ_CMD_BYTE&#160;:&#160;<a class="el" href="group___k_b_c__macros.html#ga3edb96ff4ed65c98f514852bcdd4f944">kbc_macros.h</a></li>
+<li>RECEIVE_BYTE&#160;:&#160;<a class="el" href="group___main.html#ga5f6b3a3c9fb084e7e141372a2951edf7">main.c</a></li>
+<li>RETURN_MAIN&#160;:&#160;<a class="el" href="group__key__codes.html#gac29c91ebbf30e6f2385db32d7baeef74">key_codes.h</a></li>
 <li>RIGHT_PLAYER1_BR&#160;:&#160;<a class="el" href="group__key__codes.html#gad677e7b3f1b3f01383d286926dfd13d4">key_codes.h</a></li>
 <li>RIGHT_PLAYER2_BR&#160;:&#160;<a class="el" href="group__key__codes.html#ga105d5ae68822fe81e960c845a8cce2e9">key_codes.h</a></li>
 <li>RTC_ADDRESS_REG&#160;:&#160;<a class="el" href="group__rtc.html#ga083704764574f6c32219c148d7196599">rtc.h</a></li>
@@ -177,9 +202,10 @@ $(function() {
 
 
 <h3><a id="index_s" name="index_s"></a>- s -</h3><ul>
-<li>SEND_BYTE&#160;:&#160;<a class="el" href="main_8c.html#a7aaadebb3f02f01542e2194d0517f196">main.c</a></li>
+<li>S_SPEED&#160;:&#160;<a class="el" href="group___main.html#ga9af19eacf9e919451b78fadc6f0d247f">main.c</a></li>
+<li>SEND_BYTE&#160;:&#160;<a class="el" href="group___main.html#ga7aaadebb3f02f01542e2194d0517f196">main.c</a></li>
 <li>SERIAL_DELAY&#160;:&#160;<a class="el" href="group__serial.html#gaaa81a4b4d4d2a337ca9177b3c05dd627">serial.h</a></li>
-<li>SET_STREAM_MODE&#160;:&#160;<a class="el" href="group__kbc__macros.html#gaabf49b4a4d8ad72d202c8a7197058e35">kbc_macros.h</a></li>
+<li>SET_STREAM_MODE&#160;:&#160;<a class="el" href="group___k_b_c__macros.html#gaabf49b4a4d8ad72d202c8a7197058e35">kbc_macros.h</a></li>
 <li>SET_VBE_MOD&#160;:&#160;<a class="el" href="group__video__graphics__macros.html#gaa23dd2814302e819f71b0a823da46a46">video_gr_macros.h</a></li>
 <li>SIZE_FRONT_END&#160;:&#160;<a class="el" href="group__video__graphics__macros.html#ga064ec3243cbee4f008b9d85445def47a">video_gr_macros.h</a></li>
 <li>SPEAKER_CTRL&#160;:&#160;<a class="el" href="group__i8254.html#ga51b3a5e3d4811ca063fe25e35560ab40">i8254.h</a></li>
@@ -228,8 +254,8 @@ $(function() {
 
 
 <h3><a id="index_w" name="index_w"></a>- w -</h3><ul>
-<li>WRITE_CMD_BYTE&#160;:&#160;<a class="el" href="group__kbc__macros.html#ga6bbab0e165f6f55c8f1371fd18ce9a0e">kbc_macros.h</a></li>
-<li>WRITE_TO_MOUSE&#160;:&#160;<a class="el" href="group__kbc__macros.html#gafa9a46730bdfc6bfc06a0f69ae748f5a">kbc_macros.h</a></li>
+<li>WRITE_CMD_BYTE&#160;:&#160;<a class="el" href="group___k_b_c__macros.html#ga6bbab0e165f6f55c8f1371fd18ce9a0e">kbc_macros.h</a></li>
+<li>WRITE_TO_MOUSE&#160;:&#160;<a class="el" href="group___k_b_c__macros.html#gafa9a46730bdfc6bfc06a0f69ae748f5a">kbc_macros.h</a></li>
 </ul>
 
 
@@ -244,9 +270,12 @@ $(function() {
 <li>Y_SIGNAL&#160;:&#160;<a class="el" href="group__mouse__masks.html#ga0cb1687ade4ce9d332b51a03dba75236">mouse_masks.h</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
 </body>
 </html>

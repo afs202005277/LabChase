@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['aux_5fdata_5fstruct_0',['aux_data_struct',['../group__aux__data__struct.html',1,'']]]
+  ['auxiliary_5fdata_5fstructures_0',['Auxiliary_Data_Structures',['../group___auxiliary___data___structures.html',1,'']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pause_0',['PAUSE',['../group__aux__data__struct.html#gga7a133017a8d65196841cc925fe08abd5a56b36d0d0bb01b339cf1041adc08e262',1,'auxiliary_data_structures.h']]]
+  ['other_0',['OTHER',['../group___auxiliary___data___structures.html#gga46afbb77ee4b53026dff7b4f65384dc4adbf1dee1b8cd7ea3c82661943c7b74f4',1,'auxiliary_data_structures.h']]]
 ];

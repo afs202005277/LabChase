@@ -1,0 +1,9 @@
+<map id="send_byte_to_KBC" name="send_byte_to_KBC">
+<area shape="rect" id="node1" title="sends a byte to the given port" alt="" coords="763,31,897,57"/>
+<area shape="rect" id="node2" href="$group___mouse.html#ga432788b7e69e0e4c23af0a460f36ea2a" title="sends a argument of a command to the KBC&#39;s input buffer" alt="" coords="552,5,715,32"/>
+<area shape="rect" id="node7" href="$group___mouse.html#gaf28e86a0b02c40f866f280fdeb8304ca" title="sends a command to the KBC command register" alt="" coords="566,56,701,83"/>
+<area shape="rect" id="node3" href="$group___mouse.html#gadb688a0a952836b3b646c12d6b793bf7" title="sends a command to the mouse" alt="" coords="357,31,504,57"/>
+<area shape="rect" id="node4" href="$group___mouse.html#ga5355d192401dd421648d87b2d2326413" title="Disables the data reporting." alt="" coords="152,5,304,32"/>
+<area shape="rect" id="node6" href="$group___mouse.html#ga08c6bca1af4b48302d98cc161d378a7e" title="Enables data reporting." alt="" coords="147,56,309,83"/>
+<area shape="rect" id="node5" href="$group___main.html#gaad4aaeeabfabd24ccfeb9b85f0bb7eda" title="Unsubscribes all the interrupts and resets the mouse to Minix&#39;s default configuration." alt="" coords="5,5,99,32"/>
+</map>

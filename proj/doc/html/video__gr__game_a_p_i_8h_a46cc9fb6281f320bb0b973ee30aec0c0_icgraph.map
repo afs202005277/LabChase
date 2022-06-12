@@ -1,0 +1,4 @@
+<map id="new_vg_init" name="new_vg_init">
+<area shape="rect" id="node1" title="Maps the video memory to the process&#39; adress space and changes the graphics mode." alt="" coords="163,5,251,32"/>
+<area shape="rect" id="node2" href="$group___main.html#ga33bde23e0d2bbde847401c5ac6fb62e0" title="Handles the game logic and assign tasks to the different devices." alt="" coords="5,5,115,32"/>
+</map>

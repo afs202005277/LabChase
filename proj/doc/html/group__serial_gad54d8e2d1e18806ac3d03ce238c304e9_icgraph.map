@@ -1,5 +1,4 @@
 <map id="write_to_IER" name="write_to_IER">
-<area shape="rect" id="node1" title="Writes a given byte to the Interrupt Enable Register." alt="" coords="327,5,421,32"/>
-<area shape="rect" id="node2" href="$group__serial.html#ga7b4a68816c36345162f68a5ca751c59e" title="Subscribes the interrupts sent by the serial port (in exclusive mode)." alt="" coords="163,5,279,32"/>
-<area shape="rect" id="node3" href="$main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
+<area shape="rect" id="node1" title="Writes a given byte to the Interrupt Enable Register." alt="" coords="169,5,264,32"/>
+<area shape="rect" id="node2" href="$group__serial.html#ga7b4a68816c36345162f68a5ca751c59e" title="Subscribes the interrupts sent by the serial port (in exclusive mode)." alt="" coords="5,5,121,32"/>
 </map>

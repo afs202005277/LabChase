@@ -1,7 +1,7 @@
 #ifndef __KBC_MACROS
 #define __KBC_MACROS
 
-/** @defgroup kbc_macros kbc_macros
+/** @defgroup KBC_macros KBC_macros
  * @{
  *
  * Constants for programming the keyboard controller.

@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -47,6 +51,22 @@ $(function() {
 </script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('group__serial.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -379,13 +399,12 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__serial_ga6c4f819bf49d0da33c1dee7a6e401d88_icgraph.png" border="0" usemap="#agroup__serial_ga6c4f819bf49d0da33c1dee7a6e401d88_icgraph" alt=""/></div>
 <map name="agroup__serial_ga6c4f819bf49d0da33c1dee7a6e401d88_icgraph" id="agroup__serial_ga6c4f819bf49d0da33c1dee7a6e401d88_icgraph">
-<area shape="rect" title="Sets the DLAB flag (bit 7 of the LCR) to 0." alt="" coords="625,47,716,74"/>
-<area shape="rect" href="group__serial.html#ga4e483fd5c1163fb3f954069757b49ed7" title="Reads a byte from the Receiver Buffer Register." alt="" coords="489,22,571,49"/>
-<area shape="rect" href="group__serial.html#gad54d8e2d1e18806ac3d03ce238c304e9" title="Writes a given byte to the Interrupt Enable Register." alt="" coords="483,73,577,99"/>
-<area shape="rect" href="group__serial.html#ga6178bef82c4e14efa82ec6c07cb5e3f3" title="Reads a character from the Receiver Buffer Register Used by the interrupt handler to get the received..." alt="" coords="327,22,435,49"/>
-<area shape="rect" href="main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,22,115,49"/>
-<area shape="rect" href="group__serial.html#gaca716492412cfe5a50efc3471caae7f6" title="Serial port interrupt handler." alt="" coords="185,22,256,49"/>
-<area shape="rect" href="group__serial.html#ga7b4a68816c36345162f68a5ca751c59e" title="Subscribes the interrupts sent by the serial port (in exclusive mode)." alt="" coords="163,73,279,99"/>
+<area shape="rect" title="Sets the DLAB flag (bit 7 of the LCR) to 0." alt="" coords="431,31,521,57"/>
+<area shape="rect" href="group__serial.html#ga4e483fd5c1163fb3f954069757b49ed7" title="Reads a byte from the Receiver Buffer Register." alt="" coords="295,5,376,32"/>
+<area shape="rect" href="group__serial.html#gad54d8e2d1e18806ac3d03ce238c304e9" title="Writes a given byte to the Interrupt Enable Register." alt="" coords="288,56,383,83"/>
+<area shape="rect" href="group__serial.html#ga6178bef82c4e14efa82ec6c07cb5e3f3" title="Reads a character from the Receiver Buffer Register Used by the interrupt handler to get the received..." alt="" coords="128,5,236,32"/>
+<area shape="rect" href="group__serial.html#gaca716492412cfe5a50efc3471caae7f6" title="Serial port interrupt handler." alt="" coords="5,5,76,32"/>
+<area shape="rect" href="group__serial.html#ga7b4a68816c36345162f68a5ca751c59e" title="Subscribes the interrupts sent by the serial port (in exclusive mode)." alt="" coords="124,56,240,83"/>
 </map>
 </div>
 
@@ -434,9 +453,8 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__serial_ga6178bef82c4e14efa82ec6c07cb5e3f3_icgraph.png" border="0" usemap="#agroup__serial_ga6178bef82c4e14efa82ec6c07cb5e3f3_icgraph" alt=""/></div>
 <map name="agroup__serial_ga6178bef82c4e14efa82ec6c07cb5e3f3_icgraph" id="agroup__serial_ga6178bef82c4e14efa82ec6c07cb5e3f3_icgraph">
-<area shape="rect" title="Reads a character from the Receiver Buffer Register Used by the interrupt handler to get the received..." alt="" coords="281,5,389,32"/>
-<area shape="rect" href="main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
-<area shape="rect" href="group__serial.html#gaca716492412cfe5a50efc3471caae7f6" title="Serial port interrupt handler." alt="" coords="163,31,233,57"/>
+<area shape="rect" title="Reads a character from the Receiver Buffer Register Used by the interrupt handler to get the received..." alt="" coords="124,5,232,32"/>
+<area shape="rect" href="group__serial.html#gaca716492412cfe5a50efc3471caae7f6" title="Serial port interrupt handler." alt="" coords="5,5,76,32"/>
 </map>
 </div>
 
@@ -481,14 +499,13 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__serial_ga09f7039ee3e77b8d3c09707f2fa7298e_icgraph.png" border="0" usemap="#agroup__serial_ga09f7039ee3e77b8d3c09707f2fa7298e_icgraph" alt=""/></div>
 <map name="agroup__serial_ga09f7039ee3e77b8d3c09707f2fa7298e_icgraph" id="agroup__serial_ga09f7039ee3e77b8d3c09707f2fa7298e_icgraph">
-<area shape="rect" title="Reads the word present in the Line Control Register." alt="" coords="727,81,837,108"/>
-<area shape="rect" href="group__serial.html#ga6c4f819bf49d0da33c1dee7a6e401d88" title="Sets the DLAB flag (bit 7 of the LCR) to 0." alt="" coords="588,56,679,83"/>
-<area shape="rect" href="group__serial.html#ga7b4a68816c36345162f68a5ca751c59e" title="Subscribes the interrupts sent by the serial port (in exclusive mode)." alt="" coords="281,81,397,108"/>
-<area shape="rect" href="group__serial.html#ga4e483fd5c1163fb3f954069757b49ed7" title="Reads a byte from the Receiver Buffer Register." alt="" coords="452,5,533,32"/>
-<area shape="rect" href="group__serial.html#gad54d8e2d1e18806ac3d03ce238c304e9" title="Writes a given byte to the Interrupt Enable Register." alt="" coords="445,56,540,83"/>
-<area shape="rect" href="group__serial.html#ga6178bef82c4e14efa82ec6c07cb5e3f3" title="Reads a character from the Receiver Buffer Register Used by the interrupt handler to get the received..." alt="" coords="285,5,393,32"/>
-<area shape="rect" href="main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,31,115,57"/>
-<area shape="rect" href="group__serial.html#gaca716492412cfe5a50efc3471caae7f6" title="Serial port interrupt handler." alt="" coords="163,31,233,57"/>
+<area shape="rect" title="Reads the word present in the Line Control Register." alt="" coords="569,81,680,108"/>
+<area shape="rect" href="group__serial.html#ga6c4f819bf49d0da33c1dee7a6e401d88" title="Sets the DLAB flag (bit 7 of the LCR) to 0." alt="" coords="431,56,521,83"/>
+<area shape="rect" href="group__serial.html#ga7b4a68816c36345162f68a5ca751c59e" title="Subscribes the interrupts sent by the serial port (in exclusive mode)." alt="" coords="124,81,240,108"/>
+<area shape="rect" href="group__serial.html#ga4e483fd5c1163fb3f954069757b49ed7" title="Reads a byte from the Receiver Buffer Register." alt="" coords="295,5,376,32"/>
+<area shape="rect" href="group__serial.html#gad54d8e2d1e18806ac3d03ce238c304e9" title="Writes a given byte to the Interrupt Enable Register." alt="" coords="288,56,383,83"/>
+<area shape="rect" href="group__serial.html#ga6178bef82c4e14efa82ec6c07cb5e3f3" title="Reads a character from the Receiver Buffer Register Used by the interrupt handler to get the received..." alt="" coords="128,5,236,32"/>
+<area shape="rect" href="group__serial.html#gaca716492412cfe5a50efc3471caae7f6" title="Serial port interrupt handler." alt="" coords="5,5,76,32"/>
 </map>
 </div>
 
@@ -533,12 +550,10 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__serial_ga6fe3e47707baee767bcda1c8d6658c4c_icgraph.png" border="0" usemap="#agroup__serial_ga6fe3e47707baee767bcda1c8d6658c4c_icgraph" alt=""/></div>
 <map name="agroup__serial_ga6fe3e47707baee767bcda1c8d6658c4c_icgraph" id="agroup__serial_ga6fe3e47707baee767bcda1c8d6658c4c_icgraph">
-<area shape="rect" title="Reads a byte from the Line Status Register." alt="" coords="501,48,580,75"/>
-<area shape="rect" href="group__serial.html#ga6178bef82c4e14efa82ec6c07cb5e3f3" title="Reads a character from the Receiver Buffer Register Used by the interrupt handler to get the received..." alt="" coords="344,23,452,49"/>
-<area shape="rect" href="group__serial.html#ga90442b4177ec93b4370630055d781680" title="Sends a byte through the serial port, using polling to check if the Transmitter Holding Register is e..." alt="" coords="343,73,453,100"/>
-<area shape="rect" href="main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,23,115,49"/>
-<area shape="rect" href="group__serial.html#gaca716492412cfe5a50efc3471caae7f6" title="Serial port interrupt handler." alt="" coords="193,23,264,49"/>
-<area shape="rect" href="serial_8c.html#adf710214a7471600f4c0bd3a23b9ea5f" title=" " alt="" coords="163,124,295,151"/>
+<area shape="rect" title="Reads a byte from the Line Status Register." alt="" coords="283,31,361,57"/>
+<area shape="rect" href="group__serial.html#ga6178bef82c4e14efa82ec6c07cb5e3f3" title="Reads a character from the Receiver Buffer Register Used by the interrupt handler to get the received..." alt="" coords="125,5,233,32"/>
+<area shape="rect" href="group__serial.html#ga90442b4177ec93b4370630055d781680" title="Sends a byte through the serial port, using polling to check if the Transmitter Holding Register is e..." alt="" coords="124,56,235,83"/>
+<area shape="rect" href="group__serial.html#gaca716492412cfe5a50efc3471caae7f6" title="Serial port interrupt handler." alt="" coords="5,5,76,32"/>
 </map>
 </div>
 
@@ -586,10 +601,9 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__serial_ga4e483fd5c1163fb3f954069757b49ed7_icgraph.png" border="0" usemap="#agroup__serial_ga4e483fd5c1163fb3f954069757b49ed7_icgraph" alt=""/></div>
 <map name="agroup__serial_ga4e483fd5c1163fb3f954069757b49ed7_icgraph" id="agroup__serial_ga4e483fd5c1163fb3f954069757b49ed7_icgraph">
-<area shape="rect" title="Reads a byte from the Receiver Buffer Register." alt="" coords="437,5,519,32"/>
-<area shape="rect" href="group__serial.html#ga6178bef82c4e14efa82ec6c07cb5e3f3" title="Reads a character from the Receiver Buffer Register Used by the interrupt handler to get the received..." alt="" coords="281,5,389,32"/>
-<area shape="rect" href="main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
-<area shape="rect" href="group__serial.html#gaca716492412cfe5a50efc3471caae7f6" title="Serial port interrupt handler." alt="" coords="163,31,233,57"/>
+<area shape="rect" title="Reads a byte from the Receiver Buffer Register." alt="" coords="280,5,361,32"/>
+<area shape="rect" href="group__serial.html#ga6178bef82c4e14efa82ec6c07cb5e3f3" title="Reads a character from the Receiver Buffer Register Used by the interrupt handler to get the received..." alt="" coords="124,5,232,32"/>
+<area shape="rect" href="group__serial.html#gaca716492412cfe5a50efc3471caae7f6" title="Serial port interrupt handler." alt="" coords="5,5,76,32"/>
 </map>
 </div>
 
@@ -631,16 +645,6 @@ Here is the call graph for this function:</div>
 <area shape="rect" href="group__utils.html#ga79a031a8611f5b2d6afa4158e92b0fb4" title="Reads 4 bytes from a given port and returns the least significant one." alt="" coords="311,5,401,32"/>
 </map>
 </div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="group__serial_ga90442b4177ec93b4370630055d781680_icgraph.png" border="0" usemap="#agroup__serial_ga90442b4177ec93b4370630055d781680_icgraph" alt=""/></div>
-<map name="agroup__serial_ga90442b4177ec93b4370630055d781680_icgraph" id="agroup__serial_ga90442b4177ec93b4370630055d781680_icgraph">
-<area shape="rect" title="Sends a byte through the serial port, using polling to check if the Transmitter Holding Register is e..." alt="" coords="185,31,296,57"/>
-<area shape="rect" href="main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="17,5,126,32"/>
-<area shape="rect" href="serial_8c.html#adf710214a7471600f4c0bd3a23b9ea5f" title=" " alt="" coords="5,56,137,83"/>
-</map>
-</div>
 
 </div>
 </div>
@@ -674,15 +678,6 @@ Here is the call graph for this function:</div>
 <area shape="rect" href="group__serial.html#ga6c4f819bf49d0da33c1dee7a6e401d88" title="Sets the DLAB flag (bit 7 of the LCR) to 0." alt="" coords="409,107,500,133"/>
 <area shape="rect" href="group__serial.html#ga09f7039ee3e77b8d3c09707f2fa7298e" title="Reads the word present in the Line Control Register." alt="" coords="548,107,659,133"/>
 <area shape="rect" href="group__serial.html#gac00f90ae7bc08bf48ac61bd60422eaa0" title="Writes a given byte to the Line Control Register." alt="" coords="554,157,653,184"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="group__serial_gaca716492412cfe5a50efc3471caae7f6_icgraph.png" border="0" usemap="#agroup__serial_gaca716492412cfe5a50efc3471caae7f6_icgraph" alt=""/></div>
-<map name="agroup__serial_gaca716492412cfe5a50efc3471caae7f6_icgraph" id="agroup__serial_gaca716492412cfe5a50efc3471caae7f6_icgraph">
-<area shape="rect" title="Serial port interrupt handler." alt="" coords="163,5,233,32"/>
-<area shape="rect" href="main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
 </map>
 </div>
 
@@ -727,15 +722,6 @@ Here is the call graph for this function:</div>
 <area shape="rect" href="group__serial.html#ga6c4f819bf49d0da33c1dee7a6e401d88" title="Sets the DLAB flag (bit 7 of the LCR) to 0." alt="" coords="317,81,408,107"/>
 </map>
 </div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="group__serial_ga7b4a68816c36345162f68a5ca751c59e_icgraph.png" border="0" usemap="#agroup__serial_ga7b4a68816c36345162f68a5ca751c59e_icgraph" alt=""/></div>
-<map name="agroup__serial_ga7b4a68816c36345162f68a5ca751c59e_icgraph" id="agroup__serial_ga7b4a68816c36345162f68a5ca751c59e_icgraph">
-<area shape="rect" title="Subscribes the interrupts sent by the serial port (in exclusive mode)." alt="" coords="163,5,279,32"/>
-<area shape="rect" href="main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
-</map>
-</div>
 
 </div>
 </div>
@@ -761,8 +747,8 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__serial_ga2bc63af8c3b6860fe91175bd5aa01771_icgraph.png" border="0" usemap="#agroup__serial_ga2bc63af8c3b6860fe91175bd5aa01771_icgraph" alt=""/></div>
 <map name="agroup__serial_ga2bc63af8c3b6860fe91175bd5aa01771_icgraph" id="agroup__serial_ga2bc63af8c3b6860fe91175bd5aa01771_icgraph">
-<area shape="rect" title="Unsubscribes the interrupts from serial port." alt="" coords="163,5,293,32"/>
-<area shape="rect" href="main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
+<area shape="rect" title="Unsubscribes the interrupts from serial port." alt="" coords="147,5,277,32"/>
+<area shape="rect" href="group___main.html#gaad4aaeeabfabd24ccfeb9b85f0bb7eda" title="Unsubscribes all the interrupts and resets the mouse to Minix&#39;s default configuration." alt="" coords="5,5,99,32"/>
 </map>
 </div>
 
@@ -798,9 +784,8 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__serial_ga454e2eaf2505c1c04754b0634d75171f_icgraph.png" border="0" usemap="#agroup__serial_ga454e2eaf2505c1c04754b0634d75171f_icgraph" alt=""/></div>
 <map name="agroup__serial_ga454e2eaf2505c1c04754b0634d75171f_icgraph" id="agroup__serial_ga454e2eaf2505c1c04754b0634d75171f_icgraph">
-<area shape="rect" title="Writes a byte to the FIFO Control Register." alt="" coords="327,5,427,32"/>
-<area shape="rect" href="group__serial.html#ga7b4a68816c36345162f68a5ca751c59e" title="Subscribes the interrupts sent by the serial port (in exclusive mode)." alt="" coords="163,5,279,32"/>
-<area shape="rect" href="main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
+<area shape="rect" title="Writes a byte to the FIFO Control Register." alt="" coords="169,5,269,32"/>
+<area shape="rect" href="group__serial.html#ga7b4a68816c36345162f68a5ca751c59e" title="Subscribes the interrupts sent by the serial port (in exclusive mode)." alt="" coords="5,5,121,32"/>
 </map>
 </div>
 
@@ -848,9 +833,8 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__serial_gad54d8e2d1e18806ac3d03ce238c304e9_icgraph.png" border="0" usemap="#agroup__serial_gad54d8e2d1e18806ac3d03ce238c304e9_icgraph" alt=""/></div>
 <map name="agroup__serial_gad54d8e2d1e18806ac3d03ce238c304e9_icgraph" id="agroup__serial_gad54d8e2d1e18806ac3d03ce238c304e9_icgraph">
-<area shape="rect" title="Writes a given byte to the Interrupt Enable Register." alt="" coords="327,5,421,32"/>
-<area shape="rect" href="group__serial.html#ga7b4a68816c36345162f68a5ca751c59e" title="Subscribes the interrupts sent by the serial port (in exclusive mode)." alt="" coords="163,5,279,32"/>
-<area shape="rect" href="main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
+<area shape="rect" title="Writes a given byte to the Interrupt Enable Register." alt="" coords="169,5,264,32"/>
+<area shape="rect" href="group__serial.html#ga7b4a68816c36345162f68a5ca751c59e" title="Subscribes the interrupts sent by the serial port (in exclusive mode)." alt="" coords="5,5,121,32"/>
 </map>
 </div>
 
@@ -886,14 +870,13 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__serial_gac00f90ae7bc08bf48ac61bd60422eaa0_icgraph.png" border="0" usemap="#agroup__serial_gac00f90ae7bc08bf48ac61bd60422eaa0_icgraph" alt=""/></div>
 <map name="agroup__serial_gac00f90ae7bc08bf48ac61bd60422eaa0_icgraph" id="agroup__serial_gac00f90ae7bc08bf48ac61bd60422eaa0_icgraph">
-<area shape="rect" title="Writes a given byte to the Line Control Register." alt="" coords="727,81,825,108"/>
-<area shape="rect" href="group__serial.html#ga6c4f819bf49d0da33c1dee7a6e401d88" title="Sets the DLAB flag (bit 7 of the LCR) to 0." alt="" coords="588,56,679,83"/>
-<area shape="rect" href="group__serial.html#ga7b4a68816c36345162f68a5ca751c59e" title="Subscribes the interrupts sent by the serial port (in exclusive mode)." alt="" coords="281,81,397,108"/>
-<area shape="rect" href="group__serial.html#ga4e483fd5c1163fb3f954069757b49ed7" title="Reads a byte from the Receiver Buffer Register." alt="" coords="452,5,533,32"/>
-<area shape="rect" href="group__serial.html#gad54d8e2d1e18806ac3d03ce238c304e9" title="Writes a given byte to the Interrupt Enable Register." alt="" coords="445,56,540,83"/>
-<area shape="rect" href="group__serial.html#ga6178bef82c4e14efa82ec6c07cb5e3f3" title="Reads a character from the Receiver Buffer Register Used by the interrupt handler to get the received..." alt="" coords="285,5,393,32"/>
-<area shape="rect" href="main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,31,115,57"/>
-<area shape="rect" href="group__serial.html#gaca716492412cfe5a50efc3471caae7f6" title="Serial port interrupt handler." alt="" coords="163,31,233,57"/>
+<area shape="rect" title="Writes a given byte to the Line Control Register." alt="" coords="569,81,668,108"/>
+<area shape="rect" href="group__serial.html#ga6c4f819bf49d0da33c1dee7a6e401d88" title="Sets the DLAB flag (bit 7 of the LCR) to 0." alt="" coords="431,56,521,83"/>
+<area shape="rect" href="group__serial.html#ga7b4a68816c36345162f68a5ca751c59e" title="Subscribes the interrupts sent by the serial port (in exclusive mode)." alt="" coords="124,81,240,108"/>
+<area shape="rect" href="group__serial.html#ga4e483fd5c1163fb3f954069757b49ed7" title="Reads a byte from the Receiver Buffer Register." alt="" coords="295,5,376,32"/>
+<area shape="rect" href="group__serial.html#gad54d8e2d1e18806ac3d03ce238c304e9" title="Writes a given byte to the Interrupt Enable Register." alt="" coords="288,56,383,83"/>
+<area shape="rect" href="group__serial.html#ga6178bef82c4e14efa82ec6c07cb5e3f3" title="Reads a character from the Receiver Buffer Register Used by the interrupt handler to get the received..." alt="" coords="128,5,236,32"/>
+<area shape="rect" href="group__serial.html#gaca716492412cfe5a50efc3471caae7f6" title="Serial port interrupt handler." alt="" coords="5,5,76,32"/>
 </map>
 </div>
 
@@ -929,19 +912,20 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__serial_ga27a913bc7943fc9b3ad25f7cb90d9e87_icgraph.png" border="0" usemap="#agroup__serial_ga27a913bc7943fc9b3ad25f7cb90d9e87_icgraph" alt=""/></div>
 <map name="agroup__serial_ga27a913bc7943fc9b3ad25f7cb90d9e87_icgraph" id="agroup__serial_ga27a913bc7943fc9b3ad25f7cb90d9e87_icgraph">
-<area shape="rect" title="Writes a byte in the Transmitter Holding Register." alt="" coords="344,31,443,57"/>
-<area shape="rect" href="group__serial.html#ga90442b4177ec93b4370630055d781680" title="Sends a byte through the serial port, using polling to check if the Transmitter Holding Register is e..." alt="" coords="185,31,296,57"/>
-<area shape="rect" href="main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="17,5,126,32"/>
-<area shape="rect" href="serial_8c.html#adf710214a7471600f4c0bd3a23b9ea5f" title=" " alt="" coords="5,56,137,83"/>
+<area shape="rect" title="Writes a byte in the Transmitter Holding Register." alt="" coords="164,5,263,32"/>
+<area shape="rect" href="group__serial.html#ga90442b4177ec93b4370630055d781680" title="Sends a byte through the serial port, using polling to check if the Transmitter Holding Register is e..." alt="" coords="5,5,116,32"/>
 </map>
 </div>
 
 </div>
 </div>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
 </body>
 </html>

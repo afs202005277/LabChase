@@ -1,8 +1,9 @@
 <map id="src/auxiliary_data_structures.h" name="src/auxiliary_data_structures.h">
-<area shape="rect" id="node1" title=" " alt="" coords="121,5,245,47"/>
-<area shape="rect" id="node2" href="$keyboard_8c.html" title=" " alt="" coords="5,169,113,196"/>
-<area shape="rect" id="node3" href="$keyboard_8h.html" title=" " alt="" coords="49,95,157,121"/>
-<area shape="rect" id="node5" href="$video__gr_8c.html" title=" " alt="" coords="256,169,359,196"/>
-<area shape="rect" id="node6" href="$video__gr__game_a_p_i_8h.html" title=" " alt="" coords="182,95,345,121"/>
-<area shape="rect" id="node4" href="$main_8c.html" title=" " alt="" coords="145,169,227,196"/>
+<area shape="rect" id="node1" title=" " alt="" coords="213,5,337,47"/>
+<area shape="rect" id="node2" href="$buttons_8c.html" title=" " alt="" coords="5,95,104,121"/>
+<area shape="rect" id="node4" href="$keyboard_8c.html" title=" " alt="" coords="221,169,329,196"/>
+<area shape="rect" id="node5" href="$keyboard_8h.html" title=" " alt="" coords="129,95,237,121"/>
+<area shape="rect" id="node6" href="$video__gr_8c.html" title=" " alt="" coords="406,169,509,196"/>
+<area shape="rect" id="node7" href="$video__gr__game_a_p_i_8h.html" title=" " alt="" coords="312,95,475,121"/>
+<area shape="rect" id="node3" href="$main_8c.html" title=" " alt="" coords="113,169,196,196"/>
 </map>

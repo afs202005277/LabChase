@@ -5,7 +5,7 @@
 #include <lcom/xpm.h>
 #include <stdint.h>
 
-/** @defgroup aux_data_struct aux_data_struct
+/** @defgroup Auxiliary_Data_Structures Auxiliary_Data_Structures
  * @{
  *
  * Data structures to help in the game development
@@ -63,7 +63,7 @@ struct PlayerPosition {
 };
 
 /**
- * @brief Struct to store the position of the mouse
+ * @brief Struct to store the absolute position of the mouse
  *
  */
 struct mousePos {
@@ -81,7 +81,8 @@ struct images {
 
 /**
  * @brief Struct to delimit the area occupied by a button
- * 
+ *
+ * Stores the coordinates of the upper left corner and of the down right one.
  */
 struct Button {
   uint16_t up_left_x, up_left_y, down_right_x, down_right_y;

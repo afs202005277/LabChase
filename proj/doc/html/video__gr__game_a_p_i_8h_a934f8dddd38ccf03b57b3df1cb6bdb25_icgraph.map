@@ -1,4 +1,6 @@
 <map id="draw_img" name="draw_img">
-<area shape="rect" id="node1" title="Draws an image in the specified coordinates." alt="" coords="163,5,240,32"/>
-<area shape="rect" id="node2" href="$main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
+<area shape="rect" id="node1" title="Draws an image in the specified coordinates." alt="" coords="445,5,523,32"/>
+<area shape="rect" id="node2" href="$group___main.html#ga33bde23e0d2bbde847401c5ac6fb62e0" title="Handles the game logic and assign tasks to the different devices." alt="" coords="5,5,115,32"/>
+<area shape="rect" id="node3" href="$video__gr_8c.html#a3f1185149f43993bffd5278616ec839c" title="Starts the game and changes the background color according to the hour of the day." alt="" coords="297,31,397,57"/>
+<area shape="rect" id="node4" href="$group___main.html#ga671b58f5509a3a9fa692bacccfc32cc9" title="Starts the game and changes background according to the current hour." alt="" coords="163,31,249,57"/>
 </map>

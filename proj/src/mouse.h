@@ -5,7 +5,7 @@
 #include <stdint.h>
 #include <util.h>
 
-/** @defgroup mouse mouse
+/** @defgroup Mouse Mouse
  * @{
  *
  * Functions for using the mouse.

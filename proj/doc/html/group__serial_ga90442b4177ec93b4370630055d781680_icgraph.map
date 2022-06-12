@@ -1,5 +1,0 @@
-<map id="send_character" name="send_character">
-<area shape="rect" id="node1" title="Sends a byte through the serial port, using polling to check if the Transmitter Holding Register is e..." alt="" coords="185,31,296,57"/>
-<area shape="rect" id="node2" href="$main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="17,5,126,32"/>
-<area shape="rect" id="node3" href="$serial_8c.html#adf710214a7471600f4c0bd3a23b9ea5f" title=" " alt="" coords="5,56,137,83"/>
-</map>

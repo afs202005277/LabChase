@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['down_0',['DOWN',['../group__aux__data__struct.html#gga99f26e6ee9fcd62f75203b5402df8098a9b0b4a95b99523966e0e34ffdadac9da',1,'auxiliary_data_structures.h']]]
+  ['boost_0',['BOOST',['../group___auxiliary___data___structures.html#gga99f26e6ee9fcd62f75203b5402df8098a64fe15abfce0f5a1467d75dd876875ba',1,'auxiliary_data_structures.h']]]
 ];

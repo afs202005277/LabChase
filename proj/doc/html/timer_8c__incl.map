@@ -1,8 +1,8 @@
 <map id="src/timer.c" name="src/timer.c">
 <area shape="rect" id="node1" title=" " alt="" coords="93,5,177,32"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,155,84,181"/>
-<area shape="rect" id="node3" href="$timer__proj_8h.html" title=" " alt="" coords="141,80,231,107"/>
-<area shape="rect" id="node5" title=" " alt="" coords="236,155,301,181"/>
-<area shape="rect" id="node6" href="$i8254_8h.html" title=" " alt="" coords="53,80,117,107"/>
-<area shape="rect" id="node4" title=" " alt="" coords="137,155,211,181"/>
+<area shape="rect" id="node3" href="$adapted__timer_8h.html" title=" " alt="" coords="135,80,250,107"/>
+<area shape="rect" id="node5" title=" " alt="" coords="255,155,320,181"/>
+<area shape="rect" id="node6" href="$i8254_8h.html" title=" " alt="" coords="47,80,111,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="155,155,230,181"/>
 </map>

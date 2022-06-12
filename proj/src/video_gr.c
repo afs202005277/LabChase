@@ -221,7 +221,7 @@ int set_up_game(uint8_t hour) {
   return start_screen(me.x, me.y, player1Color, other.x, other.y, player2Color);
 }
 
-int find_color(uint16_t x, uint16_t y) {
+unsigned int find_color(uint16_t x, uint16_t y) {
   unsigned int color = 0;
   memcpy(&color, (char *) video_mem + (y * h_res + x) * bytes_per_pixel, bytes_per_pixel);
   return color;

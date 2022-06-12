@@ -1,7 +1,0 @@
-<map id="receive_connection" name="receive_connection">
-<area shape="rect" id="node1" title=" " alt="" coords="5,31,137,57"/>
-<area shape="rect" id="node2" href="$group__serial.html#ga90442b4177ec93b4370630055d781680" title="Sends a byte through the serial port, using polling to check if the Transmitter Holding Register is e..." alt="" coords="185,31,296,57"/>
-<area shape="rect" id="node3" href="$group__serial.html#ga6fe3e47707baee767bcda1c8d6658c4c" title="Reads a byte from the Line Status Register." alt="" coords="354,5,433,32"/>
-<area shape="rect" id="node5" href="$group__serial.html#ga27a913bc7943fc9b3ad25f7cb90d9e87" title="Writes a byte in the Transmitter Holding Register." alt="" coords="344,56,443,83"/>
-<area shape="rect" id="node4" href="$group__utils.html#ga79a031a8611f5b2d6afa4158e92b0fb4" title="Reads 4 bytes from a given port and returns the least significant one." alt="" coords="491,5,581,32"/>
-</map>

@@ -1,0 +1,5 @@
+<map id="set_up_game" name="set_up_game">
+<area shape="rect" id="node1" title="Starts the game and changes the background color according to the hour of the day." alt="" coords="5,31,105,57"/>
+<area shape="rect" id="node2" href="$video__gr_8c.html#a934f8dddd38ccf03b57b3df1cb6bdb25" title="Draws an image in the specified coordinates." alt="" coords="159,5,236,32"/>
+<area shape="rect" id="node3" href="$video__gr_8c.html#a55237e8e252e1ed0bed62d51d0e795b3" title="Loads an image from a xpm image." alt="" coords="153,56,241,83"/>
+</map>

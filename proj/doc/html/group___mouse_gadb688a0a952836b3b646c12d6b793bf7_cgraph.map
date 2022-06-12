@@ -1,0 +1,9 @@
+<map id="send_cmd_to_mouse" name="send_cmd_to_mouse">
+<area shape="rect" id="node1" title="sends a command to the mouse" alt="" coords="5,56,152,83"/>
+<area shape="rect" id="node2" href="$group___mouse.html#ga0e33b1b5368d04439e73f0c264ca01e5" title="reads the mouse&#39;s response" alt="" coords="417,5,539,32"/>
+<area shape="rect" id="node4" href="$group___mouse.html#ga432788b7e69e0e4c23af0a460f36ea2a" title="sends a argument of a command to the KBC&#39;s input buffer" alt="" coords="200,56,363,83"/>
+<area shape="rect" id="node7" href="$group___mouse.html#gaf28e86a0b02c40f866f280fdeb8304ca" title="sends a command to the KBC command register" alt="" coords="214,107,349,133"/>
+<area shape="rect" id="node3" href="$group__utils.html#ga79a031a8611f5b2d6afa4158e92b0fb4" title="Reads 4 bytes from a given port and returns the least significant one." alt="" coords="752,31,843,57"/>
+<area shape="rect" id="node5" href="$group___mouse.html#ga08bd70cfa211dacce36c6a077a2db1a0" title="sends a byte to the given port" alt="" coords="411,56,545,83"/>
+<area shape="rect" id="node6" href="$group___mouse.html#ga1ea22dc7f1cd587ad7715408bddb3c4e" title="Get the status byte from the KBC." alt="" coords="593,56,704,83"/>
+</map>

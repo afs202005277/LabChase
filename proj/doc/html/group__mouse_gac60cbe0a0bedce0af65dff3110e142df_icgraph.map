@@ -1,5 +1,0 @@
-<map id="read_output_buffer" name="read_output_buffer">
-<area shape="rect" id="node1" title="reads a byte from the KBC&#39;s output buffer" alt="" coords="289,5,417,32"/>
-<area shape="rect" id="node2" href="$group__mouse.html#ga210374b50462acdedab00df64d5cea3c" title="mouse interrupt handler" alt="" coords="163,5,241,32"/>
-<area shape="rect" id="node3" href="$main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
-</map>

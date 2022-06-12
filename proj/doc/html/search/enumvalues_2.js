@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['inval_5fval_0',['INVAL_val',['../group__timer.html#gga5cc20f14fd50625eea9b20f58fbe2a55a829d958875d8e92068f1b07f858721a4',1,'timer_proj.h']]]
+  ['goone_0',['GOONE',['../group___auxiliary___data___structures.html#gga7a133017a8d65196841cc925fe08abd5a6cff1c3bea0fd0fea2a2d0fe53343a0f',1,'auxiliary_data_structures.h']]],
+  ['gotwo_1',['GOTWO',['../group___auxiliary___data___structures.html#gga7a133017a8d65196841cc925fe08abd5ab989ba6d42153ab4fb22ae315a4e052c',1,'auxiliary_data_structures.h']]]
 ];

@@ -1,5 +1,5 @@
 var structmouse_pos =
 [
-    [ "x", "structmouse_pos.html#a0a7de1d35d71bce7d9030fce69aa4b50", null ],
-    [ "y", "structmouse_pos.html#a16ce0a0328604bee42a1e78418e5105f", null ]
+    [ "x", "structmouse_pos.html#ae1c2d516777e6b42af0d281c9ecc7375", null ],
+    [ "y", "structmouse_pos.html#af77b1a54442f2443cf64a4766f916bcd", null ]
 ];

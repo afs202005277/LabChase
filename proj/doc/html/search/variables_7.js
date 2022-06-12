@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['receivedchar_0',['receivedChar',['../serial_8c.html#aa3252314287d346edd7df8e24e275785',1,'serial.c']]]
+  ['quit_5fmain_0',['quit_main',['../buttons_8c.html#a1abdf5adab969cc0a425fdf5a430486b',1,'buttons.c']]]
 ];

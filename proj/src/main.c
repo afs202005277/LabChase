@@ -1,4 +1,5 @@
-#include "timer_proj.h"
+#include "adapted_timer.h"
+#include "buttons.c"
 #include "keyboard.h"
 #include "mouse.h"
 #include "rtc.h"
@@ -7,20 +8,32 @@
 #include <lcom/lcf.h>
 #include <stdbool.h>
 #include <stdint.h>
-#include "buttons.c"
 
 #include "XPMs/GameOverPlayerOneWins.h"
 #include "XPMs/GameOverPlayerTwoWins.h"
 #include "XPMs/MainScreen.h"
 #include "XPMs/PauseScreen.h"
 
-#define GRAPHICS_MODE 0x115
-#define SEND_BYTE 'p'
-#define RECEIVE_BYTE 'c'
-#define BOOST_INCREMENT 4
+/** @defgroup Main Main
+ * @{
+ *
+ * The driver code of the game
+ */
+
+#define GRAPHICS_MODE 0x115 /*!< The graphics mode in which the game will operate */
+#define SEND_BYTE 'p'       /*!< The byte this device is supposed to send (to estabilish a connection with the other end of the serial port) */
+#define RECEIVE_BYTE 'c'    /*!< The byte this device is supposed to receive (to estabilish a connection with the other end of the serial port) */
+#define BOOST_INCREMENT 4   /*!< The speed increment of boosting */
+#define S_SPEED 5           /*!< Speed of the game, when the game is running in just one device */
+#define M_SPEED 20          /*!<  Speed of the game, when the game is running in two devices */
 
 static uint8_t bit_no_timer, bit_no_keyboard, bit_no_mouse, bit_no_rtc, bit_no_serial;
 
+/**
+ * @brief Subscribes interrupts from all the devices and enables data reporting (mouse)
+ *
+ * @return Return 0 upon success and non-zero otherwise
+ */
 int set_up_devices() {
   if (timer_subscribe_int(&bit_no_timer) != OK) {
     printf("Failed to subscribe timer interrupts!\n");
@@ -49,6 +62,10 @@ int set_up_devices() {
   return 0;
 }
 
+/**
+ * @brief Unsubscribes all the interrupts and resets the mouse to Minix's default configuration
+ *
+ */
 void exit_devices() {
   serial_unsubscribe();
   timer_unsubscribe_int();
@@ -57,6 +74,43 @@ void exit_devices() {
   disable_data_reporting();
   rtc_unsubscribe_int();
   vg_exit();
+}
+
+/**
+ * @brief Loads all xpm images into the struct provided
+ *
+ * @param imgs memory address of the struct to be filled with the loaded images
+ */
+void load_images(struct images *imgs) {
+  imgs->main = load_image(MainScreen);
+  imgs->pause = load_image(PauseScreen);
+  imgs->gameOver1 = load_image(GOPOneWins);
+  imgs->gameOver2 = load_image(GOPTwoWins);
+  imgs->cursor = load_image(Cursor);
+}
+
+/**
+ * @brief Starts the game and changes background according to the current hour
+ *
+ */
+void start_game() {
+  uint8_t hour;
+  read_hours(&hour);
+  set_up_game(hour);
+}
+
+/**
+ * @brief updates the speed offset of a given player
+ *
+ * @param speed memory address of the speed offset of the player
+ */
+void update_speed(uint8_t *speed) {
+  if (get_num_interrupts_timer() % 2 == 0) {
+    if (((int) *speed) - 1 < 0)
+      *speed = 0;
+    else
+      *speed -= 1;
+  }
 }
 
 int main(int argc, char *argv[]) {
@@ -83,29 +137,11 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
-void load_images(struct images *imgs) {
-  imgs->main = load_image(MainScreen);
-  imgs->pause = load_image(PauseScreen);
-  imgs->gameOver1 = load_image(GOPOneWins);
-  imgs->gameOver2 = load_image(GOPTwoWins);
-  imgs->cursor = load_image(Cursor);
-}
-
-void start_game() {
-  uint8_t hour;
-  read_hours(&hour);
-  set_up_game(hour);
-}
-
-void update_speed(uint8_t *speed) {
-  if (get_num_interrupts_timer() % 2 == 0) {
-    if (((int) *speed) - 1 < 0)
-      *speed = 0;
-    else
-      *speed -= 1;
-  }
-}
-
+/**
+ * @brief Handles the game logic and assign tasks to the different devices
+ *
+ * @return Return 0 upon success and non-zero otherwise
+ */
 int(proj_main_loop)() {
   enum screenState screenState = MAIN;
 
@@ -120,7 +156,7 @@ int(proj_main_loop)() {
 
   message msg;
 
-  uint8_t mainSpeed = 5, numBytesReceivedMouse = 0, mouseReceivedByte;
+  uint8_t mainSpeed = S_SPEED, numBytesReceivedMouse = 0, mouseReceivedByte;
   uint8_t speedOffsetPlayer1 = 0, speedOffsetPlayer2 = 0;
 
   extern uint8_t receivedChar;
@@ -210,7 +246,7 @@ int(proj_main_loop)() {
               isConnected = true;
               isWaiting = false;
               screenState = M_GAME;
-              mainSpeed = 20;
+              mainSpeed = M_SPEED;
             }
             else if (isConnected) {
               struct MovementInfo mov;
@@ -282,7 +318,7 @@ int(proj_main_loop)() {
                     mouseMovement(pp.delta_x, pp.delta_y, imgs.cursor);
                     if (mouseInPlace(single_main) && pp.lb) {
                       screenState = S_GAME;
-                      mainSpeed = 5;
+                      mainSpeed = S_SPEED;
                     }
                     else if (mouseInPlace(multi_main) && pp.lb) {
                       isWaiting = true;
@@ -305,7 +341,7 @@ int(proj_main_loop)() {
                     mouseMovement(pp.delta_x, pp.delta_y, imgs.cursor);
                     if (mouseInPlace(play_GO) && pp.lb) {
                       screenState = S_GAME;
-                      mainSpeed = 5;
+                      mainSpeed = S_SPEED;
                     }
                     else if (mouseInPlace(main_GO) && pp.lb) {
                       screenState = MAIN;
@@ -318,7 +354,7 @@ int(proj_main_loop)() {
                     mouseMovement(pp.delta_x, pp.delta_y, imgs.cursor);
                     if (mouseInPlace(play_GO) && pp.lb) {
                       screenState = S_GAME;
-                      mainSpeed = 5;
+                      mainSpeed = S_SPEED;
                     }
                     else if (mouseInPlace(main_GO) && pp.lb) {
                       screenState = MAIN;

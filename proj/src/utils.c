@@ -54,16 +54,3 @@ int(util_sys_inb)(int port, uint8_t *value) {
   *value = (uint8_t) b;
   return OK;
 }
-
-/**
- * @brief Returns the minimum of two numbers
- * 
- * @param num1 
- * @param num2 
- * @return the minimum number
- */
-unsigned int min(unsigned int num1, unsigned int num2) {
-  if (num1 > num2)
-    return num2;
-  return num1;
-}

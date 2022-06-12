@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['unchanged_0',['UNCHANGED',['../group__aux__data__struct.html#gga99f26e6ee9fcd62f75203b5402df8098a92790ee218e9f47d75a27d6641af29b7',1,'auxiliary_data_structures.h']]],
-  ['up_1',['UP',['../group__aux__data__struct.html#gga99f26e6ee9fcd62f75203b5402df8098aba595d8bca8bc5e67c37c0a9d89becfa',1,'auxiliary_data_structures.h']]]
+  ['tsf_5fall_0',['tsf_all',['../group___timer.html#ggada782f3116a896caaa602b70c0c6d8b7a92376d84969da91547254fc7461f0da2',1,'adapted_timer.h']]],
+  ['tsf_5fbase_1',['tsf_base',['../group___timer.html#ggada782f3116a896caaa602b70c0c6d8b7af4b69eace6b1cc952de198acee4c5e32',1,'adapted_timer.h']]],
+  ['tsf_5finitial_2',['tsf_initial',['../group___timer.html#ggada782f3116a896caaa602b70c0c6d8b7aa89f72faf31fa0e4db8cab25364a4583',1,'adapted_timer.h']]],
+  ['tsf_5fmode_3',['tsf_mode',['../group___timer.html#ggada782f3116a896caaa602b70c0c6d8b7aa84c2f6462a2deb90fda229c89453dfa',1,'adapted_timer.h']]]
 ];

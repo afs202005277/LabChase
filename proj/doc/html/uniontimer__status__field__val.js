@@ -1,7 +1,7 @@
 var uniontimer__status__field__val =
 [
-    [ "bcd", "group__timer.html#gad1c0daae1fe44fc16a05f435123a99f2", null ],
-    [ "byte", "group__timer.html#ga37d15361e9d111d7f18f943d85964f51", null ],
-    [ "count_mode", "group__timer.html#ga069cd58184fd977a3345d560f159037a", null ],
-    [ "in_mode", "group__timer.html#ga16c0028c537ce578196381bdc0cd97fd", null ]
+    [ "bcd", "group___timer.html#gaa2444cde256beeae6fb06bb7a5ebd0c9", null ],
+    [ "byte", "group___timer.html#ga96f44d20f1dbf1c8785a7bc99a46164c", null ],
+    [ "count_mode", "group___timer.html#gabd6e94a182fc2daff67dfb46f732644a", null ],
+    [ "in_mode", "group___timer.html#gad414fb8742e435f9bda1f199a6200645", null ]
 ];

@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -47,6 +51,22 @@ $(function() {
 </script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('globals_s.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -65,32 +85,40 @@ $(function() {
 <div class="textblock">Here is a list of all functions, variables, defines, enums, and typedefs with links to the files they belong to:</div>
 
 <h3><a id="index_s" name="index_s"></a>- s -</h3><ul>
-<li>S_GAME&#160;:&#160;<a class="el" href="group__aux__data__struct.html#gga7a133017a8d65196841cc925fe08abd5a876a6a61f3aba64cb55e7a8457e94907">auxiliary_data_structures.h</a></li>
-<li>screenState&#160;:&#160;<a class="el" href="group__aux__data__struct.html#ga7a133017a8d65196841cc925fe08abd5">auxiliary_data_structures.h</a></li>
-<li>send_argument_to_KBC()&#160;:&#160;<a class="el" href="group__mouse.html#ga432788b7e69e0e4c23af0a460f36ea2a">mouse.c</a>, <a class="el" href="group__mouse.html#ga432788b7e69e0e4c23af0a460f36ea2a">mouse.h</a></li>
-<li>SEND_BYTE&#160;:&#160;<a class="el" href="main_8c.html#a7aaadebb3f02f01542e2194d0517f196">main.c</a></li>
-<li>send_byte_to_KBC()&#160;:&#160;<a class="el" href="group__mouse.html#ga08bd70cfa211dacce36c6a077a2db1a0">mouse.c</a>, <a class="el" href="group__mouse.html#ga08bd70cfa211dacce36c6a077a2db1a0">mouse.h</a></li>
+<li>S_GAME&#160;:&#160;<a class="el" href="group___auxiliary___data___structures.html#gga7a133017a8d65196841cc925fe08abd5a876a6a61f3aba64cb55e7a8457e94907">auxiliary_data_structures.h</a></li>
+<li>S_SPEED&#160;:&#160;<a class="el" href="group___main.html#ga9af19eacf9e919451b78fadc6f0d247f">main.c</a></li>
+<li>screenState&#160;:&#160;<a class="el" href="group___auxiliary___data___structures.html#ga7a133017a8d65196841cc925fe08abd5">auxiliary_data_structures.h</a></li>
+<li>send_argument_to_KBC()&#160;:&#160;<a class="el" href="group___mouse.html#ga432788b7e69e0e4c23af0a460f36ea2a">mouse.c</a>, <a class="el" href="group___mouse.html#ga432788b7e69e0e4c23af0a460f36ea2a">mouse.h</a></li>
+<li>SEND_BYTE&#160;:&#160;<a class="el" href="group___main.html#ga7aaadebb3f02f01542e2194d0517f196">main.c</a></li>
+<li>send_byte_to_KBC()&#160;:&#160;<a class="el" href="group___mouse.html#ga08bd70cfa211dacce36c6a077a2db1a0">mouse.c</a>, <a class="el" href="group___mouse.html#ga08bd70cfa211dacce36c6a077a2db1a0">mouse.h</a></li>
 <li>send_character()&#160;:&#160;<a class="el" href="group__serial.html#ga90442b4177ec93b4370630055d781680">serial.c</a>, <a class="el" href="group__serial.html#ga90442b4177ec93b4370630055d781680">serial.h</a></li>
-<li>send_cmd_to_KBC()&#160;:&#160;<a class="el" href="group__mouse.html#gaf28e86a0b02c40f866f280fdeb8304ca">mouse.c</a>, <a class="el" href="group__mouse.html#gaf28e86a0b02c40f866f280fdeb8304ca">mouse.h</a></li>
-<li>send_cmd_to_mouse()&#160;:&#160;<a class="el" href="group__mouse.html#gadb688a0a952836b3b646c12d6b793bf7">mouse.c</a>, <a class="el" href="group__mouse.html#gadb688a0a952836b3b646c12d6b793bf7">mouse.h</a></li>
+<li>send_cmd_to_KBC()&#160;:&#160;<a class="el" href="group___mouse.html#gaf28e86a0b02c40f866f280fdeb8304ca">mouse.c</a>, <a class="el" href="group___mouse.html#gaf28e86a0b02c40f866f280fdeb8304ca">mouse.h</a></li>
+<li>send_cmd_to_mouse()&#160;:&#160;<a class="el" href="group___mouse.html#gadb688a0a952836b3b646c12d6b793bf7">mouse.c</a>, <a class="el" href="group___mouse.html#gadb688a0a952836b3b646c12d6b793bf7">mouse.h</a></li>
 <li>SERIAL_DELAY&#160;:&#160;<a class="el" href="group__serial.html#gaaa81a4b4d4d2a337ca9177b3c05dd627">serial.h</a></li>
 <li>serial_hook&#160;:&#160;<a class="el" href="serial_8c.html#a28186ae9a9ccaac4bdd1e26852357366">serial.c</a></li>
 <li>serial_ih()&#160;:&#160;<a class="el" href="group__serial.html#gaca716492412cfe5a50efc3471caae7f6">serial.c</a>, <a class="el" href="group__serial.html#gaca716492412cfe5a50efc3471caae7f6">serial.h</a></li>
 <li>serial_subscribe()&#160;:&#160;<a class="el" href="group__serial.html#ga7b4a68816c36345162f68a5ca751c59e">serial.c</a>, <a class="el" href="group__serial.html#ga7b4a68816c36345162f68a5ca751c59e">serial.h</a></li>
 <li>serial_unsubscribe()&#160;:&#160;<a class="el" href="group__serial.html#ga2bc63af8c3b6860fe91175bd5aa01771">serial.c</a>, <a class="el" href="group__serial.html#ga2bc63af8c3b6860fe91175bd5aa01771">serial.h</a></li>
 <li>set_mode()&#160;:&#160;<a class="el" href="video__gr_8c.html#ada3e20ea63a4f7e572c329f56f8dda44">video_gr.c</a></li>
-<li>SET_STREAM_MODE&#160;:&#160;<a class="el" href="group__kbc__macros.html#gaabf49b4a4d8ad72d202c8a7197058e35">kbc_macros.h</a></li>
+<li>SET_STREAM_MODE&#160;:&#160;<a class="el" href="group___k_b_c__macros.html#gaabf49b4a4d8ad72d202c8a7197058e35">kbc_macros.h</a></li>
+<li>set_up_devices()&#160;:&#160;<a class="el" href="group___main.html#ga3c3fecabaf553c3ed70f6847a93ffa8f">main.c</a></li>
+<li>set_up_game()&#160;:&#160;<a class="el" href="video__gr_8c.html#a3f1185149f43993bffd5278616ec839c">video_gr.c</a>, <a class="el" href="video__gr__game_a_p_i_8h.html#a3f1185149f43993bffd5278616ec839c">video_gr_gameAPI.h</a></li>
 <li>SET_VBE_MOD&#160;:&#160;<a class="el" href="group__video__graphics__macros.html#gaa23dd2814302e819f71b0a823da46a46">video_gr_macros.h</a></li>
 <li>setMouseInitPos()&#160;:&#160;<a class="el" href="video__gr_8c.html#a3a5d5130cc8225f6db8c785295ce4a70">video_gr.c</a>, <a class="el" href="video__gr__game_a_p_i_8h.html#a3a5d5130cc8225f6db8c785295ce4a70">video_gr_gameAPI.h</a></li>
+<li>single_main&#160;:&#160;<a class="el" href="buttons_8c.html#a6be58af54099483d26c724b45a9cbd71">buttons.c</a></li>
 <li>SIZE_FRONT_END&#160;:&#160;<a class="el" href="group__video__graphics__macros.html#ga064ec3243cbee4f008b9d85445def47a">video_gr_macros.h</a></li>
 <li>SPEAKER_CTRL&#160;:&#160;<a class="el" href="group__i8254.html#ga51b3a5e3d4811ca063fe25e35560ab40">i8254.h</a></li>
-<li>start_game()&#160;:&#160;<a class="el" href="video__gr_8c.html#ae76098d2670c95e2900cd8715c95d677">video_gr.c</a>, <a class="el" href="video__gr__game_a_p_i_8h.html#ae76098d2670c95e2900cd8715c95d677">video_gr_gameAPI.h</a></li>
+<li>start_game()&#160;:&#160;<a class="el" href="group___main.html#ga671b58f5509a3a9fa692bacccfc32cc9">main.c</a></li>
 <li>start_screen()&#160;:&#160;<a class="el" href="video__gr_8c.html#ad13d1bf12139094d4f258cd4cb54c5fb">video_gr.c</a></li>
+<li>STOP&#160;:&#160;<a class="el" href="group___auxiliary___data___structures.html#gga99f26e6ee9fcd62f75203b5402df8098a679ee5320d66c8322e310daeb2ee99b8">auxiliary_data_structures.h</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
 </body>
 </html>

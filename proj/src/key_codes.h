@@ -21,7 +21,7 @@
 #define RIGHT_PLAYER2_BR 205  /**< @brief keycode of the release of the move right (arrow right) (player 2) button */
 #define BOOST_PLAYER2_BR 0xB6 /**< @brief keycode of the release of the boost (RIGHT SHIFT) (player 2) button */
 
-#define RETURN_MAIN 0x81 /**< @brief keycode of the release of the escape button */
+#define RETURN_MAIN 0x81 /**< @brief keycode of the release of the button to return to the main menu*/
 
 /**@}*/
 #endif /* __KEY_CODES */

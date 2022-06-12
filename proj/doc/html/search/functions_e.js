@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['write_5fto_5ffcr_0',['write_to_FCR',['../group__serial.html#ga454e2eaf2505c1c04754b0634d75171f',1,'write_to_FCR(uint8_t byte):&#160;serial.c'],['../group__serial.html#ga454e2eaf2505c1c04754b0634d75171f',1,'write_to_FCR(uint8_t byte):&#160;serial.c']]],
-  ['write_5fto_5fier_1',['write_to_IER',['../group__serial.html#gad54d8e2d1e18806ac3d03ce238c304e9',1,'write_to_IER(uint8_t byte):&#160;serial.c'],['../group__serial.html#gad54d8e2d1e18806ac3d03ce238c304e9',1,'write_to_IER(uint8_t byte):&#160;serial.c']]],
-  ['write_5fto_5flcr_2',['write_to_LCR',['../group__serial.html#gac00f90ae7bc08bf48ac61bd60422eaa0',1,'write_to_LCR(uint8_t byte):&#160;serial.c'],['../group__serial.html#gac00f90ae7bc08bf48ac61bd60422eaa0',1,'write_to_LCR(uint8_t byte):&#160;serial.c']]],
-  ['write_5fto_5fthr_3',['write_to_THR',['../group__serial.html#ga27a913bc7943fc9b3ad25f7cb90d9e87',1,'write_to_THR(uint8_t byte):&#160;serial.c'],['../group__serial.html#ga27a913bc7943fc9b3ad25f7cb90d9e87',1,'write_to_THR(uint8_t byte):&#160;serial.c']]]
+  ['update_5fspeed_0',['update_speed',['../group___main.html#ga9cb17fb98d17eba4a1eb2970ca80ae83',1,'main.c']]],
+  ['util_5fget_5flsb_1',['util_get_LSB',['../group__utils.html#ga81621440b3d65680979425e39aa8c789',1,'utils.c']]],
+  ['util_5fget_5fmsb_2',['util_get_MSB',['../group__utils.html#ga6a880076cd2ec468834438b6e0c58836',1,'utils.c']]],
+  ['util_5fsys_5finb_3',['util_sys_inb',['../group__utils.html#ga79a031a8611f5b2d6afa4158e92b0fb4',1,'utils.c']]]
 ];

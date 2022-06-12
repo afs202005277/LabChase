@@ -1,4 +1,4 @@
 <map id="get_bits_per_pixel" name="get_bits_per_pixel">
 <area shape="rect" id="node1" title="Get the amount of bits of each pixel." alt="" coords="163,5,289,32"/>
-<area shape="rect" id="node2" href="$main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
+<area shape="rect" id="node2" href="$group___main.html#ga33bde23e0d2bbde847401c5ac6fb62e0" title="Handles the game logic and assign tasks to the different devices." alt="" coords="5,5,115,32"/>
 </map>

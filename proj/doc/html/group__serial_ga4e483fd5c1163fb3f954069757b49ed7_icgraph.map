@@ -1,6 +1,5 @@
 <map id="read_RBR" name="read_RBR">
-<area shape="rect" id="node1" title="Reads a byte from the Receiver Buffer Register." alt="" coords="437,5,519,32"/>
-<area shape="rect" id="node2" href="$group__serial.html#ga6178bef82c4e14efa82ec6c07cb5e3f3" title="Reads a character from the Receiver Buffer Register Used by the interrupt handler to get the received..." alt="" coords="281,5,389,32"/>
-<area shape="rect" id="node3" href="$main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
-<area shape="rect" id="node4" href="$group__serial.html#gaca716492412cfe5a50efc3471caae7f6" title="Serial port interrupt handler." alt="" coords="163,31,233,57"/>
+<area shape="rect" id="node1" title="Reads a byte from the Receiver Buffer Register." alt="" coords="280,5,361,32"/>
+<area shape="rect" id="node2" href="$group__serial.html#ga6178bef82c4e14efa82ec6c07cb5e3f3" title="Reads a character from the Receiver Buffer Register Used by the interrupt handler to get the received..." alt="" coords="124,5,232,32"/>
+<area shape="rect" id="node3" href="$group__serial.html#gaca716492412cfe5a50efc3471caae7f6" title="Serial port interrupt handler." alt="" coords="5,5,76,32"/>
 </map>

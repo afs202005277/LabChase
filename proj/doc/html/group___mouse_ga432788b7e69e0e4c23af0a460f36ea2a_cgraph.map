@@ -1,0 +1,6 @@
+<map id="send_argument_to_KBC" name="send_argument_to_KBC">
+<area shape="rect" id="node1" title="sends a argument of a command to the KBC&#39;s input buffer" alt="" coords="5,5,168,32"/>
+<area shape="rect" id="node2" href="$group___mouse.html#ga08bd70cfa211dacce36c6a077a2db1a0" title="sends a byte to the given port" alt="" coords="216,5,351,32"/>
+<area shape="rect" id="node3" href="$group___mouse.html#ga1ea22dc7f1cd587ad7715408bddb3c4e" title="Get the status byte from the KBC." alt="" coords="399,5,509,32"/>
+<area shape="rect" id="node4" href="$group__utils.html#ga79a031a8611f5b2d6afa4158e92b0fb4" title="Reads 4 bytes from a given port and returns the least significant one." alt="" coords="557,5,648,32"/>
+</map>

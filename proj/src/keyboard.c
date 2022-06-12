@@ -1,9 +1,9 @@
+#include <lcom/lab3.h>
+#include <lcom/lcf.h>
 #include "keyboard.h"
 #include "auxiliary_data_structures.h"
 #include "kbc_macros.h"
 #include "key_codes.h"
-#include <lcom/lab3.h>
-#include <lcom/lcf.h>
 
 static int hook_id_keyboard = KBD_IRQ;
 static uint8_t keycode;

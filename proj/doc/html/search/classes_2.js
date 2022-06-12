@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['playerposition_0',['PlayerPosition',['../struct_player_position.html',1,'']]]
+  ['mousepos_0',['mousePos',['../structmouse_pos.html',1,'']]],
+  ['movementinfo_1',['MovementInfo',['../struct_movement_info.html',1,'']]]
 ];

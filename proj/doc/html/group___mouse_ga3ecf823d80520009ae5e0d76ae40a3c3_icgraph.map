@@ -1,0 +1,4 @@
+<map id="mouse_unsubscribe_int" name="mouse_unsubscribe_int">
+<area shape="rect" id="node1" title="Unsubscribes the mouse&#39;s interrupts." alt="" coords="147,5,305,32"/>
+<area shape="rect" id="node2" href="$group___main.html#gaad4aaeeabfabd24ccfeb9b85f0bb7eda" title="Unsubscribes all the interrupts and resets the mouse to Minix&#39;s default configuration." alt="" coords="5,5,99,32"/>
+</map>

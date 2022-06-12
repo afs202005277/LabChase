@@ -1,0 +1,25 @@
+var video__gr_8c =
+[
+    [ "draw_cursor", "video__gr_8c.html#a99b9bcbccc05f9a553d2daf6f3b5bce6", null ],
+    [ "draw_img", "video__gr_8c.html#a934f8dddd38ccf03b57b3df1cb6bdb25", null ],
+    [ "draw_saved_game", "video__gr_8c.html#ae6c77eb966c790ef2ce4f5cb83077764", null ],
+    [ "find_color", "video__gr_8c.html#ae55de8460e38dce790e1c58e102e5c18", null ],
+    [ "get_bits_per_pixel", "video__gr_8c.html#a719496aadf8f431ed96adace6df5576e", null ],
+    [ "get_h_res", "video__gr_8c.html#ac19350f0662b5c8fbb1a41e051411014", null ],
+    [ "get_v_res", "video__gr_8c.html#ab226d056720011120b05e68e5f4d4449", null ],
+    [ "get_video_mem", "video__gr_8c.html#a9ad69d2ba32f60cff5d9e3723d1f36a3", null ],
+    [ "load_image", "video__gr_8c.html#a55237e8e252e1ed0bed62d51d0e795b3", null ],
+    [ "mouseInPlace", "video__gr_8c.html#ad0bb71103f842b21d422caa6c08b3dca", null ],
+    [ "mouseMovement", "video__gr_8c.html#acb34c46693ce37d3209572ed39678c33", null ],
+    [ "move_player", "video__gr_8c.html#a7a187d157f529702dc047d451343f5e9", null ],
+    [ "new_vg_init", "video__gr_8c.html#a46cc9fb6281f320bb0b973ee30aec0c0", null ],
+    [ "opposite", "video__gr_8c.html#a9ff75baf80d626bb9670c4224374f292", null ],
+    [ "set_mode", "video__gr_8c.html#ada3e20ea63a4f7e572c329f56f8dda44", null ],
+    [ "set_up_game", "video__gr_8c.html#a3f1185149f43993bffd5278616ec839c", null ],
+    [ "setMouseInitPos", "video__gr_8c.html#a3a5d5130cc8225f6db8c785295ce4a70", null ],
+    [ "start_screen", "video__gr_8c.html#ad13d1bf12139094d4f258cd4cb54c5fb", null ],
+    [ "vg_draw_hline", "video__gr_8c.html#a5e5b25bd525250f61f40b9e9f212d5e6", null ],
+    [ "vg_draw_pixel", "video__gr_8c.html#a6f895de9725f9f231f9a7f74b6087f60", null ],
+    [ "vg_draw_rectangle", "video__gr_8c.html#a99d2da2559e11200c6b40c469e9977ec", null ],
+    [ "mouse", "video__gr_8c.html#afc795e0d348651e189201f5d7a6a4588", null ]
+];

@@ -1,4 +1,4 @@
 <map id="serial_unsubscribe" name="serial_unsubscribe">
-<area shape="rect" id="node1" title="Unsubscribes the interrupts from serial port." alt="" coords="163,5,293,32"/>
-<area shape="rect" id="node2" href="$main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
+<area shape="rect" id="node1" title="Unsubscribes the interrupts from serial port." alt="" coords="147,5,277,32"/>
+<area shape="rect" id="node2" href="$group___main.html#gaad4aaeeabfabd24ccfeb9b85f0bb7eda" title="Unsubscribes all the interrupts and resets the mouse to Minix&#39;s default configuration." alt="" coords="5,5,99,32"/>
 </map>

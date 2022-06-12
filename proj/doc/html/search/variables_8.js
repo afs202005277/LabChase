@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['serial_5fhook_0',['serial_hook',['../serial_8c.html#a28186ae9a9ccaac4bdd1e26852357366',1,'serial.c']]]
+  ['receivedchar_0',['receivedChar',['../serial_8c.html#aa3252314287d346edd7df8e24e275785',1,'serial.c']]]
 ];

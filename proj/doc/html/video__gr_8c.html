@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -46,6 +50,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('video__gr_8c.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,11 +81,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#func-members">Functions</a> &#124;
@@ -76,18 +92,22 @@ $(function() {
 <code>#include &lt;lcom/video_gr.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="video__gr__game_a_p_i_8h_source.html">video_gr_gameAPI.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="video__gr__macros_8h_source.html">video_gr_macros.h</a>&quot;</code><br />
+<code>#include &quot;XPMs/DarkModeGame.xpm&quot;</code><br />
+<code>#include &quot;XPMs/LightModeGame.xpm&quot;</code><br />
 <code>#include &quot;<a class="el" href="auxiliary__data__structures_8h_source.html">auxiliary_data_structures.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for video_gr.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="video__gr_8c__incl.png" border="0" usemap="#asrc_2video__gr_8c" alt=""/></div>
 <map name="asrc_2video__gr_8c" id="asrc_2video__gr_8c">
-<area shape="rect" title=" " alt="" coords="264,5,367,32"/>
+<area shape="rect" title=" " alt="" coords="372,5,475,32"/>
 <area shape="rect" title=" " alt="" coords="5,80,84,107"/>
 <area shape="rect" title=" " alt="" coords="109,80,221,107"/>
 <area shape="rect" href="video__gr__game_a_p_i_8h.html" title=" " alt="" coords="245,80,385,107"/>
 <area shape="rect" href="auxiliary__data__structures_8h.html" title=" " alt="" coords="279,155,458,181"/>
 <area shape="rect" href="video__gr__macros_8h.html" title=" " alt="" coords="461,80,591,107"/>
+<area shape="rect" title=" " alt="" coords="616,80,799,107"/>
+<area shape="rect" title=" " alt="" coords="823,80,1007,107"/>
 <area shape="rect" title=" " alt="" coords="174,229,299,256"/>
 <area shape="rect" title=" " alt="" coords="323,229,414,256"/>
 <area shape="rect" title=" " alt="" coords="439,229,504,256"/>
@@ -110,8 +130,9 @@ Functions</h2></td></tr>
 <tr class="separator:a719496aadf8f431ed96adace6df5576e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ada3e20ea63a4f7e572c329f56f8dda44"><td class="memItemLeft" align="right" valign="top">int()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video__gr_8c.html#ada3e20ea63a4f7e572c329f56f8dda44">set_mode</a> (uint16_t mode)</td></tr>
 <tr class="separator:ada3e20ea63a4f7e572c329f56f8dda44"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc11b311c479b1904fd45e8c6da5fcc3"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video__gr_8c.html#acc11b311c479b1904fd45e8c6da5fcc3">vg_init</a> (uint16_t mode)</td></tr>
-<tr class="separator:acc11b311c479b1904fd45e8c6da5fcc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46cc9fb6281f320bb0b973ee30aec0c0"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video__gr_8c.html#a46cc9fb6281f320bb0b973ee30aec0c0">new_vg_init</a> (uint16_t mode)</td></tr>
+<tr class="memdesc:a46cc9fb6281f320bb0b973ee30aec0c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maps the video memory to the process' adress space and changes the graphics mode.  <a href="video__gr_8c.html#a46cc9fb6281f320bb0b973ee30aec0c0">More...</a><br /></td></tr>
+<tr class="separator:a46cc9fb6281f320bb0b973ee30aec0c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f895de9725f9f231f9a7f74b6087f60"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video__gr_8c.html#a6f895de9725f9f231f9a7f74b6087f60">vg_draw_pixel</a> (uint16_t x, uint16_t y, uint32_t color)</td></tr>
 <tr class="separator:a6f895de9725f9f231f9a7f74b6087f60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e5b25bd525250f61f40b9e9f212d5e6"><td class="memItemLeft" align="right" valign="top">int()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video__gr_8c.html#a5e5b25bd525250f61f40b9e9f212d5e6">vg_draw_hline</a> (uint16_t x, uint16_t y, uint16_t len, uint32_t color)</td></tr>
@@ -128,30 +149,30 @@ Functions</h2></td></tr>
 <tr class="separator:ad13d1bf12139094d4f258cd4cb54c5fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ff75baf80d626bb9670c4224374f292"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video__gr_8c.html#a9ff75baf80d626bb9670c4224374f292">opposite</a> (int dir)</td></tr>
 <tr class="separator:a9ff75baf80d626bb9670c4224374f292"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9765690ba3c71fa7aa19683bd3c7e59"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video__gr_8c.html#aa9765690ba3c71fa7aa19683bd3c7e59">passive_move_players</a> ()</td></tr>
-<tr class="memdesc:aa9765690ba3c71fa7aa19683bd3c7e59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves the players without their action.  <a href="video__gr_8c.html#aa9765690ba3c71fa7aa19683bd3c7e59">More...</a><br /></td></tr>
-<tr class="separator:aa9765690ba3c71fa7aa19683bd3c7e59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a99b9bcbccc05f9a553d2daf6f3b5bce6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video__gr_8c.html#a99b9bcbccc05f9a553d2daf6f3b5bce6">draw_cursor</a> (xpm_image_t img, uint16_t x, uint16_t y)</td></tr>
 <tr class="memdesc:a99b9bcbccc05f9a553d2daf6f3b5bce6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws the mouse's cursor in the given position.  <a href="video__gr_8c.html#a99b9bcbccc05f9a553d2daf6f3b5bce6">More...</a><br /></td></tr>
 <tr class="separator:a99b9bcbccc05f9a553d2daf6f3b5bce6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5618b8580340444db9a21a2684c9326a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video__gr_8c.html#a5618b8580340444db9a21a2684c9326a">move_player</a> (struct <a class="el" href="struct_movement_info.html">MovementInfo</a> movementInfo, bool isPassiveMovement)</td></tr>
-<tr class="memdesc:a5618b8580340444db9a21a2684c9326a"><td class="mdescLeft">&#160;</td><td class="mdescRight">moves the plyer according to information received  <a href="video__gr_8c.html#a5618b8580340444db9a21a2684c9326a">More...</a><br /></td></tr>
-<tr class="separator:a5618b8580340444db9a21a2684c9326a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae76098d2670c95e2900cd8715c95d677"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video__gr_8c.html#ae76098d2670c95e2900cd8715c95d677">start_game</a> (uint8_t hour)</td></tr>
-<tr class="memdesc:ae76098d2670c95e2900cd8715c95d677"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the game and changes the background color according to the hour of the day.  <a href="video__gr_8c.html#ae76098d2670c95e2900cd8715c95d677">More...</a><br /></td></tr>
-<tr class="separator:ae76098d2670c95e2900cd8715c95d677"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af65d602db7cb06bc9f8239d4e8a6779c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video__gr_8c.html#af65d602db7cb06bc9f8239d4e8a6779c">find_color</a> (uint16_t x, uint16_t y)</td></tr>
-<tr class="memdesc:af65d602db7cb06bc9f8239d4e8a6779c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the color of the pixel in the given position.  <a href="video__gr_8c.html#af65d602db7cb06bc9f8239d4e8a6779c">More...</a><br /></td></tr>
-<tr class="separator:af65d602db7cb06bc9f8239d4e8a6779c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a187d157f529702dc047d451343f5e9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video__gr_8c.html#a7a187d157f529702dc047d451343f5e9">move_player</a> (struct <a class="el" href="struct_movement_info.html">MovementInfo</a> movementInfo, bool isPassiveMovement, bool boostEnabled)</td></tr>
+<tr class="memdesc:a7a187d157f529702dc047d451343f5e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">moves the plyer according to information received  <a href="video__gr_8c.html#a7a187d157f529702dc047d451343f5e9">More...</a><br /></td></tr>
+<tr class="separator:a7a187d157f529702dc047d451343f5e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f1185149f43993bffd5278616ec839c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video__gr_8c.html#a3f1185149f43993bffd5278616ec839c">set_up_game</a> (uint8_t hour)</td></tr>
+<tr class="memdesc:a3f1185149f43993bffd5278616ec839c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the game and changes the background color according to the hour of the day.  <a href="video__gr_8c.html#a3f1185149f43993bffd5278616ec839c">More...</a><br /></td></tr>
+<tr class="separator:a3f1185149f43993bffd5278616ec839c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae55de8460e38dce790e1c58e102e5c18"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video__gr_8c.html#ae55de8460e38dce790e1c58e102e5c18">find_color</a> (uint16_t x, uint16_t y)</td></tr>
+<tr class="memdesc:ae55de8460e38dce790e1c58e102e5c18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the color of the pixel in the given position.  <a href="video__gr_8c.html#ae55de8460e38dce790e1c58e102e5c18">More...</a><br /></td></tr>
+<tr class="separator:ae55de8460e38dce790e1c58e102e5c18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3a5d5130cc8225f6db8c785295ce4a70"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video__gr_8c.html#a3a5d5130cc8225f6db8c785295ce4a70">setMouseInitPos</a> (xpm_image_t cursor)</td></tr>
 <tr class="memdesc:a3a5d5130cc8225f6db8c785295ce4a70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the position of the cursor of the mouse.  <a href="video__gr_8c.html#a3a5d5130cc8225f6db8c785295ce4a70">More...</a><br /></td></tr>
 <tr class="separator:a3a5d5130cc8225f6db8c785295ce4a70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb34c46693ce37d3209572ed39678c33"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video__gr_8c.html#acb34c46693ce37d3209572ed39678c33">mouseMovement</a> (uint16_t x, uint16_t y, xpm_image_t cursor)</td></tr>
 <tr class="memdesc:acb34c46693ce37d3209572ed39678c33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves the cursor of the mouse.  <a href="video__gr_8c.html#acb34c46693ce37d3209572ed39678c33">More...</a><br /></td></tr>
 <tr class="separator:acb34c46693ce37d3209572ed39678c33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1b80367aafbd9c82107a1bb31b21e46"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video__gr_8c.html#ac1b80367aafbd9c82107a1bb31b21e46">mouseInPlace</a> (uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)</td></tr>
-<tr class="memdesc:ac1b80367aafbd9c82107a1bb31b21e46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the cursor of the mouse is inside a given rectangle.  <a href="video__gr_8c.html#ac1b80367aafbd9c82107a1bb31b21e46">More...</a><br /></td></tr>
-<tr class="separator:ac1b80367aafbd9c82107a1bb31b21e46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0bb71103f842b21d422caa6c08b3dca"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video__gr_8c.html#ad0bb71103f842b21d422caa6c08b3dca">mouseInPlace</a> (struct <a class="el" href="struct_button.html">Button</a> button)</td></tr>
+<tr class="memdesc:ad0bb71103f842b21d422caa6c08b3dca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the cursor of the mouse is inside a given rectangle.  <a href="video__gr_8c.html#ad0bb71103f842b21d422caa6c08b3dca">More...</a><br /></td></tr>
+<tr class="separator:ad0bb71103f842b21d422caa6c08b3dca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6c77eb966c790ef2ce4f5cb83077764"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="video__gr_8c.html#ae6c77eb966c790ef2ce4f5cb83077764">draw_saved_game</a> (void *buffer, unsigned long numBytes)</td></tr>
+<tr class="memdesc:ae6c77eb966c790ef2ce4f5cb83077764"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws the previously saved game.  <a href="video__gr_8c.html#ae6c77eb966c790ef2ce4f5cb83077764">More...</a><br /></td></tr>
+<tr class="separator:ae6c77eb966c790ef2ce4f5cb83077764"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -251,21 +272,78 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="video__gr_8c_a934f8dddd38ccf03b57b3df1cb6bdb25_icgraph.png" border="0" usemap="#avideo__gr_8c_a934f8dddd38ccf03b57b3df1cb6bdb25_icgraph" alt=""/></div>
 <map name="avideo__gr_8c_a934f8dddd38ccf03b57b3df1cb6bdb25_icgraph" id="avideo__gr_8c_a934f8dddd38ccf03b57b3df1cb6bdb25_icgraph">
-<area shape="rect" title="Draws an image in the specified coordinates." alt="" coords="163,5,240,32"/>
-<area shape="rect" href="main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
+<area shape="rect" title="Draws an image in the specified coordinates." alt="" coords="445,5,523,32"/>
+<area shape="rect" href="group___main.html#ga33bde23e0d2bbde847401c5ac6fb62e0" title="Handles the game logic and assign tasks to the different devices." alt="" coords="5,5,115,32"/>
+<area shape="rect" href="video__gr_8c.html#a3f1185149f43993bffd5278616ec839c" title="Starts the game and changes the background color according to the hour of the day." alt="" coords="297,31,397,57"/>
+<area shape="rect" href="group___main.html#ga671b58f5509a3a9fa692bacccfc32cc9" title="Starts the game and changes background according to the current hour." alt="" coords="163,31,249,57"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="af65d602db7cb06bc9f8239d4e8a6779c" name="af65d602db7cb06bc9f8239d4e8a6779c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af65d602db7cb06bc9f8239d4e8a6779c">&#9670;&nbsp;</a></span>find_color()</h2>
+<a id="ae6c77eb966c790ef2ce4f5cb83077764" name="ae6c77eb966c790ef2ce4f5cb83077764"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6c77eb966c790ef2ce4f5cb83077764">&#9670;&nbsp;</a></span>draw_saved_game()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int find_color </td>
+          <td class="memname">void draw_saved_game </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long&#160;</td>
+          <td class="paramname"><em>numBytes</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draws the previously saved game. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buffer</td><td>the screen contents of the game </td></tr>
+    <tr><td class="paramname">numBytes</td><td>the number of bytes used by the given buffer </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="video__gr_8c_ae6c77eb966c790ef2ce4f5cb83077764_cgraph.png" border="0" usemap="#avideo__gr_8c_ae6c77eb966c790ef2ce4f5cb83077764_cgraph" alt=""/></div>
+<map name="avideo__gr_8c_ae6c77eb966c790ef2ce4f5cb83077764_cgraph" id="avideo__gr_8c_ae6c77eb966c790ef2ce4f5cb83077764_cgraph">
+<area shape="rect" title="Draws the previously saved game." alt="" coords="5,5,133,32"/>
+<area shape="rect" href="video__gr_8c.html#a9ad69d2ba32f60cff5d9e3723d1f36a3" title="Gets the memory address of the video memory (mapped in the process adress space)" alt="" coords="181,5,293,32"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="video__gr_8c_ae6c77eb966c790ef2ce4f5cb83077764_icgraph.png" border="0" usemap="#avideo__gr_8c_ae6c77eb966c790ef2ce4f5cb83077764_icgraph" alt=""/></div>
+<map name="avideo__gr_8c_ae6c77eb966c790ef2ce4f5cb83077764_icgraph" id="avideo__gr_8c_ae6c77eb966c790ef2ce4f5cb83077764_icgraph">
+<area shape="rect" title="Draws the previously saved game." alt="" coords="163,5,291,32"/>
+<area shape="rect" href="group___main.html#ga33bde23e0d2bbde847401c5ac6fb62e0" title="Handles the game logic and assign tasks to the different devices." alt="" coords="5,5,115,32"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ae55de8460e38dce790e1c58e102e5c18" name="ae55de8460e38dce790e1c58e102e5c18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae55de8460e38dce790e1c58e102e5c18">&#9670;&nbsp;</a></span>find_color()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int find_color </td>
           <td>(</td>
           <td class="paramtype">uint16_t&#160;</td>
           <td class="paramname"><em>x</em>, </td>
@@ -292,12 +370,12 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 upon success, non-zero otherwise </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The color of the pixel </dd></dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="video__gr_8c_af65d602db7cb06bc9f8239d4e8a6779c_icgraph.png" border="0" usemap="#avideo__gr_8c_af65d602db7cb06bc9f8239d4e8a6779c_icgraph" alt=""/></div>
-<map name="avideo__gr_8c_af65d602db7cb06bc9f8239d4e8a6779c_icgraph" id="avideo__gr_8c_af65d602db7cb06bc9f8239d4e8a6779c_icgraph">
+<div class="center"><img src="video__gr_8c_ae55de8460e38dce790e1c58e102e5c18_icgraph.png" border="0" usemap="#avideo__gr_8c_ae55de8460e38dce790e1c58e102e5c18_icgraph" alt=""/></div>
+<map name="avideo__gr_8c_ae55de8460e38dce790e1c58e102e5c18_icgraph" id="avideo__gr_8c_ae55de8460e38dce790e1c58e102e5c18_icgraph">
 <area shape="rect" title="Gets the color of the pixel in the given position." alt="" coords="324,5,401,32"/>
 <area shape="rect" href="video__gr_8c.html#a99d2da2559e11200c6b40c469e9977ec" title=" " alt="" coords="148,5,276,32"/>
 <area shape="rect" href="video__gr_8c.html#ad13d1bf12139094d4f258cd4cb54c5fb" title=" " alt="" coords="5,5,100,32"/>
@@ -329,7 +407,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="video__gr_8c_a719496aadf8f431ed96adace6df5576e_icgraph.png" border="0" usemap="#avideo__gr_8c_a719496aadf8f431ed96adace6df5576e_icgraph" alt=""/></div>
 <map name="avideo__gr_8c_a719496aadf8f431ed96adace6df5576e_icgraph" id="avideo__gr_8c_a719496aadf8f431ed96adace6df5576e_icgraph">
 <area shape="rect" title="Get the amount of bits of each pixel." alt="" coords="163,5,289,32"/>
-<area shape="rect" href="main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
+<area shape="rect" href="group___main.html#ga33bde23e0d2bbde847401c5ac6fb62e0" title="Handles the game logic and assign tasks to the different devices." alt="" coords="5,5,115,32"/>
 </map>
 </div>
 
@@ -358,7 +436,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="video__gr_8c_ac19350f0662b5c8fbb1a41e051411014_icgraph.png" border="0" usemap="#avideo__gr_8c_ac19350f0662b5c8fbb1a41e051411014_icgraph" alt=""/></div>
 <map name="avideo__gr_8c_ac19350f0662b5c8fbb1a41e051411014_icgraph" id="avideo__gr_8c_ac19350f0662b5c8fbb1a41e051411014_icgraph">
 <area shape="rect" title="Gets the horizontal resolution of the screen." alt="" coords="163,5,241,32"/>
-<area shape="rect" href="main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
+<area shape="rect" href="group___main.html#ga33bde23e0d2bbde847401c5ac6fb62e0" title="Handles the game logic and assign tasks to the different devices." alt="" coords="5,5,115,32"/>
 </map>
 </div>
 
@@ -387,7 +465,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="video__gr_8c_ab226d056720011120b05e68e5f4d4449_icgraph.png" border="0" usemap="#avideo__gr_8c_ab226d056720011120b05e68e5f4d4449_icgraph" alt=""/></div>
 <map name="avideo__gr_8c_ab226d056720011120b05e68e5f4d4449_icgraph" id="avideo__gr_8c_ab226d056720011120b05e68e5f4d4449_icgraph">
 <area shape="rect" title="Gets the vertical resolution of the screen." alt="" coords="163,5,240,32"/>
-<area shape="rect" href="main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
+<area shape="rect" href="group___main.html#ga33bde23e0d2bbde847401c5ac6fb62e0" title="Handles the game logic and assign tasks to the different devices." alt="" coords="5,5,115,32"/>
 </map>
 </div>
 
@@ -415,8 +493,9 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="video__gr_8c_a9ad69d2ba32f60cff5d9e3723d1f36a3_icgraph.png" border="0" usemap="#avideo__gr_8c_a9ad69d2ba32f60cff5d9e3723d1f36a3_icgraph" alt=""/></div>
 <map name="avideo__gr_8c_a9ad69d2ba32f60cff5d9e3723d1f36a3_icgraph" id="avideo__gr_8c_a9ad69d2ba32f60cff5d9e3723d1f36a3_icgraph">
-<area shape="rect" title="Gets the memory address of the video memory (mapped in the process adress space)" alt="" coords="163,5,275,32"/>
-<area shape="rect" href="main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
+<area shape="rect" title="Gets the memory address of the video memory (mapped in the process adress space)" alt="" coords="339,31,451,57"/>
+<area shape="rect" href="video__gr_8c.html#ae6c77eb966c790ef2ce4f5cb83077764" title="Draws the previously saved game." alt="" coords="163,5,291,32"/>
+<area shape="rect" href="group___main.html#ga33bde23e0d2bbde847401c5ac6fb62e0" title="Handles the game logic and assign tasks to the different devices." alt="" coords="5,31,115,57"/>
 </map>
 </div>
 
@@ -451,16 +530,18 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="video__gr_8c_a55237e8e252e1ed0bed62d51d0e795b3_icgraph.png" border="0" usemap="#avideo__gr_8c_a55237e8e252e1ed0bed62d51d0e795b3_icgraph" alt=""/></div>
 <map name="avideo__gr_8c_a55237e8e252e1ed0bed62d51d0e795b3_icgraph" id="avideo__gr_8c_a55237e8e252e1ed0bed62d51d0e795b3_icgraph">
-<area shape="rect" title="Loads an image from a xpm image." alt="" coords="305,5,393,32"/>
-<area shape="rect" href="main_8c.html#a9165d629cabb06ce74758986c2ac0e09" title=" " alt="" coords="163,5,257,32"/>
-<area shape="rect" href="main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
+<area shape="rect" title="Loads an image from a xpm image." alt="" coords="453,31,541,57"/>
+<area shape="rect" href="group___main.html#ga9165d629cabb06ce74758986c2ac0e09" title="Loads all xpm images into the struct provided." alt="" coords="163,5,257,32"/>
+<area shape="rect" href="video__gr_8c.html#a3f1185149f43993bffd5278616ec839c" title="Starts the game and changes the background color according to the hour of the day." alt="" coords="305,56,405,83"/>
+<area shape="rect" href="group___main.html#ga33bde23e0d2bbde847401c5ac6fb62e0" title="Handles the game logic and assign tasks to the different devices." alt="" coords="5,31,115,57"/>
+<area shape="rect" href="group___main.html#ga671b58f5509a3a9fa692bacccfc32cc9" title="Starts the game and changes background according to the current hour." alt="" coords="167,56,253,83"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="ac1b80367aafbd9c82107a1bb31b21e46" name="ac1b80367aafbd9c82107a1bb31b21e46"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac1b80367aafbd9c82107a1bb31b21e46">&#9670;&nbsp;</a></span>mouseInPlace()</h2>
+<a id="ad0bb71103f842b21d422caa6c08b3dca" name="ad0bb71103f842b21d422caa6c08b3dca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0bb71103f842b21d422caa6c08b3dca">&#9670;&nbsp;</a></span>mouseInPlace()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -468,31 +549,9 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">bool mouseInPlace </td>
           <td>(</td>
-          <td class="paramtype">uint16_t&#160;</td>
-          <td class="paramname"><em>x1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">struct <a class="el" href="struct_button.html">Button</a>&#160;</td>
+          <td class="paramname"><em>button</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">uint16_t&#160;</td>
-          <td class="paramname"><em>y1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint16_t&#160;</td>
-          <td class="paramname"><em>x2</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint16_t&#160;</td>
-          <td class="paramname"><em>y2</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -500,25 +559,13 @@ Here is the caller graph for this function:</div>
 <p>Checks if the cursor of the mouse is inside a given rectangle. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x1</td><td>X coordinates of upper left corner of the "button" </td></tr>
-    <tr><td class="paramname">y1</td><td>Y coordinates of upper left corner of the "button" </td></tr>
-    <tr><td class="paramname">x2</td><td>X coordinates of lower right corner of the "button" </td></tr>
-    <tr><td class="paramname">y2</td><td>Y coordinates of lower right corner of the "button" </td></tr>
+    <tr><td class="paramname">button</td><td>The area to check (area of the button) </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true the mouse is inside the "button" </dd>
 <dd>
 false the mouse is not inside the "button" </dd></dl>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="video__gr_8c_ac1b80367aafbd9c82107a1bb31b21e46_icgraph.png" border="0" usemap="#avideo__gr_8c_ac1b80367aafbd9c82107a1bb31b21e46_icgraph" alt=""/></div>
-<map name="avideo__gr_8c_ac1b80367aafbd9c82107a1bb31b21e46_icgraph" id="avideo__gr_8c_ac1b80367aafbd9c82107a1bb31b21e46_icgraph">
-<area shape="rect" title="Checks if the cursor of the mouse is inside a given rectangle." alt="" coords="163,5,267,32"/>
-<area shape="rect" href="main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
-</map>
-</div>
 
 </div>
 </div>
@@ -564,20 +611,11 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>0 upon success, non-zero otherwise </dd></dl>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="video__gr_8c_acb34c46693ce37d3209572ed39678c33_icgraph.png" border="0" usemap="#avideo__gr_8c_acb34c46693ce37d3209572ed39678c33_icgraph" alt=""/></div>
-<map name="avideo__gr_8c_acb34c46693ce37d3209572ed39678c33_icgraph" id="avideo__gr_8c_acb34c46693ce37d3209572ed39678c33_icgraph">
-<area shape="rect" title="Moves the cursor of the mouse." alt="" coords="163,5,283,32"/>
-<area shape="rect" href="main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
-</map>
-</div>
 
 </div>
 </div>
-<a id="a5618b8580340444db9a21a2684c9326a" name="a5618b8580340444db9a21a2684c9326a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5618b8580340444db9a21a2684c9326a">&#9670;&nbsp;</a></span>move_player()</h2>
+<a id="a7a187d157f529702dc047d451343f5e9" name="a7a187d157f529702dc047d451343f5e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a187d157f529702dc047d451343f5e9">&#9670;&nbsp;</a></span>move_player()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -592,7 +630,13 @@ Here is the caller graph for this function:</div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>isPassiveMovement</em>&#160;</td>
+          <td class="paramname"><em>isPassiveMovement</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>boostEnabled</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -607,17 +651,45 @@ Here is the caller graph for this function:</div>
   <table class="params">
     <tr><td class="paramname">movementInfo</td><td>information regarding the movement </td></tr>
     <tr><td class="paramname">isPassiveMovement</td><td>boolean flag to distinguish passive movement from active movement </td></tr>
+    <tr><td class="paramname">boostEnabled</td><td>boolean flag to change the color of the trail if boost is enabled </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>0 if there was no collision, non-zero otherwise </dd></dl>
+
+</div>
+</div>
+<a id="a46cc9fb6281f320bb0b973ee30aec0c0" name="a46cc9fb6281f320bb0b973ee30aec0c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46cc9fb6281f320bb0b973ee30aec0c0">&#9670;&nbsp;</a></span>new_vg_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void * new_vg_init </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>mode</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maps the video memory to the process' adress space and changes the graphics mode. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mode</td><td>the desired graphics mode </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the memory address of the first byte of the first pixel of the screen </dd></dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="video__gr_8c_a5618b8580340444db9a21a2684c9326a_icgraph.png" border="0" usemap="#avideo__gr_8c_a5618b8580340444db9a21a2684c9326a_icgraph" alt=""/></div>
-<map name="avideo__gr_8c_a5618b8580340444db9a21a2684c9326a_icgraph" id="avideo__gr_8c_a5618b8580340444db9a21a2684c9326a_icgraph">
-<area shape="rect" title="moves the plyer according to information received" alt="" coords="163,5,257,32"/>
-<area shape="rect" href="main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
+<div class="center"><img src="video__gr_8c_a46cc9fb6281f320bb0b973ee30aec0c0_icgraph.png" border="0" usemap="#avideo__gr_8c_a46cc9fb6281f320bb0b973ee30aec0c0_icgraph" alt=""/></div>
+<map name="avideo__gr_8c_a46cc9fb6281f320bb0b973ee30aec0c0_icgraph" id="avideo__gr_8c_a46cc9fb6281f320bb0b973ee30aec0c0_icgraph">
+<area shape="rect" title="Maps the video memory to the process&#39; adress space and changes the graphics mode." alt="" coords="163,5,251,32"/>
+<area shape="rect" href="group___main.html#ga33bde23e0d2bbde847401c5ac6fb62e0" title="Handles the game logic and assign tasks to the different devices." alt="" coords="5,5,115,32"/>
 </map>
 </div>
 
@@ -641,35 +713,6 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="aa9765690ba3c71fa7aa19683bd3c7e59" name="aa9765690ba3c71fa7aa19683bd3c7e59"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa9765690ba3c71fa7aa19683bd3c7e59">&#9670;&nbsp;</a></span>passive_move_players()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int passive_move_players </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Moves the players without their action. </p>
-<dl class="section return"><dt>Returns</dt><dd>0 if there was no collision, non-zero otherwise </dd></dl>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="video__gr_8c_aa9765690ba3c71fa7aa19683bd3c7e59_icgraph.png" border="0" usemap="#avideo__gr_8c_aa9765690ba3c71fa7aa19683bd3c7e59_icgraph" alt=""/></div>
-<map name="avideo__gr_8c_aa9765690ba3c71fa7aa19683bd3c7e59_icgraph" id="avideo__gr_8c_aa9765690ba3c71fa7aa19683bd3c7e59_icgraph">
-<area shape="rect" title="Moves the players without their action." alt="" coords="163,5,313,32"/>
-<area shape="rect" href="main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
-</map>
-</div>
-
-</div>
-</div>
 <a id="ada3e20ea63a4f7e572c329f56f8dda44" name="ada3e20ea63a4f7e572c329f56f8dda44"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ada3e20ea63a4f7e572c329f56f8dda44">&#9670;&nbsp;</a></span>set_mode()</h2>
 
@@ -685,6 +728,54 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3f1185149f43993bffd5278616ec839c" name="a3f1185149f43993bffd5278616ec839c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f1185149f43993bffd5278616ec839c">&#9670;&nbsp;</a></span>set_up_game()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int set_up_game </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>hour</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Starts the game and changes the background color according to the hour of the day. </p>
+<p >Draws the players in their initial positions</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hour</td><td>the current hour </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 upon success, non-zero otherwise </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="video__gr_8c_a3f1185149f43993bffd5278616ec839c_cgraph.png" border="0" usemap="#avideo__gr_8c_a3f1185149f43993bffd5278616ec839c_cgraph" alt=""/></div>
+<map name="avideo__gr_8c_a3f1185149f43993bffd5278616ec839c_cgraph" id="avideo__gr_8c_a3f1185149f43993bffd5278616ec839c_cgraph">
+<area shape="rect" title="Starts the game and changes the background color according to the hour of the day." alt="" coords="5,31,105,57"/>
+<area shape="rect" href="video__gr_8c.html#a934f8dddd38ccf03b57b3df1cb6bdb25" title="Draws an image in the specified coordinates." alt="" coords="159,5,236,32"/>
+<area shape="rect" href="video__gr_8c.html#a55237e8e252e1ed0bed62d51d0e795b3" title="Loads an image from a xpm image." alt="" coords="153,56,241,83"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="video__gr_8c_a3f1185149f43993bffd5278616ec839c_icgraph.png" border="0" usemap="#avideo__gr_8c_a3f1185149f43993bffd5278616ec839c_icgraph" alt=""/></div>
+<map name="avideo__gr_8c_a3f1185149f43993bffd5278616ec839c_icgraph" id="avideo__gr_8c_a3f1185149f43993bffd5278616ec839c_icgraph">
+<area shape="rect" title="Starts the game and changes the background color according to the hour of the day." alt="" coords="297,5,397,32"/>
+<area shape="rect" href="group___main.html#ga671b58f5509a3a9fa692bacccfc32cc9" title="Starts the game and changes background according to the current hour." alt="" coords="163,5,249,32"/>
+<area shape="rect" href="group___main.html#ga33bde23e0d2bbde847401c5ac6fb62e0" title="Handles the game logic and assign tasks to the different devices." alt="" coords="5,5,115,32"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -718,44 +809,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="video__gr_8c_a3a5d5130cc8225f6db8c785295ce4a70_icgraph.png" border="0" usemap="#avideo__gr_8c_a3a5d5130cc8225f6db8c785295ce4a70_icgraph" alt=""/></div>
 <map name="avideo__gr_8c_a3a5d5130cc8225f6db8c785295ce4a70_icgraph" id="avideo__gr_8c_a3a5d5130cc8225f6db8c785295ce4a70_icgraph">
 <area shape="rect" title="Initializes the position of the cursor of the mouse." alt="" coords="163,5,281,32"/>
-<area shape="rect" href="main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="ae76098d2670c95e2900cd8715c95d677" name="ae76098d2670c95e2900cd8715c95d677"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae76098d2670c95e2900cd8715c95d677">&#9670;&nbsp;</a></span>start_game()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int start_game </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>hour</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Starts the game and changes the background color according to the hour of the day. </p>
-<p >Draws the players in their initial positions</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">hour</td><td>the current hour </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>0 upon success, non-zero otherwise </dd></dl>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="video__gr_8c_ae76098d2670c95e2900cd8715c95d677_icgraph.png" border="0" usemap="#avideo__gr_8c_ae76098d2670c95e2900cd8715c95d677_icgraph" alt=""/></div>
-<map name="avideo__gr_8c_ae76098d2670c95e2900cd8715c95d677_icgraph" id="avideo__gr_8c_ae76098d2670c95e2900cd8715c95d677_icgraph">
-<area shape="rect" title="Starts the game and changes the background color according to the hour of the day." alt="" coords="163,5,249,32"/>
-<area shape="rect" href="main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
+<area shape="rect" href="group___main.html#ga33bde23e0d2bbde847401c5ac6fb62e0" title="Handles the game logic and assign tasks to the different devices." alt="" coords="5,5,115,32"/>
 </map>
 </div>
 
@@ -817,7 +871,7 @@ Here is the call graph for this function:</div>
 <map name="avideo__gr_8c_ad13d1bf12139094d4f258cd4cb54c5fb_cgraph" id="avideo__gr_8c_ad13d1bf12139094d4f258cd4cb54c5fb_cgraph">
 <area shape="rect" title=" " alt="" coords="5,31,100,57"/>
 <area shape="rect" href="video__gr_8c.html#a99d2da2559e11200c6b40c469e9977ec" title=" " alt="" coords="148,31,276,57"/>
-<area shape="rect" href="video__gr_8c.html#af65d602db7cb06bc9f8239d4e8a6779c" title="Gets the color of the pixel in the given position." alt="" coords="337,5,414,32"/>
+<area shape="rect" href="video__gr_8c.html#ae55de8460e38dce790e1c58e102e5c18" title="Gets the color of the pixel in the given position." alt="" coords="337,5,414,32"/>
 <area shape="rect" href="video__gr_8c.html#a5e5b25bd525250f61f40b9e9f212d5e6" title=" " alt="" coords="324,56,427,83"/>
 <area shape="rect" href="video__gr_8c.html#a6f895de9725f9f231f9a7f74b6087f60" title=" " alt="" coords="475,56,577,83"/>
 </map>
@@ -978,7 +1032,7 @@ Here is the call graph for this function:</div>
 <div class="center"><img src="video__gr_8c_a99d2da2559e11200c6b40c469e9977ec_cgraph.png" border="0" usemap="#avideo__gr_8c_a99d2da2559e11200c6b40c469e9977ec_cgraph" alt=""/></div>
 <map name="avideo__gr_8c_a99d2da2559e11200c6b40c469e9977ec_cgraph" id="avideo__gr_8c_a99d2da2559e11200c6b40c469e9977ec_cgraph">
 <area shape="rect" title=" " alt="" coords="5,31,133,57"/>
-<area shape="rect" href="video__gr_8c.html#af65d602db7cb06bc9f8239d4e8a6779c" title="Gets the color of the pixel in the given position." alt="" coords="194,5,271,32"/>
+<area shape="rect" href="video__gr_8c.html#ae55de8460e38dce790e1c58e102e5c18" title="Gets the color of the pixel in the given position." alt="" coords="194,5,271,32"/>
 <area shape="rect" href="video__gr_8c.html#a5e5b25bd525250f61f40b9e9f212d5e6" title=" " alt="" coords="181,56,284,83"/>
 <area shape="rect" href="video__gr_8c.html#a6f895de9725f9f231f9a7f74b6087f60" title=" " alt="" coords="332,56,435,83"/>
 </map>
@@ -990,33 +1044,6 @@ Here is the caller graph for this function:</div>
 <map name="avideo__gr_8c_a99d2da2559e11200c6b40c469e9977ec_icgraph" id="avideo__gr_8c_a99d2da2559e11200c6b40c469e9977ec_icgraph">
 <area shape="rect" title=" " alt="" coords="148,5,276,32"/>
 <area shape="rect" href="video__gr_8c.html#ad13d1bf12139094d4f258cd4cb54c5fb" title=" " alt="" coords="5,5,100,32"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="acc11b311c479b1904fd45e8c6da5fcc3" name="acc11b311c479b1904fd45e8c6da5fcc3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acc11b311c479b1904fd45e8c6da5fcc3">&#9670;&nbsp;</a></span>vg_init()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void * vg_init </td>
-          <td>(</td>
-          <td class="paramtype">uint16_t&#160;</td>
-          <td class="paramname"><em>mode</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="video__gr_8c_acc11b311c479b1904fd45e8c6da5fcc3_icgraph.png" border="0" usemap="#avideo__gr_8c_acc11b311c479b1904fd45e8c6da5fcc3_icgraph" alt=""/></div>
-<map name="avideo__gr_8c_acc11b311c479b1904fd45e8c6da5fcc3_icgraph" id="avideo__gr_8c_acc11b311c479b1904fd45e8c6da5fcc3_icgraph">
-<area shape="rect" title=" " alt="" coords="163,5,221,32"/>
-<area shape="rect" href="main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
 </map>
 </div>
 
@@ -1038,9 +1065,13 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="video__gr_8c.html">video_gr.c</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
 </body>
 </html>

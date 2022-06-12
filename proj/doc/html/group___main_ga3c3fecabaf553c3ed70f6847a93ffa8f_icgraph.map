@@ -1,0 +1,4 @@
+<map id="set_up_devices" name="set_up_devices">
+<area shape="rect" id="node1" title="Subscribes interrupts from all the devices and enables data reporting (mouse)" alt="" coords="163,5,273,32"/>
+<area shape="rect" id="node2" href="$group___main.html#ga33bde23e0d2bbde847401c5ac6fb62e0" title="Handles the game logic and assign tasks to the different devices." alt="" coords="5,5,115,32"/>
+</map>

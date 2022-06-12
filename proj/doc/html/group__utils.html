@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -47,6 +51,22 @@ $(function() {
 </script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('group__utils.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -124,7 +144,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="group__utils_ga81621440b3d65680979425e39aa8c789_icgraph.png" border="0" usemap="#agroup__utils_ga81621440b3d65680979425e39aa8c789_icgraph" alt=""/></div>
 <map name="agroup__utils_ga81621440b3d65680979425e39aa8c789_icgraph" id="agroup__utils_ga81621440b3d65680979425e39aa8c789_icgraph">
 <area shape="rect" title="Computes the least significant byte of a 2 byte word." alt="" coords="192,5,288,32"/>
-<area shape="rect" href="group__timer.html#gaf2c04fa8e97ffa748fd3f612886a92a7" title="Changes the operating frequency of a timer." alt="" coords="5,5,144,32"/>
+<area shape="rect" href="group___timer.html#gaf2c04fa8e97ffa748fd3f612886a92a7" title="Changes the operating frequency of a timer." alt="" coords="5,5,144,32"/>
 </map>
 </div>
 
@@ -171,7 +191,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="group__utils_ga6a880076cd2ec468834438b6e0c58836_icgraph.png" border="0" usemap="#agroup__utils_ga6a880076cd2ec468834438b6e0c58836_icgraph" alt=""/></div>
 <map name="agroup__utils_ga6a880076cd2ec468834438b6e0c58836_icgraph" id="agroup__utils_ga6a880076cd2ec468834438b6e0c58836_icgraph">
 <area shape="rect" title="Computes the most significant byte of a 2 byte word." alt="" coords="192,5,292,32"/>
-<area shape="rect" href="group__timer.html#gaf2c04fa8e97ffa748fd3f612886a92a7" title="Changes the operating frequency of a timer." alt="" coords="5,5,144,32"/>
+<area shape="rect" href="group___timer.html#gaf2c04fa8e97ffa748fd3f612886a92a7" title="Changes the operating frequency of a timer." alt="" coords="5,5,144,32"/>
 </map>
 </div>
 
@@ -217,41 +237,43 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__utils_ga79a031a8611f5b2d6afa4158e92b0fb4_icgraph.png" border="0" usemap="#agroup__utils_ga79a031a8611f5b2d6afa4158e92b0fb4_icgraph" alt=""/></div>
 <map name="agroup__utils_ga79a031a8611f5b2d6afa4158e92b0fb4_icgraph" id="agroup__utils_ga79a031a8611f5b2d6afa4158e92b0fb4_icgraph">
-<area shape="rect" title="Reads 4 bytes from a given port and returns the least significant one." alt="" coords="1141,262,1232,289"/>
-<area shape="rect" href="group__mouse.html#ga1ea22dc7f1cd587ad7715408bddb3c4e" title="Get the status byte from the KBC." alt="" coords="974,136,1085,162"/>
-<area shape="rect" href="keyboard_8c.html#aea970a154161a35f6894898a092ed70a" title="keyboard interrupt handler" alt="" coords="999,338,1059,365"/>
-<area shape="rect" href="group__mouse.html#ga0e33b1b5368d04439e73f0c264ca01e5" title="reads the mouse&#39;s response" alt="" coords="787,186,909,213"/>
-<area shape="rect" href="group__serial.html#ga09f7039ee3e77b8d3c09707f2fa7298e" title="Reads the word present in the Line Control Register." alt="" coords="974,389,1085,416"/>
-<area shape="rect" href="group__serial.html#ga4e483fd5c1163fb3f954069757b49ed7" title="Reads a byte from the Receiver Buffer Register." alt="" coords="609,288,690,314"/>
-<area shape="rect" href="group__serial.html#ga6fe3e47707baee767bcda1c8d6658c4c" title="Reads a byte from the Line Status Register." alt="" coords="610,237,689,264"/>
-<area shape="rect" href="group__mouse.html#gac60cbe0a0bedce0af65dff3110e142df" title="reads a byte from the KBC&#39;s output buffer" alt="" coords="965,85,1093,112"/>
-<area shape="rect" href="group__timer.html#ga703c60b40c8c49607d6ecb6fef82d27a" title="Reads the input timer configuration (status) via read&#45;back command." alt="" coords="976,465,1083,492"/>
-<area shape="rect" href="group__mouse.html#ga210374b50462acdedab00df64d5cea3c" title="mouse interrupt handler" alt="" coords="809,85,887,112"/>
-<area shape="rect" href="group__mouse.html#ga08bd70cfa211dacce36c6a077a2db1a0" title="sends a byte to the given port" alt="" coords="781,136,915,162"/>
-<area shape="rect" href="main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,288,115,314"/>
-<area shape="rect" href="group__mouse.html#ga432788b7e69e0e4c23af0a460f36ea2a" title="sends a argument of a command to the KBC&#39;s input buffer" alt="" coords="568,85,731,112"/>
-<area shape="rect" href="group__mouse.html#gaf28e86a0b02c40f866f280fdeb8304ca" title="sends a command to the KBC command register" alt="" coords="582,136,717,162"/>
-<area shape="rect" href="group__mouse.html#gadb688a0a952836b3b646c12d6b793bf7" title="sends a command to the mouse" alt="" coords="373,136,520,162"/>
-<area shape="rect" href="group__mouse.html#ga5355d192401dd421648d87b2d2326413" title="Disables the data reporting." alt="" coords="168,136,320,162"/>
-<area shape="rect" href="group__mouse.html#ga08c6bca1af4b48302d98cc161d378a7e" title="Enables data reporting." alt="" coords="163,85,325,112"/>
-<area shape="rect" href="keyboard_8c.html#ac1cafb9d68b2d1506ad740db6490294e" title="Makes the interpretation of the keycode received and returns the corresponding movement." alt="" coords="375,364,518,390"/>
-<area shape="rect" href="group__serial.html#ga6c4f819bf49d0da33c1dee7a6e401d88" title="Sets the DLAB flag (bit 7 of the LCR) to 0." alt="" coords="803,389,893,416"/>
-<area shape="rect" href="group__serial.html#ga7b4a68816c36345162f68a5ca751c59e" title="Subscribes the interrupts sent by the serial port (in exclusive mode)." alt="" coords="389,440,505,466"/>
-<area shape="rect" href="group__serial.html#gad54d8e2d1e18806ac3d03ce238c304e9" title="Writes a given byte to the Interrupt Enable Register." alt="" coords="602,389,697,416"/>
-<area shape="rect" href="group__serial.html#ga6178bef82c4e14efa82ec6c07cb5e3f3" title="Reads a character from the Receiver Buffer Register Used by the interrupt handler to get the received..." alt="" coords="393,288,501,314"/>
-<area shape="rect" href="group__serial.html#gaca716492412cfe5a50efc3471caae7f6" title="Serial port interrupt handler." alt="" coords="209,338,279,365"/>
-<area shape="rect" href="group__serial.html#ga90442b4177ec93b4370630055d781680" title="Sends a byte through the serial port, using polling to check if the Transmitter Holding Register is e..." alt="" coords="391,237,502,264"/>
-<area shape="rect" href="serial_8c.html#adf710214a7471600f4c0bd3a23b9ea5f" title=" " alt="" coords="178,237,310,264"/>
-<area shape="rect" href="group__timer.html#gaf2c04fa8e97ffa748fd3f612886a92a7" title="Changes the operating frequency of a timer." alt="" coords="779,490,917,517"/>
+<area shape="rect" title="Reads 4 bytes from a given port and returns the least significant one." alt="" coords="1129,183,1220,209"/>
+<area shape="rect" href="group___mouse.html#ga1ea22dc7f1cd587ad7715408bddb3c4e" title="Get the status byte from the KBC." alt="" coords="962,56,1073,83"/>
+<area shape="rect" href="keyboard_8c.html#aea970a154161a35f6894898a092ed70a" title="keyboard interrupt handler" alt="" coords="987,157,1047,184"/>
+<area shape="rect" href="group___mouse.html#ga0e33b1b5368d04439e73f0c264ca01e5" title="reads the mouse&#39;s response" alt="" coords="573,107,694,133"/>
+<area shape="rect" href="group__serial.html#ga09f7039ee3e77b8d3c09707f2fa7298e" title="Reads the word present in the Line Control Register." alt="" coords="962,208,1073,235"/>
+<area shape="rect" href="group__serial.html#ga4e483fd5c1163fb3f954069757b49ed7" title="Reads a byte from the Receiver Buffer Register." alt="" coords="593,309,674,336"/>
+<area shape="rect" href="group__serial.html#ga6fe3e47707baee767bcda1c8d6658c4c" title="Reads a byte from the Line Status Register." alt="" coords="978,360,1057,387"/>
+<area shape="rect" href="group___mouse.html#gac60cbe0a0bedce0af65dff3110e142df" title="reads a byte from the KBC&#39;s output buffer" alt="" coords="953,5,1081,32"/>
+<area shape="rect" href="group___timer.html#ga703c60b40c8c49607d6ecb6fef82d27a" title="Reads the input timer configuration (status) via read&#45;back command." alt="" coords="964,436,1071,463"/>
+<area shape="rect" href="group___mouse.html#ga210374b50462acdedab00df64d5cea3c" title="mouse interrupt handler" alt="" coords="795,5,873,32"/>
+<area shape="rect" href="group___mouse.html#ga08bd70cfa211dacce36c6a077a2db1a0" title="sends a byte to the given port" alt="" coords="767,56,901,83"/>
+<area shape="rect" href="group___mouse.html#ga432788b7e69e0e4c23af0a460f36ea2a" title="sends a argument of a command to the KBC&#39;s input buffer" alt="" coords="552,56,715,83"/>
+<area shape="rect" href="group___mouse.html#gaf28e86a0b02c40f866f280fdeb8304ca" title="sends a command to the KBC command register" alt="" coords="566,5,701,32"/>
+<area shape="rect" href="group___mouse.html#gadb688a0a952836b3b646c12d6b793bf7" title="sends a command to the mouse" alt="" coords="357,56,504,83"/>
+<area shape="rect" href="group___mouse.html#ga5355d192401dd421648d87b2d2326413" title="Disables the data reporting." alt="" coords="152,81,304,108"/>
+<area shape="rect" href="group___mouse.html#ga08c6bca1af4b48302d98cc161d378a7e" title="Enables data reporting." alt="" coords="147,31,309,57"/>
+<area shape="rect" href="group___main.html#gaad4aaeeabfabd24ccfeb9b85f0bb7eda" title="Unsubscribes all the interrupts and resets the mouse to Minix&#39;s default configuration." alt="" coords="5,81,99,108"/>
+<area shape="rect" href="keyboard_8c.html#ac1cafb9d68b2d1506ad740db6490294e" title="Makes the interpretation of the keycode received and returns the corresponding movement." alt="" coords="763,157,905,184"/>
+<area shape="rect" href="group__serial.html#ga6c4f819bf49d0da33c1dee7a6e401d88" title="Sets the DLAB flag (bit 7 of the LCR) to 0." alt="" coords="789,259,879,285"/>
+<area shape="rect" href="group__serial.html#ga7b4a68816c36345162f68a5ca751c59e" title="Subscribes the interrupts sent by the serial port (in exclusive mode)." alt="" coords="373,233,489,260"/>
+<area shape="rect" href="group__serial.html#gad54d8e2d1e18806ac3d03ce238c304e9" title="Writes a given byte to the Interrupt Enable Register." alt="" coords="586,259,681,285"/>
+<area shape="rect" href="group__serial.html#ga6178bef82c4e14efa82ec6c07cb5e3f3" title="Reads a character from the Receiver Buffer Register Used by the interrupt handler to get the received..." alt="" coords="377,360,485,387"/>
+<area shape="rect" href="group__serial.html#gaca716492412cfe5a50efc3471caae7f6" title="Serial port interrupt handler." alt="" coords="193,360,263,387"/>
+<area shape="rect" href="group__serial.html#ga90442b4177ec93b4370630055d781680" title="Sends a byte through the serial port, using polling to check if the Transmitter Holding Register is e..." alt="" coords="779,360,889,387"/>
+<area shape="rect" href="group___timer.html#gaf2c04fa8e97ffa748fd3f612886a92a7" title="Changes the operating frequency of a timer." alt="" coords="765,461,903,488"/>
 </map>
 </div>
 
 </div>
 </div>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
 </body>
 </html>

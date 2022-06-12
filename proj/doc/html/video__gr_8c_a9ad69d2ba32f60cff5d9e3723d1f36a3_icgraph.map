@@ -1,4 +1,5 @@
 <map id="get_video_mem" name="get_video_mem">
-<area shape="rect" id="node1" title="Gets the memory address of the video memory (mapped in the process adress space)" alt="" coords="163,5,275,32"/>
-<area shape="rect" id="node2" href="$main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
+<area shape="rect" id="node1" title="Gets the memory address of the video memory (mapped in the process adress space)" alt="" coords="339,31,451,57"/>
+<area shape="rect" id="node2" href="$video__gr_8c.html#ae6c77eb966c790ef2ce4f5cb83077764" title="Draws the previously saved game." alt="" coords="163,5,291,32"/>
+<area shape="rect" id="node3" href="$group___main.html#ga33bde23e0d2bbde847401c5ac6fb62e0" title="Handles the game logic and assign tasks to the different devices." alt="" coords="5,31,115,57"/>
 </map>

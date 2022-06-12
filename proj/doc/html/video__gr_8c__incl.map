@@ -1,10 +1,12 @@
 <map id="src/video_gr.c" name="src/video_gr.c">
-<area shape="rect" id="node1" title=" " alt="" coords="264,5,367,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="372,5,475,32"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,80,84,107"/>
 <area shape="rect" id="node3" title=" " alt="" coords="109,80,221,107"/>
 <area shape="rect" id="node4" href="$video__gr__game_a_p_i_8h.html" title=" " alt="" coords="245,80,385,107"/>
 <area shape="rect" id="node5" href="$auxiliary__data__structures_8h.html" title=" " alt="" coords="279,155,458,181"/>
 <area shape="rect" id="node9" href="$video__gr__macros_8h.html" title=" " alt="" coords="461,80,591,107"/>
+<area shape="rect" id="node10" title=" " alt="" coords="616,80,799,107"/>
+<area shape="rect" id="node11" title=" " alt="" coords="823,80,1007,107"/>
 <area shape="rect" id="node6" title=" " alt="" coords="174,229,299,256"/>
 <area shape="rect" id="node7" title=" " alt="" coords="323,229,414,256"/>
 <area shape="rect" id="node8" title=" " alt="" coords="439,229,504,256"/>

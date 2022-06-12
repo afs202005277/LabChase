@@ -1,5 +1,0 @@
-<map id="send_byte_to_KBC" name="send_byte_to_KBC">
-<area shape="rect" id="node1" title="sends a byte to the given port" alt="" coords="5,5,140,32"/>
-<area shape="rect" id="node2" href="$group__mouse.html#ga1ea22dc7f1cd587ad7715408bddb3c4e" title="Get the status byte from the KBC." alt="" coords="188,5,299,32"/>
-<area shape="rect" id="node3" href="$group__utils.html#ga79a031a8611f5b2d6afa4158e92b0fb4" title="Reads 4 bytes from a given port and returns the least significant one." alt="" coords="347,5,437,32"/>
-</map>

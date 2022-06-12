@@ -1,6 +1,0 @@
-<map id="mouse_ih" name="mouse_ih">
-<area shape="rect" id="node1" title="mouse interrupt handler" alt="" coords="5,31,84,57"/>
-<area shape="rect" id="node2" href="$group__mouse.html#ga1ea22dc7f1cd587ad7715408bddb3c4e" title="Get the status byte from the KBC." alt="" coords="141,5,251,32"/>
-<area shape="rect" id="node4" href="$group__mouse.html#gac60cbe0a0bedce0af65dff3110e142df" title="reads a byte from the KBC&#39;s output buffer" alt="" coords="132,56,260,83"/>
-<area shape="rect" id="node3" href="$group__utils.html#ga79a031a8611f5b2d6afa4158e92b0fb4" title="Reads 4 bytes from a given port and returns the least significant one." alt="" coords="308,31,399,57"/>
-</map>

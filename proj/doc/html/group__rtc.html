@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -47,6 +51,22 @@ $(function() {
 </script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('group__rtc.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -214,8 +234,9 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__rtc_ga49d112e7da6f83f064bfcb9d34fa0ac4_icgraph.png" border="0" usemap="#agroup__rtc_ga49d112e7da6f83f064bfcb9d34fa0ac4_icgraph" alt=""/></div>
 <map name="agroup__rtc_ga49d112e7da6f83f064bfcb9d34fa0ac4_icgraph" id="agroup__rtc_ga49d112e7da6f83f064bfcb9d34fa0ac4_icgraph">
-<area shape="rect" title="Read the year." alt="" coords="163,5,249,32"/>
-<area shape="rect" href="main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
+<area shape="rect" title="Read the year." alt="" coords="297,5,384,32"/>
+<area shape="rect" href="group___main.html#ga671b58f5509a3a9fa692bacccfc32cc9" title="Starts the game and changes background according to the current hour." alt="" coords="163,5,249,32"/>
+<area shape="rect" href="group___main.html#ga33bde23e0d2bbde847401c5ac6fb62e0" title="Handles the game logic and assign tasks to the different devices." alt="" coords="5,5,115,32"/>
 </map>
 </div>
 
@@ -297,10 +318,11 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__rtc_ga76827856de45c0728d613f90c5f6e009_icgraph.png" border="0" usemap="#agroup__rtc_ga76827856de45c0728d613f90c5f6e009_icgraph" alt=""/></div>
 <map name="agroup__rtc_ga76827856de45c0728d613f90c5f6e009_icgraph" id="agroup__rtc_ga76827856de45c0728d613f90c5f6e009_icgraph">
-<area shape="rect" title="Reads the register passed as a argument." alt="" coords="311,31,405,57"/>
-<area shape="rect" href="group__rtc.html#ga49d112e7da6f83f064bfcb9d34fa0ac4" title="Read the year." alt="" coords="169,5,256,32"/>
-<area shape="rect" href="group__rtc.html#gabd9ce5c6eea2eb684c2044a3b4711030" title="Reads the minutes." alt="" coords="163,56,263,83"/>
-<area shape="rect" href="main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
+<area shape="rect" title="Reads the register passed as a argument." alt="" coords="445,31,540,57"/>
+<area shape="rect" href="group__rtc.html#ga49d112e7da6f83f064bfcb9d34fa0ac4" title="Read the year." alt="" coords="304,5,391,32"/>
+<area shape="rect" href="group__rtc.html#gabd9ce5c6eea2eb684c2044a3b4711030" title="Reads the minutes." alt="" coords="297,56,397,83"/>
+<area shape="rect" href="group___main.html#ga671b58f5509a3a9fa692bacccfc32cc9" title="Starts the game and changes background according to the current hour." alt="" coords="163,5,249,32"/>
+<area shape="rect" href="group___main.html#ga33bde23e0d2bbde847401c5ac6fb62e0" title="Handles the game logic and assign tasks to the different devices." alt="" coords="5,5,115,32"/>
 </map>
 </div>
 
@@ -330,15 +352,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>int - Returns 0 if sucessful and 1 if not </dd></dl>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="group__rtc_gadfccb8a2ec32a7b57eaf18682d4c417d_icgraph.png" border="0" usemap="#agroup__rtc_gadfccb8a2ec32a7b57eaf18682d4c417d_icgraph" alt=""/></div>
-<map name="agroup__rtc_gadfccb8a2ec32a7b57eaf18682d4c417d_icgraph" id="agroup__rtc_gadfccb8a2ec32a7b57eaf18682d4c417d_icgraph">
-<area shape="rect" title="Subscribes interrupts from the rtc." alt="" coords="163,5,284,32"/>
-<area shape="rect" href="main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
-</map>
-</div>
 
 </div>
 </div>
@@ -364,8 +377,8 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__rtc_gab8f17bf5280c908c8b199a90fefcc758_icgraph.png" border="0" usemap="#agroup__rtc_gab8f17bf5280c908c8b199a90fefcc758_icgraph" alt=""/></div>
 <map name="agroup__rtc_gab8f17bf5280c908c8b199a90fefcc758_icgraph" id="agroup__rtc_gab8f17bf5280c908c8b199a90fefcc758_icgraph">
-<area shape="rect" title="Unsbscribes the rtc interrupts." alt="" coords="163,5,297,32"/>
-<area shape="rect" href="main_8c.html#a33bde23e0d2bbde847401c5ac6fb62e0" title=" " alt="" coords="5,5,115,32"/>
+<area shape="rect" title="Unsbscribes the rtc interrupts." alt="" coords="147,5,281,32"/>
+<area shape="rect" href="group___main.html#gaad4aaeeabfabd24ccfeb9b85f0bb7eda" title="Unsubscribes all the interrupts and resets the mouse to Minix&#39;s default configuration." alt="" coords="5,5,99,32"/>
 </map>
 </div>
 
@@ -408,9 +421,12 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
 </body>
 </html>

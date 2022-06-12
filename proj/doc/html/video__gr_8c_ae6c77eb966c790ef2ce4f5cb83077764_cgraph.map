@@ -1,0 +1,4 @@
+<map id="draw_saved_game" name="draw_saved_game">
+<area shape="rect" id="node1" title="Draws the previously saved game." alt="" coords="5,5,133,32"/>
+<area shape="rect" id="node2" href="$video__gr_8c.html#a9ad69d2ba32f60cff5d9e3723d1f36a3" title="Gets the memory address of the video memory (mapped in the process adress space)" alt="" coords="181,5,293,32"/>
+</map>

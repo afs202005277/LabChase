@@ -1,0 +1,5 @@
+<map id="timer_subscribe_int" name="timer_subscribe_int">
+<area shape="rect" id="node1" title="Subscribes and enables Timer 0 interrupts." alt="" coords="321,5,456,32"/>
+<area shape="rect" id="node2" href="$group___main.html#ga3c3fecabaf553c3ed70f6847a93ffa8f" title="Subscribes interrupts from all the devices and enables data reporting (mouse)" alt="" coords="163,5,273,32"/>
+<area shape="rect" id="node3" href="$group___main.html#ga33bde23e0d2bbde847401c5ac6fb62e0" title="Handles the game logic and assign tasks to the different devices." alt="" coords="5,5,115,32"/>
+</map>
