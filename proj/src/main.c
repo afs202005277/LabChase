@@ -27,7 +27,7 @@
 #define S_SPEED 5           /*!< Speed of the game, when the game is running in just one device */
 #define M_SPEED 20          /*!<  Speed of the game, when the game is running in two devices */
 
-static uint8_t bit_no_timer, bit_no_keyboard, bit_no_mouse, bit_no_rtc, bit_no_serial;
+static uint8_t bit_no_timer, bit_no_keyboard, bit_no_mouse, bit_no_serial;
 
 /**
  * @brief Subscribes interrupts from all the devices and enables data reporting (mouse)
@@ -51,10 +51,6 @@ int set_up_devices() {
     printf("Failed to subscribe mouse interrupts!\n");
     return 4;
   }
-  if (rtc_subscribe_int(&bit_no_rtc) != OK) {
-    printf("Failed to subscribe RTC interrupts!\n");
-    return 5;
-  }
   if (serial_subscribe(&bit_no_serial) != OK) {
     printf("Failed to subscribe serial port interrupts!\n");
     return 6;
@@ -72,7 +68,6 @@ void exit_devices() {
   keyboard_unsubscribe_int();
   mouse_unsubscribe_int();
   disable_data_reporting();
-  rtc_unsubscribe_int();
   vg_exit();
 }
 
