@@ -79,5 +79,13 @@ struct images {
   xpm_image_t main, gameOver1, gameOver2, pause, cursor;
 };
 
+/**
+ * @brief Struct to delimit the area occupied by a button
+ * 
+ */
+struct Button {
+  uint16_t up_left_x, up_left_y, down_right_x, down_right_y;
+};
+
 /**@}*/
 #endif /* __AUX */

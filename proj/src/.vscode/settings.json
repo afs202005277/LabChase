@@ -8,6 +8,7 @@
   "editor.wordWrapColumn": 100,
   "files.associations": {
     "video_gr_gameapi.h": "c",
-    "*.xpm": "c"
+    "*.xpm": "c",
+    "lcf.h": "c"
   },
 }

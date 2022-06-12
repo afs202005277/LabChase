@@ -200,7 +200,7 @@ int move_player(struct MovementInfo movementInfo, bool isPassiveMovement, bool b
   return flag;
 }
 
-int start_game(uint8_t hour) {
+int set_up_game(uint8_t hour) {
   unsigned char a = 0x19;
   if (hour >= a) {
     draw_img(load_image(LightModeGameScreen), 0, 0);
@@ -253,6 +253,11 @@ int mouseMovement(uint16_t x, uint16_t y, xpm_image_t cursor) {
   return draw_cursor(cursor, mouse.x, mouse.y);
 }
 
-bool mouseInPlace(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2) {
+bool mouseInPlace(struct Button button) {
+  uint16_t x1 = button.up_left_x, y1 = button.up_left_y, x2 = button.down_right_x, y2 = button.down_right_y;
   return mouse.x >= x1 && mouse.x <= x2 && mouse.y >= y1 && mouse.y <= y2;
+}
+
+void draw_saved_game(void *buffer, unsigned long numBytes) {
+  memcpy(get_video_mem(), buffer, numBytes);
 }

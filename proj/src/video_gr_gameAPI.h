@@ -24,7 +24,7 @@ int move_player(struct MovementInfo movementInfo, bool isPassiveMovement, bool b
  * @param hour the current hour
  * @return 0 upon success, non-zero otherwise
  */
-int start_game(uint8_t hour);
+int set_up_game(uint8_t hour);
 
 /**
  * @brief Gets the color of the pixel in the given position
@@ -93,7 +93,7 @@ int mouseMovement(uint16_t x, uint16_t y, xpm_image_t cursor);
  * @return true the mouse is inside the "button"
  * @return false the mouse is not inside the "button"
  */
-bool mouseInPlace(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2);
+bool mouseInPlace(struct Button button);
 
 /**
  * @brief Initializes the position of the cursor of the mouse
@@ -122,3 +122,5 @@ xpm_image_t load_image(xpm_map_t xpm);
 int draw_cursor(xpm_image_t img, uint16_t x, uint16_t y);
 
 void* new_vg_init(uint16_t mode);
+
+void draw_saved_game(void* buffer, unsigned long numBytes);

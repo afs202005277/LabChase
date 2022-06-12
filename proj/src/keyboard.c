@@ -20,7 +20,7 @@ int(keyboard_unsubscribe_int)() {
 struct MovementInfo key_code_interpreter(enum screenState *screenState) {
   struct MovementInfo nextMove = {UNCHANGED, ME};
   kbc_ih();
-  if (keycode == PAUSE_BUTTON_BR && *screenState != M_GAME) {
+  if (keycode == PAUSE_BUTTON_BR && (*screenState == S_GAME || *screenState == PAUSE)) {
     if (*screenState == PAUSE)
       *screenState = S_GAME;
     else
