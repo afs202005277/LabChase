@@ -1,10 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"group__video__graphics__macros.html#gad2cbbe762a1a1175055cf68cd586adc1":[0,11,10],
-"group__video__graphics__macros.html#gae6910bab6e08eb2ce942b30c5d295009":[0,11,5],
-"group__video__graphics__macros.html#gaf069df071dfdd53eb9b1d479ee2706c1":[0,11,7],
-"group__video__graphics__macros.html#gafe987953bbfffb5e6e4542efd687e810":[0,11,3],
-"i8254_8h.html":[2,0,0,3],
 "i8254_8h_source.html":[2,0,0,3],
 "index.html":[],
 "kbc__macros_8h.html":[2,0,0,4],
@@ -31,7 +26,6 @@ var NAVTREEINDEX1 =
 "mouse__masks_8h_source.html":[2,0,0,11],
 "pages.html":[],
 "rtc_8c.html":[2,0,0,12],
-"rtc_8c.html#a0b0abc9af6cfb029bdf2c7ba718c1a99":[2,0,0,12,6],
 "rtc_8h.html":[2,0,0,13],
 "rtc_8h_source.html":[2,0,0,13],
 "serial_8c.html":[2,0,0,14],

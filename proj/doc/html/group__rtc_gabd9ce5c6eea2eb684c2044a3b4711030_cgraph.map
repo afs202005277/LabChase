@@ -1,4 +1,0 @@
-<map id="read_minutes" name="read_minutes">
-<area shape="rect" id="node1" title="Reads the minutes." alt="" coords="5,5,105,32"/>
-<area shape="rect" id="node2" href="$group__rtc.html#ga76827856de45c0728d613f90c5f6e009" title="Reads the register passed as a argument." alt="" coords="153,5,248,32"/>
-</map>

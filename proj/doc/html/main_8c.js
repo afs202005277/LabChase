@@ -6,6 +6,7 @@ var main_8c =
     [ "RECEIVE_BYTE", "group___main.html#ga5f6b3a3c9fb084e7e141372a2951edf7", null ],
     [ "S_SPEED", "group___main.html#ga9af19eacf9e919451b78fadc6f0d247f", null ],
     [ "SEND_BYTE", "group___main.html#ga7aaadebb3f02f01542e2194d0517f196", null ],
+    [ "convert_from_bcd", "group___main.html#ga0c20d34323870b7edd88e5706b6d3c94", null ],
     [ "exit_devices", "group___main.html#gaad4aaeeabfabd24ccfeb9b85f0bb7eda", null ],
     [ "load_images", "group___main.html#ga9165d629cabb06ce74758986c2ac0e09", null ],
     [ "main", "group___main.html#ga0ddf1224851353fc92bfbff6f499fa97", null ],

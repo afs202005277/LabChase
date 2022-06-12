@@ -1,0 +1,5 @@
+<map id="convert_from_bcd" name="convert_from_bcd">
+<area shape="rect" id="node1" title=" " alt="" coords="297,5,420,32"/>
+<area shape="rect" id="node2" href="$group___main.html#ga671b58f5509a3a9fa692bacccfc32cc9" title="Starts the game and changes background according to the current hour." alt="" coords="163,5,249,32"/>
+<area shape="rect" id="node3" href="$group___main.html#ga33bde23e0d2bbde847401c5ac6fb62e0" title="Handles the game logic and assign tasks to the different devices." alt="" coords="5,5,115,32"/>
+</map>
